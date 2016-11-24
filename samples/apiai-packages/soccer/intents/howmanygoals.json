@@ -1,0 +1,115 @@
+{
+  "id": "e40db54d-faeb-4cbe-aeda-b328952c5c59",
+  "name": "howmanygoals",
+  "auto": true,
+  "contexts": [],
+  "state": "LOADED",
+  "priority": 500000,
+  "webhookUsed": false,
+  "userSays": [
+    {
+      "data": [
+        {
+          "text": "How many goals did "
+        },
+        {
+          "text": "Chiellini",
+          "alias": "player",
+          "meta": "@player",
+          "userDefined": false
+        },
+        {
+          "text": " score in the "
+        },
+        {
+          "text": "Serie A league",
+          "alias": "competition",
+          "meta": "@competition",
+          "userDefined": false
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "2014",
+          "alias": "seasonid",
+          "meta": "@sys.number",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false
+    },
+    {
+      "data": [
+        {
+          "text": "How many points did "
+        },
+        {
+          "text": "Balzaretti",
+          "alias": "player",
+          "meta": "@player",
+          "userDefined": false
+        },
+        {
+          "text": " score in the "
+        },
+        {
+          "text": "Roma",
+          "alias": "team",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " - "
+        },
+        {
+          "text": "Lazio",
+          "alias": "team1",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " game?"
+        }
+      ],
+      "isTemplate": false
+    },
+    {
+      "data": [
+        {
+          "text": "How many goals did "
+        },
+        {
+          "text": "Totti",
+          "alias": "player",
+          "meta": "@player",
+          "userDefined": false
+        },
+        {
+          "text": " make during "
+        },
+        {
+          "text": "2013",
+          "alias": "seasonid",
+          "meta": "@sys.number",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false
+    }
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "speech": []
+    }
+  ]
+}

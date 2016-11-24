@@ -1,0 +1,55 @@
+{
+  "id": "ce3f25b6-e116-4e0f-ae19-85f1b2eed30f",
+  "name": "Confirmation",
+  "auto": true,
+  "contexts": [],
+  "userSays": [
+    {
+      "data": [
+        {
+          "text": "@confirmation:confirmation"
+        }
+      ],
+      "isTemplate": true,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "@confirmation:confirmation grazie"
+        }
+      ],
+      "isTemplate": true,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "@confirmation:confirmation per favore"
+        }
+      ],
+      "isTemplate": true,
+      "count": 0,
+      "created": -1
+    }
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "dataType": "@confirmation",
+          "name": "confirmation",
+          "value": "$confirmation"
+        }
+      ],
+      "speech": []
+    }
+  ],
+  "state": "LOADED",
+  "priority": 500000,
+  "webhookUsed": false
+}

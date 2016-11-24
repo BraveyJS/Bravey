@@ -1,0 +1,72 @@
+{
+  "symbol": "IT",
+  "warning": "Questa versione del chatbot &egrave; una dimostrazione tecnica e non &egrave; pensato per l'utilizzo nella vita reale. Nessun dato &egrave; immagazzinato su server remoti o all'interno dell'applicazione: le schedulazioni e le notifiche verranno cancellate alla chiusura di questa pagina web.",
+  "description": "Sono qui per aiutarti con le tue medicazioni!",
+  "tips": "<ul><li>Devo prendere una medicazione blu</li><li>Uno sciroppo rosso</li><li>Una medicina verde alle 6 del mattino</li><li>Una pillola verde alle 8 e mezza di sera</li><li>Scatta una foto</li><li>Cosa devo prendere?</li><li>Non prendo pi&ugrave; la 1</li></ul>",
+  "suggestion": "Comincia ad aggiungerne una descrivendomi il tipo, il colore e l'orario in cui dovresti assumerlo. Se vuoi posso anche scattare una foto del prodotto.",
+  "notUnderstand": "Non credo di aver capito. Descrivimi pure una delle medicazioni che devi assumere.",
+  "number": "Numero",
+  "time": "Ora",
+  "medication": "Una medicazione",
+  "theMedication": "La medicazione",
+  "medsInfo": "Se vuoi eliminare una medicazione, chiedimelo indicando anche il numero corrispondente.",
+  "alert": "Ciao! E' ora di prendere le tue medicine! Devi assumere:",
+  "photo": "Scatta ora una foto del farmaco che devi assumere.",
+  "alreadyPhoto": "Stai già scattando la foto di un farmaco!",
+  "photoDone": "Hai scattato questa foto:",
+  "done": "Perfetto! Ti avviser&ograve; quando sar&agrave; l'ora giusta!",
+  "list": "Ecco l'elenco delle tue medicazioni:",
+  "emptyList": "Per ora non ho registrato alcuna medicazione.",
+  "deletedMed": "Va bene! Non ti chiederò più di prendere ",
+  "theMedicationLowercase": "la medicazione",
+  "cantFind": "Non riesco a trovare la medicazione che richiedi. Ecco le medicazioni che conosco:",
+  "noMeds": "Per ora non ho registrato alcuna medicazione.",
+  "shoot": "Scatta",
+  "bootstrap": [
+    "Ciao! Sono il tuo bot assistente e sono qui per ricordarti quando prendere le tue medicine!",
+    "Terr&ograve; tutte le tue informazioni private e anonime e potrai condividerle con il tuo medico quando desideri.",
+    "Comincia a parlarmi delle tue medicazioni. "
+  ],
+  "medFields": {
+    "medtype": {
+      "prefix": "di tipo",
+      "question": "Di che tipo? Pillola, capsula, sciroppo etc."
+    },
+    "color": {
+      "prefix": "di colore",
+      "question": "Di che colore è? Rosso, verde, blu etc."
+    },
+    "time": {
+      "prefix": "alle",
+      "question": "A che ora devi prendere questa medicina?"
+    }
+  },
+  "medType": {
+    "pillola": ["pillola", "pillolone", "pillolina", "pastiglia", "pastiglie"],
+    "capsula": ["capsula", "capsulina", "capsulona", "capsule", "capsuline", "capsulone"],
+    "sciroppo": ["sciroppo", "sciroppino"]
+  },
+  "color": {
+    "rosso": ["rosso", "carminio", "rossa"],
+    "verde": ["verde", "verdino"],
+    "blu": ["blu", "bluetto"]
+  },
+  "nlp": {
+    "newMed": [
+      "è un {medtype}",
+      "è di colore {color}",
+      "alle {time}",
+      "Prendo {medtype} {color} alle {time}.",
+      "Devo prendere {medtype} {color} alle {time}.",
+      "Devo prendere {medtype}",
+      "Mi hanno prescritto {medtype} {color} alle {time}.",
+      "Devo assumere {medtype} {color} alle {time}.",
+      "la devo prendere alle {time}.",
+      "alle {time}.",
+      "per le {time}."
+    ],
+    "photoMed": ["Fai una foto", "Il farmaco e questo", "Ti mostro il prodotto"],
+    "listMed": ["Elenco delle medicazioni", "Cosa devo prendere?", "Quali medicazioni prendere?", "Quali medicine devo assumere?"],
+    "deleteMed": ["Elimina la medicazione {number}", "Rimuovi {number}", "Togli {number}", "Non prendo piu la medicazione {number}"]
+  }
+}

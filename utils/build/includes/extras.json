@@ -1,0 +1,19 @@
+[
+	"test/unit.js",
+	"samples/browser/chatterbox/bots/billbot.js",
+	"samples/browser/chatterbox/bots/footbot.js",
+	"samples/browser/chatterbox/bots/medbot.js",
+	"samples/browser/chatterbox/bots/museumbot.js",
+	"samples/browser/chatterbox/bots/oakbot.js",
+	"samples/browser/chatterbox/bots/poetbot.js",
+	"samples/browser/chatterbox/bots/robomeeting.js",
+	"samples/browser/chatterbox/bots/weatherbot.js",
+	"samples/browser/chatterbox/bots/zxartbot.js",
+	"samples/browser/chatterbox/data/medbot.en.json",
+	"samples/browser/chatterbox/data/medbot.it.json",
+	"samples/browser/chatterbox/data/prices.en.json",
+	"samples/browser/chatterbox/data/prices.it.json",
+	"samples/browser/chatterbox/chatterbox.js",
+	"samples/nodejs/adapterCommandLine.js",
+	"samples/nodejs/adapterServer.js"
+]

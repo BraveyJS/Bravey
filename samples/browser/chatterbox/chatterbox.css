@@ -1,0 +1,353 @@
+.contactlist {
+	left: 0px;
+	width: 220px;
+	top: 0px;
+	bottom: 0px;
+	background-color: rgb(68, 71, 83);
+	padding: 5px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	position: absolute;
+}
+.contact {
+	position: relative;
+	height: 50px;
+	border-radius: 5px;
+	padding: 5px;
+	font-family: Lato, Arial, sans-serif;
+	font-size: 14px;
+	color: rgb(255, 255, 255);
+	cursor: pointer;
+}
+.contact.selected {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+.contactlistheader {
+	text-align: center;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+	font-weight: bold;
+	position: relative;
+	padding: 10px;
+	margin: 5px;
+	font-family: Lato, Arial, sans-serif;
+	font-size: 14px;
+	color: rgb(255, 255, 255);
+}
+.row1 {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.contactavatar {
+	width: 20px;
+	height: 20px;
+	background-size: cover;
+	background-position: center center;
+	position: absolute;
+}
+.contactnamelist {
+	left: 35px;
+	top: 11px;
+	width: 160px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	position: absolute;
+}
+.statusrow {
+	left: 10px;
+	top: 35px;
+	color: rgb(146, 149, 158);
+	padding-bottom: 5px;
+	position: absolute;
+}
+.bullet {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	margin-right: 5px;
+	border-radius: 10px;
+}
+.bullet.unavailable {
+	background-color: #92959E;
+}
+.bullet.busy {
+	background-color: #E38968;
+}
+.bullet.online {
+	background-color: #86BB71;
+}
+.selectchat {
+	left: 230px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	padding: 20px;
+	font-family: Lato, Arial, sans-serif;
+	font-size: 14px;
+	color: rgb(146, 149, 158);
+	background-color: rgb(242, 245, 248);
+	font-size: 20px;
+	text-align: center;
+	overflow: hidden;
+	position: absolute;
+}
+.chatwindow {
+	z-index: 10;
+	display: none;
+	left: 230px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	padding: 5px;
+	font-family: Lato, Arial, sans-serif;
+	font-size: 14px;
+	color: rgb(67, 70, 81);
+	background-color: rgb(242, 245, 248);
+	overflow-x:hidden;
+	position: absolute;
+}
+.head {
+	height: 70px;
+	left: 0px;
+	right: 0px;
+	padding: 5px;
+	border-bottom: 2px solid rgb(255, 255, 255);
+	position: absolute;
+}
+.chatavatar {
+	left: 10px;
+	top: 5px;
+	width: 55px;
+	height: 55px;
+	margin-right: 10px;
+	border-radius: 55px;
+	background-size: cover;
+	background-position: center center;
+	border: 2px solid rgb(204, 204, 204);
+	position: absolute;
+}
+.contactnamechat {
+	left: 80px;
+	top: 5px;
+	right: 10px;
+	font-weight: bold;
+	font-size: 16px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	position: absolute;
+}
+.descriptionbox {
+	left: 80px;
+	top: 25px;
+	right: 10px;
+	height: 38px;
+	font-size: 16px;
+	color: rgb(146, 149, 158);
+	overflow: hidden;
+	position: absolute;
+}
+.foot {
+	height: 80px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	padding: 5px;
+	border-top: 2px solid rgb(255, 255, 255);
+	position: absolute;
+}
+.inputarea {
+	width: 100%;
+	background-color: rgb(255, 255, 255);
+}
+.inputtext {
+	width: 100%;
+	border: 0px;
+	border-radius: 5px;
+	font-family: Lato, Arial, sans-serif;
+	font-size: 14px;
+	padding: 10px;
+}
+.chatbody {
+	top: 90px;
+	bottom: 100px;
+	left: 0px;
+	right: 0px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	position: absolute;
+}
+.chattips {
+	float: left;
+	clear: both;
+	color: rgb(146, 149, 158);
+	padding: 10px;
+	width: 100%;
+	font-size: 12px;
+	border-bottom: 1px dashed rgb(146, 149, 158);
+}
+.send, .talk {
+	cursor: pointer;
+	bottom: 10px;
+	width: 50px;
+	font-family: Lato, Arial, sans-serif;
+	font-size: 14px;
+	text-align: center;
+	padding: 8px;
+	background-color: rgb(148, 194, 237);
+	color: rgb(255, 255, 255);
+	border-radius: 5px;
+}
+.send {
+	right: 5px;
+	position: absolute;
+}
+.talk {
+	right: 75px;
+	position: absolute;
+}
+.messagesay {
+	float: left;
+	clear: both;
+	width: 80%;
+	padding: 10px;
+	margin: 5px;
+	color: rgb(255, 255, 255);
+	font-size: 15px;
+	border-radius: 5px;
+	opacity: 0;
+	transform: translate(0, 10px);
+	transition: all 0.25s;
+}
+.messagesaytriangle {
+	position: absolute;
+	left: 10px;
+	top: -5px;
+	width: 10px;
+	height: 10px;
+	transform: rotate(45deg);
+}
+
+.messagesay.normal, .messagesaytriangle.normal {
+	background-color: #86BB71
+}
+
+.messagesay.error, .messagesaytriangle.error {
+	background-color: #BB7186;
+}
+
+.message {
+	float: right;
+	clear: both;
+	width: 80%;
+	padding: 10px;
+	margin: 5px;
+	color: rgb(255, 255, 255);
+	font-size: 15px;
+	border-radius: 5px;
+	opacity: 0;
+	transform: translate(0px, 10px);
+	transition: all 0.25s;
+	background-color:#94C2ED;
+
+}
+.messagetriangle {
+	position: absolute;
+	right: 10px;
+	bottom: -5px;
+	width: 10px;
+	height: 10px;
+	transform: rotate(45deg);
+	background-color:#94C2ED;
+}
+
+.chatcontainer {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+/* Merged */
+.chatcontainer.merged, .chatcontainer.merged .head, .chatcontainer.merged .chatbody, .chatcontainer.merged .foot, .chatcontainer.merged .chatwindow, .chatcontainer.merged .selectchat  {
+	left:auto;
+	right:auto;
+	top:auto;
+	bottom:auto;
+	position: relative;
+	background-color: transparent;
+}
+.chatcontainer.merged .chattips {
+	padding-top: 0px;
+}
+.chatcontainer.merged {
+	width: 100%;
+	height: auto;
+}
+.chatcontainer.merged .chatbody {
+	width: 100%;
+	height: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
+	clear: both;
+	padding-bottom: 20px;
+}
+.chatcontainer.merged .inputtext {
+	border: 1px solid rgb(146, 149, 158);
+}
+
+/* Single mode */
+.chatcontainer.single .selectchat {
+	display: none;
+}
+.chatcontainer.single .contactlist {
+	display: none;
+}
+.chatcontainer.single .chatwindow {
+	left: 0;
+}
+
+/* Force responsive */
+.chatcontainer.forceresponsive .chatavatar {
+	cursor: pointer;
+}
+.chatcontainer.forceresponsive .chatwindow {
+	left: 0;
+}
+.chatcontainer.forceresponsive .selectchat {
+	left: 0;
+}
+.chatcontainer.forceresponsive .contactlist {
+	width: auto;
+	right: 0;
+	z-index: 1000
+}
+.chatcontainer.gotocontacts.forceresponsive .contactlist {
+	display: block;
+}
+.chatcontainer.gotochats.forceresponsive .contactlist {
+	display: none;
+}
+
+/* Responsive */
+@media only screen and (max-width:640px) {
+	.chatcontainer.responsive .chatavatar {
+		cursor: pointer;
+	}
+	.chatcontainer.responsive .chatwindow {
+		left: 0;
+	}
+	.chatcontainer.responsive .selectchat {
+		left: 0;
+	}
+	.chatcontainer.responsive .contactlist {
+		width: auto;
+		right: 0;
+		z-index: 1000
+	}
+	.chatcontainer.gotocontacts.responsive .contactlist {
+		display: block;
+	}
+	.chatcontainer.gotochats.responsive .contactlist {
+		display: none;
+	}
+}

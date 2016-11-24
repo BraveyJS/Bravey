@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h2>Welcome to Bravey!</h2><p>Bravey is a simple JavaScript <a href="https://en.wikipedia.org/wiki/Natural_language_processing">NLP</a>-like library for conversational interfaces that can be used with Node.js or browser.
+It's built for help you on joining the conversational interfaces bandwagon, so it should be easy enough to use, integrate and understand, so you can spice up your <a href="https://en.wikipedia.org/wiki/Internet_bot">bots</a> or start creating your own.</p>
+<p>Bravey was thought with simplicity in mind: it supports a number of processors, mostly based on <a href="https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering">bayesian filters</a>, with different features and accuracy and some customizable entity recognizers based on regular expressions chaining.</p>
+<h3>Getting started</h3><p>You can basically use Bravey from a single object.</p>
+<pre class="prettyprint source"><code>var nlp=new Bravey.Nlp.Fuzzy();
+nlp.addDocument(&quot;I want a pizza!&quot;,&quot;pizza&quot;,{fromFullSentence:true,expandIntent:true});
+nlp.addDocument(&quot;I want some pasta!&quot;,&quot;pasta&quot;,{fromFullSentence:true,expandIntent:true});
+console.log(nlp.test(&quot;Want pizza, please&quot;).intent);
+  // &quot;pizza&quot;</code></pre><p>You can extract some features from a sentence:</p>
+<pre class="prettyprint source"><code>var nlp=new Bravey.Nlp.Fuzzy();
+nlp.addEntity(new Bravey.NumberEntityRecognizer(&quot;quantity&quot;));
+nlp.addDocument(&quot;I want 2 pizzas!&quot;,&quot;pizza&quot;,{fromFullSentence:true,expandIntent:true});
+console.log(nlp.test(&quot;Want 3 pizzas, please&quot;).entitiesIndex.quantity.value);
+  // 3</code></pre><p>And some of them have language support too, like in english...</p>
+<pre class="prettyprint source"><code>var nlp=new Bravey.Nlp.Fuzzy();
+nlp.addEntity(new Bravey.NumberEntityRecognizer(&quot;quantity&quot;));
+nlp.addEntity(new Bravey.Language.EN.TimeEntityRecognizer(&quot;delivery_time&quot;));
+nlp.addDocument(&quot;I want 2 pizzas at 12!&quot;,&quot;pizza&quot;,{fromFullSentence:true,expandIntent:true});
+console.log(nlp.test(&quot;Deliver 3 pizzas for 2pm, please&quot;).entitiesIndex);
+  // {delivery_time:{value:&quot;14:00:00&quot;},quantity:{value:3}}</code></pre><p>... or italian.</p>
+<pre class="prettyprint source"><code>var nlp=new Bravey.Nlp.Fuzzy();
+nlp.addEntity(new Bravey.NumberEntityRecognizer(&quot;quantity&quot;));
+nlp.addEntity(new Bravey.Language.IT.TimeEntityRecognizer(&quot;delivery_time&quot;));
+nlp.addDocument(&quot;Vorrei 2 pizze per le 3!&quot;,&quot;pizza&quot;,{fromFullSentence:true,expandIntent:true});
+console.log(nlp.test(&quot;Consegnami 3 pizze per le 2 del pomeriggio!, please&quot;).entitiesIndex);
+  // {delivery_time:{value:&quot;14:00:00&quot;},quantity:{value:3}}</code></pre><p>That's it!</p>
+<h3>Training Bravey</h3><p>You can leave to Bravey intent and entity guessing...</p>
+<pre class="prettyprint source"><code>var nlp=new Bravey.Nlp.Fuzzy();
+nlp.addDocument(&quot;I want a pizza!&quot;,&quot;pizza&quot;,{fromFullSentence:true,expandIntent:true});
+nlp.addDocument(&quot;I want some pasta!&quot;,&quot;pasta&quot;,{fromFullSentence:true,expandIntent:true});
+console.log(nlp.test(&quot;A pizza, please&quot;).intent);
+  // &quot;pizza&quot;</code></pre><p>Or be more specific:</p>
+<pre class="prettyprint source"><code>var nlp=new Bravey.Nlp.Fuzzy();
+nlp.addIntent(&quot;order_food&quot;,[{entity:&quot;food_name&quot;,id:&quot;food_type&quot;},{entity:&quot;number&quot;,id:&quot;quantity&quot;}]);
+nlp.addIntent(&quot;order_drink&quot;,[{entity:&quot;drink_name&quot;,id:&quot;drink_type&quot;}]);
+
+var drinks=new Bravey.StringEntityRecognizer(&quot;drink_name&quot;);
+drinks.addMatch(&quot;coke&quot;,&quot;coke&quot;);
+drinks.addMatch(&quot;coke&quot;,&quot;cola&quot;);
+drinks.addMatch(&quot;mojito&quot;,&quot;mojito&quot;);
+drinks.addMatch(&quot;mojito&quot;,&quot;moito&quot;);
+nlp.addEntity(drinks);
+
+var food=new Bravey.StringEntityRecognizer(&quot;food_name&quot;);
+food.addMatch(&quot;pizza&quot;,&quot;pizza&quot;);
+food.addMatch(&quot;pizza&quot;,&quot;pizzas&quot;);
+food.addMatch(&quot;pasta&quot;,&quot;pasta&quot;);
+nlp.addEntity(food);
+
+nlp.addEntity(new Bravey.NumberEntityRecognizer(&quot;number&quot;));
+
+nlp.addDocument(&quot;I want {number} {food_name}!&quot;,&quot;order_food&quot;);
+nlp.addDocument(&quot;I want {drink_name}!&quot;,&quot;order_drink&quot;);
+
+console.log(nlp.test(&quot;Want a moito, please&quot;));
+  //{intent:&quot;order_drink&quot;,entitiesIndex:{drink_type:{value:&quot;mojito&quot;}}}
+console.log(nlp.test(&quot;I'd like 2 pizzas&quot;));
+  //{intent:&quot;order_food&quot;,entitiesIndex:{food_type:{value:&quot;pizza&quot;},quantity:{value:2}}}
+console.log(nlp.test(&quot;I'd like some pasta&quot;));
+  //{intent:&quot;order_food&quot;,entitiesIndex:{food_type:{value:&quot;pasta&quot;}}}</code></pre><p>Have a look to the documentation for more ways for training NLP!</p>
+<h2>Samples</h2><p>Bravey includes a bunch of samples - you can find them into the &quot;samples&quot; directory.</p>
+<h3>Browser samples</h3><p>The &quot;browser&quot; subdirectory contains some samples you can test with your own browser. Most of them are runnable serving the project directory with any web server.</p>
+<h4>Playground sample</h4><p>The &quot;playground&quot; sample quickly explains how most of the conversational interfaces NLP technologies works in English and allow you to play and visually configure a Bravey hinstance. Everything works in your browser so any server side scripting language is needed.</p>
+<p><img src="doc-static/images/sample-playground.png" alt="Playground sample"></p>
+<h4>Opendata sample</h4><p>The &quot;opendata&quot; sample show you how to search a database as-you-type using Bravey. In this case you'll search the Regione Lombardia's museum database opendata in Italian. This example uses a snapshot of that database, so any server side scripting language is needed.</p>
+<p><img src="doc-static/images/sample-opendata.png" alt="Opendata sample"></p>
+<h4>Adapter sample</h4><p>The &quot;adapter&quot; sample loads a Api.ai package via AJAX and allow you to prepare a query in a NLP-like way using Bravey. No server side scripting language is needed for this example.</p>
+<p><img src="doc-static/images/sample-adapter.png" alt="Adapter sample"></p>
+<h4>Chatterbox sample</h4><p>&quot;Chatterbox&quot; is a collection of bots built around Bravey. These samples are using a simple custom-built chat UI library called &quot;Chatterbox&quot; which simulates web chatrooms with single or multiple contacts you can use standalone or embed in your own site.
+Some of these bots needs a PHP webproxy, which is shipped together with Chatterbox, in order to work properly. No database is needed, so just make sure you've PHP support (5.6.10+) if you want all the demos to work.</p>
+<p><img src="doc-static/images/sample-chatterbox.png" alt="Chatterbox sample"></p>
+<h3>Node.js samples</h3><p>You can find more exampes into the &quot;nodejs&quot; directory. These examples uses Bravey from Node.js and are invoked from command line.</p>
+<h2>Adapter (command line) sample</h2><p>The &quot;adapterCommandLine&quot; example simply replicate the Adapter example within a Node.js hinstance.</p>
+<p><img src="doc-static/images/sample-adaptercommandline.png" alt="Adapter (command line) sample"></p>
+<h2>Adapter (server) sample</h2><p>The &quot;adapterServer&quot; example uses the Node.js built-in web server in order to serve a single hinstance of Bravey and replies in Api.ai format.</p>
+<p><img src="doc-static/images/sample-adapterserver.png" alt="Adapter (server) sample"></p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Bravey.ApiAiAdapter.html">ApiAiAdapter</a></li><li><a href="Bravey.ContextManager.html">ContextManager</a></li><li><a href="Bravey.DocumentClassifier.html">DocumentClassifier</a></li><li><a href="Bravey.EMailEntityRecognizer.html">EMailEntityRecognizer</a></li><li><a href="Bravey.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.EN.DateEntityRecognizer.html">DateEntityRecognizer</a></li><li><a href="Bravey.Language.EN.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.EN.Stemmer.html">Stemmer</a></li><li><a href="Bravey.Language.EN.TimeEntityRecognizer.html">TimeEntityRecognizer</a></li><li><a href="Bravey.Language.EN.TimePeriodEntityRecognizer.html">TimePeriodEntityRecognizer</a></li><li><a href="Bravey.Language.IT.DateEntityRecognizer.html">DateEntityRecognizer</a></li><li><a href="Bravey.Language.IT.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.IT.Stemmer.html">Stemmer</a></li><li><a href="Bravey.Language.IT.TimeEntityRecognizer.html">TimeEntityRecognizer</a></li><li><a href="Bravey.Language.IT.TimePeriodEntityRecognizer.html">TimePeriodEntityRecognizer</a></li><li><a href="Bravey.Nlp.Fuzzy.html">Fuzzy</a></li><li><a href="Bravey.Nlp.Sequential.html">Sequential</a></li><li><a href="Bravey.NumberEntityRecognizer.html">NumberEntityRecognizer</a></li><li><a href="Bravey.RegexEntityRecognizer.html">RegexEntityRecognizer</a></li><li><a href="Bravey.SessionManager.InMemorySessionManager.html">InMemorySessionManager</a></li><li><a href="Bravey.StringEntityRecognizer.html">StringEntityRecognizer</a></li><li><a href="Bravey.Text.RegexMap.html">RegexMap</a></li></ul><h3>Namespaces</h3><ul><li><a href="Bravey.html">Bravey</a></li><li><a href="Bravey.Data.html">Data</a></li><li><a href="Bravey.Date.html">Date</a></li><li><a href="Bravey.File.html">File</a></li><li><a href="Bravey.Language.html">Language</a></li><li><a href="Bravey.Language.EN.html">EN</a></li><li><a href="Bravey.Language.IT.html">IT</a></li><li><a href="Bravey.Nlp.html">Nlp</a></li><li><a href="Bravey.SessionManager.html">SessionManager</a></li><li><a href="Bravey.Text.html">Text</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Thu Nov 24 2016 10:03:30 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

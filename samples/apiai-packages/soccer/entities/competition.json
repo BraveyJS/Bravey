@@ -1,0 +1,41 @@
+{
+    "automatedExpansion": false,
+    "entries": [
+        {
+            "synonyms": [
+                "serie a tim",
+                "serie a league"
+            ],
+            "value": "SerieA"
+        },
+        {
+            "synonyms": [
+                "champions leaguechampions league",
+                "champions",
+                "champions'",
+                "uefa champions league",
+                "uefa cl"
+            ],
+            "value": "ChampionsLeague"
+        },
+        {
+            "synonyms": [
+                "english premier league",
+                "epl",
+                "primera division"
+            ],
+            "value": "EPL"
+        },
+        {
+            "synonyms": [
+                "la liga",
+                "epl",
+                "english pl"
+            ],
+            "value": "EPL"
+        }
+    ],
+    "isEnum": false,
+    "isOverridable": true,
+    "name": "competition"
+}

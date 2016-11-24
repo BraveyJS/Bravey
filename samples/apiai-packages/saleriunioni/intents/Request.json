@@ -1,0 +1,2099 @@
+{
+  "id": "f6ff949d-c855-482b-8b92-92729eb710b3",
+  "name": "Request",
+  "auto": true,
+  "contexts": [],
+  "userSays": [
+    {
+      "data": [
+        {
+          "text": "mi servirebbe la "
+        },
+        {
+          "text": "sala grande",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "per le 4",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "avrei bisogno "
+        },
+        {
+          "text": "per le 5",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        },
+        {
+          "text": " e mezza della "
+        },
+        {
+          "text": "saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "domenica",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " mi servirebbe "
+        },
+        {
+          "text": "una",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        },
+        {
+          "text": " sala riunioni"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 3",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        },
+        {
+          "text": " mi serve la "
+        },
+        {
+          "text": "saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "mi servirebbe "
+        },
+        {
+          "text": "una",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " sala riunioni"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "una",
+          "meta": "@sys.ignore",
+          "userDefined": false
+        },
+        {
+          "text": " sala per il "
+        },
+        {
+          "text": "pomeriggio",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "oggi",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "pomeriggio",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "all\u0027una e mezza",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la "
+        },
+        {
+          "text": "sala grande",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "venerdì",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "pomeriggio",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        },
+        {
+          "text": ", grazie"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la "
+        },
+        {
+          "text": "saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "in mattinata",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "Che sala libera c\u0027e\u0027?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la "
+        },
+        {
+          "text": "saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 5",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "in mattinata",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la "
+        },
+        {
+          "text": "saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " tra "
+        },
+        {
+          "text": "oggi",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " e "
+        },
+        {
+          "text": "domani",
+          "alias": "date1",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 5",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "in mattinata",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la "
+        },
+        {
+          "text": "saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " tra "
+        },
+        {
+          "text": "oggi",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " e "
+        },
+        {
+          "text": "domani",
+          "alias": "date1",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 5",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "in mattinata",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la "
+        },
+        {
+          "text": "sala piccola",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " o la "
+        },
+        {
+          "text": "saletta",
+          "alias": "sala_riunioni1",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la sala piccola",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "all\u0027una",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "dopodomani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "sabato prossimo",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " tra "
+        },
+        {
+          "text": "oggi",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " e "
+        },
+        {
+          "text": "domani",
+          "alias": "date1",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 2",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la sala piccola",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " o "
+        },
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni1",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "oggi",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 4",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "per mezz\u0027ora",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "una sala",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "30 minuti",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la sala piccola",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " o "
+        },
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni1",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "oggi",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 4",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "sabato prossimo",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "60 minuti",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "mezz\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "la sala grande",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "mezz\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "in mattinata",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "una sala",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la sala piccola",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la sala grande",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "mezz\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "mezz\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "@sala_riunioni:sala_riunioni per @time_range:time_range"
+        }
+      ],
+      "isTemplate": true,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "una sala",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "una sala",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "mattina",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "una sala",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "pomeriggio",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "sala riunioni",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " grande "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "tutto il giorno",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la sala riunioni grande",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "tutto il giorno",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "pomeriggio",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "pomeriggio",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la sala grande",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "dopodomani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un paio d\u0027ore",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "martedi",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "per le 5",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per il "
+        },
+        {
+          "text": "2 novembre",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 12",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": true
+        },
+        {
+          "text": " e per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per il "
+        },
+        {
+          "text": "2 novembre",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 12",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": true
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "dopodomani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 12",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la sala piccola",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "oggi",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la Sala Grande",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " è "
+        },
+        {
+          "text": "una mezz\u0027oretta",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "una sala",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "pomeriggio",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },    
+    {
+      "data": [
+        {
+          "text": "la grande",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " nel "
+        },
+        {
+          "text": "pomeriggio",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la grande",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " il "
+        },
+        {
+          "text": "pomeriggio",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        },
+        {
+          "text": " del "
+        },
+        {
+          "text": "4 gennaio",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "paio d\u0027ore",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        },
+        {
+          "text": " per il "
+        },
+        {
+          "text": "3 di novembre",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "un paio d\u0027ore",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        },
+        {
+          "text": " per il "
+        },
+        {
+          "text": "2 marzo",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": true
+        },
+        {
+          "text": " nel "
+        },
+        {
+          "text": "pomeriggio",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "il 25 dicembre",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 4:00",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "pomeriggio",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la sala grande",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "per le 8 di mattina",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        },
+        {
+          "text": " di "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "una sala",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "per le 11 e 30 di mattina",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "lunedì",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "4 di pomeriggio",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "2 ore",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "per "
+        },
+        {
+          "text": "due ore",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la sala grande",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "due ore",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 8:30 di mattina",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la sala grande",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "due ore",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 8:30 di mattina",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        },
+        {
+          "text": " di "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "una sala",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " riunione qualsiasi "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 11:00 di mattina",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la saletta",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 8 di mattina",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "la sala piccola",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "in mattinata",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "mezz\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": " "
+        },
+        {
+          "text": "la sala piccola",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " tra "
+        },
+        {
+          "text": "oggi",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " e "
+        },
+        {
+          "text": "domani",
+          "alias": "date1",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "alle 3 di mattina",
+          "alias": "time",
+          "meta": "@sys.time",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "un paio d\u0027ore",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "mi servirebbe la "
+        },
+        {
+          "text": "sala riunione grande",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "pomeriggio",
+          "alias": "time-period",
+          "meta": "@sys.time-period",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "mi servirebbe la "
+        },
+        {
+          "text": "sala riunione grande",
+          "alias": "sala_riunioni",
+          "meta": "@sala_riunioni",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "domani",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " per "
+        },
+        {
+          "text": "un\u0027ora",
+          "alias": "time_range",
+          "meta": "@time_range",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    }
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "dataType": "@sala_riunioni",
+          "name": "sala_riunioni",
+          "value": "$sala_riunioni"
+        },
+        {
+          "dataType": "@sala_riunioni",
+          "name": "sala_riunioni1",
+          "value": "$sala_riunioni1"
+        },
+        {
+          "dataType": "@time_range",
+          "name": "time_range",
+          "value": "$time_range"
+        },
+        {
+          "dataType": "@sys.date",
+          "name": "date",
+          "value": "$date"
+        },
+        {
+          "dataType": "@sys.date",
+          "name": "date1",
+          "value": "$date1"
+        },
+        {
+          "dataType": "@sys.time-period",
+          "name": "time-period",
+          "value": "$time-period"
+        },
+        {
+          "dataType": "@sys.time",
+          "name": "time",
+          "value": "$time"
+        }
+      ],
+      "speech": []
+    }
+  ],
+  "state": "LOADED",
+  "priority": 500000,
+  "webhookUsed": false
+}

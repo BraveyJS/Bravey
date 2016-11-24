@@ -1,0 +1,49 @@
+{
+  "id": "43a52e30-b562-4d88-ab4e-871d0faaab57",
+  "name": "people",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "luca",
+      "synonyms": [
+        "luca"
+      ]
+    },
+    {
+      "value": "giulio",
+      "synonyms": [
+        "giulio"
+      ]
+    },
+    {
+      "value": "marco",
+      "synonyms": [
+        "marco",
+        "todd",
+        "todds"
+      ]
+    },
+    {
+      "value": "francesco",
+      "synonyms": [
+        "francesco",
+        "fra",
+        "kesiev"
+      ]
+    },
+    {
+      "value": "nobody",
+      "synonyms": [
+        "nessuno"
+      ]
+    },
+    {
+      "value": "davide",
+      "synonyms": [
+        "davide"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

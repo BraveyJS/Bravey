@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Opendata Example</title>
+ <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script src="../../../build/bravey.min.js"></script>
+</head>
+<body onload="onLoaded()">
+  <div  class="container">
+    <h1>Chiedi pure!</h1>
+    <p>
+      Ciao! Cerchi un museo in Lombardia? Fammi pure una domanda!
+    </p>
+    <p>
+    <div class="input-group"><span class="input-group-addon" id="sizing-addon1">Vorrei un museo...</span><input type="text" class="form-control" placeholder="gratuito con parcheggio per disabili?" aria-describedby="sizing-addon1" id="textInput" onkeyup="doNlp()"></div>
+    </p>
+    <div style='font-size:12px'>
+    <p>
+    Per esempio...
+    </p>
+    <div class="row">
+      <div class="col-md-6">
+        <ul>
+          <li>con parcheggio e guardaroba, grazie!</li>
+          <li>con bar e che sia a Milano</li>
+          <li>con abbonamento, che abbia un pargheggio per disabili e sia a Como.</li>
+          <li>che abbia i bagni ed una biblioteca, per favore</li>
+          <li>che accetti la carta servizi e che sia gratuito</li>
+          <li>a pagamento con archivio</li>
+          <li>che offra acquisti online e che abbia un piano di fidelizzazione?</li>
+          <li>con un laboratorio di preparazione</li>
+          <li>con laboratorio di restauro e fotografico a Milano</li>
+          <li>con bookshop e guardaroba, grazie</li>
+          <li>con area infanzia a Milano</li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <ul>
+          <li>con un'area di accoglienza!</li>
+          <li>dove non pagare ma che abbia il servizio educativo</li>
+          <li>con biblioteca e fototeca</li>
+          <li>con depositi consultabili e servizi online</li>
+          <li>con prenotazione online e fototeca</li>
+          <li>con archivi online</li>
+          <li>di Etnografica e Antropologica</li>
+          <li>della Scienza e Tecnica con parcheggio</li>
+          <li>di Archeologia con archivo online</li>
+          <li>di storia o arte e con fidelizzazione</li>
+          <li>a viggiu con parcheggio</li>
+        </ul>
+      </div>
+    </div>
+    <hr>
+    <span id="result">
+    </span>
+  </div>
+</body>
+<script>
+
+var nlp,db,columns;
+
+function onLoaded() {
+  Bravey.File.load("opendata.json",function(file){
+    db=JSON.parse(file);
+
+    nlp=new Bravey.Nlp.Fuzzy("musei",{stemmer:Bravey.Language.IT.Stemmer});
+    var fields={
+      "tipologia_museo":true,
+      "parcheggi_vicini":{
+        "SI":["parcheggio vicino","parcheggio","parcheggi"]
+      },
+      "parcheggi_pers_disabilita":{
+        "SI":["parcheggio per disabili","disabili","parcheggi per disabili"]
+      },
+      "biglietteria":{
+        "SI":["biglietteria"]
+      },
+      "guardaroba":{
+        "SI":["guardaroba"]
+      },
+      "area_accoglienza":{
+        "SI":["area accoglienza","accoglienza"]
+      },
+      "bookshop":{
+        "SI":["bookshop"]
+      },
+      "caffetteria":{
+        "SI":["caffetteria","bar"]
+      },
+      "area_assistenza_infanzia":{
+        "SI":["area infanzia","infanzia"]
+      },
+      "laboratorio_fotografico":{
+        "SI":["laboratorio fotografico","fotografico"]
+      },
+      "laboratorio_restauro":{
+        "SI":["laboratorio restauro","restauro"]
+      },
+      "laboratorio_preparazione":{
+        "SI":["laboratorio preparazione","preparazione"]
+      },
+      "laboratorio_analisi":{
+        "SI":["laboratorio analisi","analisi"]
+      },
+      "servizi_igienici":{
+        "SI":["servizi igienici","servizi","bagni"]
+      },
+      "tipo_accesso_pers_disabilita":true,
+      "gratuito_pagamento":{
+        "GRATUITO":["gratuito","gratis","non pagare"],
+        "A PAGAMENTO":["a pagamento","pagamento","pagare"]
+      },
+      "fidelizzazione":{
+        "SI":["fidelizzazione","fidelizzato"]
+      },
+      "abbonamento":{
+        "SI":["abbonamento"]
+      },
+      "dotato_carta_servizi":{
+        "SI":["carta servizi"]
+      },
+      "servizio_educativo":{
+        "SI":["servizio educativo","educazione"]
+      },
+      "biblioteca":{
+        "SI":["biblioteca"]
+      },
+      "fototeca":{
+        "SI":["fototeca"]
+      },
+      "archivio":{
+        "SI":["archivio"]
+      },
+      "depositi_consultabili":{
+        "SI":["depositi consultabili","depositi"]
+      },
+      "disp_servizi_online":{
+        "SI":["servizi online","online"]
+      },
+      "prenotazione_online":{
+        "SI":["prenotazione online"]
+      },
+      "acquisti_online":{
+        "SI":["acquisti online"]
+      },
+      "consultazione_archivi_online":{
+        "SI":["archivi online"]
+      },
+      "comune_sede":true,
+      "email_sede":true,
+    };
+
+    var ent,intentText="",intentArray=[],pri=1000;
+    for (var a in fields) {
+      intentText+="{"+a+"} ";
+      nlp.addDocument("museo {"+a+"}","museo",{fromTaggedSentence:true,expandIntent:true});
+      if (typeof fields[a] == "object") {
+        ent=new Bravey.StringEntityRecognizer(a,pri);
+        for (var b in fields[a]) {
+          for (var c=0;c<fields[a][b].length;c++) 
+            ent.addMatch(b,fields[a][b][c]);
+          
+        }
+        nlp.addEntity(ent);
+      }
+    }
+
+    nlp.addDocument(intentText,"museo",{fromTaggedSentence:true,expandIntent:true});
+
+    var ents={};
+    columns=[];
+
+     for (var i=0;i<db.meta.view.columns.length;i++)
+      columns[db.meta.view.columns[i].fieldName]=i;
+    for (var j=0;j<db.data.length;j++)
+        for (var a in fields) {
+          pri--;
+          if (db.data[j][columns[a]])
+            if (fields[a]===true) {
+              if (!ents[a]) {
+                ents[a]=new Bravey.StringEntityRecognizer(a,pri);
+                nlp.addEntity(ents[a]);
+              }
+              ents[a].addMatch(db.data[j][columns[a]],db.data[j][columns[a]]);
+              var tokens=Bravey.Text.tokenize(Bravey.Text.clean(db.data[j][columns[a]]));
+              for (var i=0;i<tokens.length;i++)
+                if (tokens[i].length>3) ents[a].addMatch(db.data[j][columns[a]],tokens[i]);
+            } else if (typeof fields[a]=="function") {
+              if (!ents[a]) {
+                ents[a]=new Bravey.StringEntityRecognizer(a,pri);
+                nlp.addEntity(ents[a]);
+              }            
+              fields[a](db.data[j][columns[a]],ents[a]);
+            }
+        }
+  
+  });
+}
+
+var oldquery="";
+
+function doNlp() {
+  var ent,out,show,html,text=document.getElementById("textInput").value;
+  if (nlp&&(out=nlp.test(text,"anyEntity"))) {
+      html="";
+      var newquery=out.intent+"-";
+      for (var i=0;i<out.entities.length;i++)
+        newquery+=out.entities[i].entity+":"+out.entities[i].value+"-";
+        if (newquery!=oldquery) {
+          oldquery=newquery;
+          var found,foundset,count=0;
+          for (var i=0;i<db.data.length;i++) {
+            foundset={},found=false;
+            for (var j=0;j<out.entities.length;j++) {
+              found=true;
+              ent=out.entities[j];
+              if (db.data[i][columns[ent.entity]]==ent.value) foundset[ent.entity]=1;
+              else if (!foundset[ent.entity]) foundset[ent.entity]=0;
+            }
+            for (var a in foundset) if (foundset[a]==0) {
+              found=false;
+              break;
+            }
+            if (found) {
+              show={};
+              count++;
+              html+="<div class='panel panel-default'><div class='panel-body'><h4>"+db.data[i][columns.denominazione_museo]+"</h4>";
+              html+='<div class="row">';
+              html+='<div class="col-md-4"><iframe style="width:100%;height:170px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q='+db.data[i][columns.location][1]+','+db.data[i][columns.location][2]+'&hl=es;z=14&amp;output=embed"></iframe></div><div class="col-md-8"><p>';
+              html+=db.data[i][columns.indirizzo_sede]?"<b>presso</b> "+db.data[i][columns.indirizzo_sede]+"<br>":"";
+              html+=db.data[i][columns.descrizione_orari_apertura]?"<b>Apertura:</b><br>"+db.data[i][columns.descrizione_orari_apertura].replace(/#/g,"<br>")+"<br>":"";
+              html+=db.data[i][columns.chiusura_settimanale]?"<b>Chiusura:</b><br>"+db.data[i][columns.chiusura_settimanale]+"<br>":"";
+              html+=db.data[i][columns.note_spazi_servizio_pubblico]?db.data[i][columns.note_spazi_servizio_pubblico]+"<br>":"";
+              html+=db.data[i][columns.sito_web_sede]?db.data[i][columns.sito_web_sede]:"";
+              /*
+              for (var azz in columns)
+                html+=azz+": "+db.data[i][columns[azz]]+"<br>";
+              */
+               for (var j=0;j<out.entities.length;j++) {
+                ent=out.entities[j];
+                if (!show[ent.entity]) {
+                  html+="<b>"+db.meta.view.columns[columns[ent.entity]].description+"</b>: "+db.data[i][columns[ent.entity]]+"<br>";
+                  show[ent.entity]=1;
+                }
+              }
+              html+="</p>";
+              html+="</div></div></div></div>";
+              if (count>5) break;
+            }
+          }
+           if (!html) html="<i>Spiacente... non ho trovato nulla.</i><br>";
+           html+="<br><p style='color:#ccc'>";
+            for (var j=0;j<out.entities.length;j++) {
+              ent=out.entities[j];
+               html+="<b>"+db.meta.view.columns[columns[ent.entity]].description+"</b>: "+ent.value+"<br>";
+            }
+              html+="</p>";
+               
+        }
+  } else {
+    oldquery="";
+    html="<i>Non ho capito...</i>";
+}
+ if (html) document.getElementById("result").innerHTML=html;
+
+}
+</script>

@@ -1,0 +1,21 @@
+[
+	"src/bravey.js",
+	"src/extras/file.js",
+	"src/extras/text.js",
+	"src/extras/date.js",
+	"src/extras/data.js",
+	"src/stemmers/StemmerSupport.js",
+	"src/entityrecognizers/FreeTextEntityRecognizer.js",
+	"src/entityrecognizers/StringEntityRecognizer.js",
+	"src/entityrecognizers/NumberEntityRecognizer.js",
+	"src/entityrecognizers/RegexEntityRecognizer.js",
+	"src/entityrecognizers/EMailEntityRecognizer.js",
+	"src/classifiers/DocumentClassifier.js",
+	"src/languages/it.js",
+	"src/languages/en.js",
+	"src/nlp/Fuzzy.js",
+	"src/nlp/Sequential.js",
+	"src/adapters/ApiAiAdapter.js",
+	"src/contextmanagers/ContextManager.js",
+	"src/sessionmanagers/InMemorySessionManager.js"
+]

@@ -1,0 +1,150 @@
+{
+  "id": "83374a67-6529-49b7-a590-833f12485526",
+  "name": "whatthescore",
+  "auto": true,
+  "contexts": [],
+  "state": "LOADED",
+  "priority": 500000,
+  "webhookUsed": false,
+  "userSays": [
+    {
+      "data": [
+        {
+          "text": "Did "
+        },
+        {
+          "text": "Lazio",
+          "alias": "team",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " win against "
+        },
+        {
+          "text": "Roma",
+          "alias": "team1",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "2015",
+          "alias": "seasonid",
+          "meta": "@sys.number",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false
+    },
+    {
+      "data": [
+        {
+          "text": "Did "
+        },
+        {
+          "text": "Real Madrid",
+          "alias": "team",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " win against "
+        },
+        {
+          "text": "Barcelona",
+          "alias": "team1",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "2015",
+          "alias": "seasonid",
+          "meta": "@sys.number",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false
+    },
+    {
+      "data": [
+        {
+          "text": "Did "
+        },
+        {
+          "text": "Juventus",
+          "alias": "team",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " win vs. "
+        },
+        {
+          "text": "Barcelona",
+          "alias": "team1",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " in "
+        },
+        {
+          "text": "2015",
+          "alias": "seasonid",
+          "meta": "@sys.number",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false
+    },
+    {
+      "data": [
+        {
+          "text": "Who won in the most recent "
+        },
+        {
+          "text": "West Ham United",
+          "alias": "team",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " - "
+        },
+        {
+          "text": "Crystal Palace",
+          "alias": "team1",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " game?"
+        }
+      ],
+      "isTemplate": false
+    }
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "speech": []
+    }
+  ]
+}

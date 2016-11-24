@@ -1,0 +1,169 @@
+{
+  "translations": {
+    "symbol": "IT",
+    "currency": "&euro;",
+    "botname": "BillBot (IT)",
+    "botdescription": "Posso aiutarti a fare acquisti!",
+    "bottips": "<ul><li>Compro del cibo</li><li>Mostrami il catalogo</li><li>Aggiungi 2 scatole di pasta</li><li>Aggiungi 1 rotolo di carta igienica e 2 detergenti</li><li>Togli 1 rotolo</li><li>Il cliente è gino@pino.com. Aggiungi 2 scatole di pasta</li><li>La descrizione è Scontrino di prova</li><li>mostra lo scontrino</li></ul>",
+    "intro": "Per cominciare dimmi cosa vorresti comprare. Puoi acquistare nei seguenti reparti: ",
+    "wehave": "Ora abbiamo:",
+    "listempty": "Nessun prodotto in lista.",
+    "customeris": "Il cliente &egrave;",
+    "descriptionis": "La descrizione &egrave;",
+    "unknowndescription": "Non conosco ancora la descrizione.",
+    "unknownaddress": "Non conosco ancora l'indirizzo mail del cliente.",
+    "suggestions": "Chiedimi pure il catalogo e dimmi se devo aggiungere o togliere qualcosa. Puoi anche indicarmi una descrizione da associare all'acquisto e l'indirizzo mail del cliente. Quando hai finito dimmelo o chiedimi lo scontrino.",
+    "startshopping": "Ok! Facciamo un po' di shopping nel reparto",
+    "canbuy": "Puoi acquistare:",
+    "missingdepartment": "Decidi prima in quale reparto vuoi acquistare!",
+    "whichdepartment": "In quale reparto vuoi acquistare?",
+    "confirmintro": "Dunque:<br><br>Stai facendo acquisti nel reparto",
+    "columndescription": "Prodotto",
+    "columnprice": "Costo unit.",
+    "columnquantity": "Q.t&agrave;",
+    "columntotal": "Totale",
+    "noreference": "(Nessun indirizzo mail)",
+    "nodescription": "(Nessuna descrizione)",
+    "noname": "(Nessun nome)",
+    "total": "TOTALE",
+    "discount": "SCONTO",
+    "customer": "Indirizzo mail cliente",
+    "description": "Descrizione",
+    "cantunderstand": "Non ho capito...",
+    "nospecifiedcustomer": "Nessun indirizzo mail del cliente specificato.",
+    "nospecifieddescription": "Nessuna descrizione specificata.",
+    "asdescription": "come descrizione",
+    "asreference": "come indirizzo mail",
+    "setting": "Imposto",
+    "adding": "Aggiungo",
+    "removing": "Tolgo",
+    "freetextnlpActions": {
+      "description": ["descrizione"]
+    },
+    "freetextnlp": [{
+      "sentence": "La {action} e' {text}",
+      "intent": "modifylist~action~text"
+    }],
+    "nlpActions": {
+      "add": ["aggiungine", "aggiungi", "metti", "mettine", "inserisci", "inseriscine", "mi servono", "mi servirebbero", "vorrei"],
+      "remove": ["rimuovine", "rimuovi", "togli", "togline"],
+      "reference": ["mail", "indirizzo", "cliente", "invia a", "invia tutto a", "destinatario", "cliente"]
+    },
+    "nlp": [{
+      "sentence": "Compro {type}",
+      "intent": "switchtype"
+    }, {
+      "sentence": "Voglio acquistare {type}",
+      "intent": "switchtype"
+    }, {
+      "sentence": "{type}",
+      "intent": "switchtype"
+    }, {
+      "sentence": "cosa posso aggiungere",
+      "intent": "catalogue"
+    }, {
+      "sentence": "mostrami il catalogo",
+      "intent": "catalogue"
+    }, {
+      "sentence": "quali prodotti conosci",
+      "intent": "catalogue"
+    }, {
+      "sentence": "quali sono i prezzi",
+      "intent": "catalogue"
+    }, {
+      "sentence": "cosa posso comprare",
+      "intent": "catalogue"
+    }, {
+      "sentence": "mostrami lo scontrino",
+      "intent": "confirm"
+    }, {
+      "sentence": "mostrami il prezzo",
+      "intent": "confirm"
+    }, {
+      "sentence": "mostrami il totale",
+      "intent": "confirm"
+    }, {
+      "sentence": "cosa ho comprato",
+      "intent": "confirm"
+    }, {
+      "sentence": "cosa ho nel carrello",
+      "intent": "confirm"
+    }, {
+      "sentence": "tutto ok",
+      "intent": "confirm"
+    }, {
+      "sentence": "ho fatto",
+      "intent": "confirm"
+    }, {
+      "sentence": "ho finito",
+      "intent": "confirm"
+    }, {
+      "sentence": "a posto",
+      "intent": "confirm"
+    }, {
+      "sentence": "paga",
+      "intent": "confirm"
+    }, {
+      "sentence": "va bene",
+      "intent": "confirm"
+    }, {
+      "sentence": "niente altro",
+      "intent": "confirm"
+    }, {
+      "sentence": "terminato",
+      "intent": "confirm"
+    }]
+  },
+  "dictionary": {
+    "types": {
+      "Brico": ["brico", "bricolage"],
+      "Supermarket": ["supermarket", "supermercato", "cibo", "altro"]
+    },
+    "entries": {
+      "Multipla": ["multipla", "presa multipla", "multipla", "prese multiple", "prese", "presa", "multiple", "prese multiple"],
+      "Telecamera": ["telecamera", "telecamera di sicurezza", "telecamera sicurezza", "telecamere", "telecamere di sicurezza", "telecamere sicurezza"],
+      "Sdoppiatore": ["sdoppiatore", "sdoppiatore cuffie", "sdoppiatore microfono", "sdoppiatore cuffie microfono", "sdoppiatori", "sdoppiatori cuffia", "sdoppiatori microfono", "sdoppiatori cuffia microfono"],
+      "Torcia": ["torcia", "torce"],
+      "Batterie": ["batterie", "pile", "stilo", "batteria", "pila", "batterie stilo", "batteria stilo", "pila stilo", "pile stilo"],
+      "Rubinetto": ["rubinetto", "miscelatore", "rubinetti", "miscelatori"],
+      "Acqua": ["acqua", "acqua minerale", "bottiglia", "bottiglie", "bottiglia d'acqua", "bottiglie d'acqua"],
+      "Olio": ["olio", "bottiglia di olio", "bottiglie di olio", "bottiglia d'olio", "bottiglie d'olio"],
+      "Carta Igienica": ["carta", "carta igienica", "rotolo", "rotoli", "rotolo di carta igienica", "rotoli di carta igienica"],
+      "Patatine": ["patatine", "patatina", "sacchetto di patatine", "sacchetti di patatine"],
+      "Biscotti": ["biscotto", "biscotti", "pacchetto di biscotti", "pacchetti di biscotti", "frollini"],
+      "Capsule": ["capsule", "capsule di caffe", "capsule per caffe", "caffe in capsule"],
+      "Pasta": ["pasta", "scatola di pasta", "scatole di pasta"],
+      "Bibita": ["bibita", "bevanda", "bibite", "bevande"],
+      "Detersivo": ["detersivo", "detersivi", "detergente", "detergenti"],
+      "Confetti": ["confetto", "confetti", "confezione di confetti", "confezioni di confetti"]
+    }
+  },
+  "data": {
+    "Brico": {
+      "entries": {
+        "Multipla": 7.99,
+        "Telecamera": 26.44,
+        "Sdoppiatore": 6.49,
+        "Torcia": 15.50,
+        "Batterie": 7.63,
+        "Rubinetto": 69.66
+      },
+      "discount": 5
+    },
+    "Supermarket": {
+      "entries": {
+        "Acqua": 1.92,
+        "Olio": 11.54,
+        "Carta Igienica": 1.20,
+        "Patatine": 1.59,
+        "Biscotti": 2.13,
+        "Capsule": 11.90,
+        "Pasta": 0.79,
+        "Bibita": 2.76,
+        "Detersivo": 1.65,
+        "Confetti": 8.27
+      },
+      "discount": 0
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "3e8bb06a-fa37-4b45-ac1c-e793cf06144c",
+  "name": "sala_riunioni",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "sala_piccola",
+      "synonyms": [
+        "sala piccola",
+        "la sala piccola",
+        "sala riunioni piccola",
+        "la piccola",
+        "la sala riunione piccola"
+      ]
+    },
+    {
+      "value": "sala_grande",
+      "synonyms": [
+        "sala grande",
+        "la sala grande",
+        "sala riunione grande",
+        "sala riunioni grande",
+        "la sala riunioni grande",
+        "la grande"
+      ]
+    },
+    {
+      "value": "saletta",
+      "synonyms": [
+        "saletta",
+        "la saletta",
+        "l\u0027ufficio",
+        "la saletta piccola",
+        "saletta piccola"
+      ]
+    },
+    {
+      "value": "any",
+      "synonyms": [
+        "qualsiasi sala",
+        "una sala",
+        "una sala riunioni",
+        "sala riunioni"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Adapter test</title>
+  <script src="../../../build/bravey.min.js"></script>
+</head>
+<body onload="onLoaded()">
+  I've loaded an italian Api.ai package via AJAX with Bravey and now you can query it serverless. Try asking "la sala grande o la piccola per domani pomeriggio".
+  <hr>
+  <input type="text" style="width:200px" id="textInput"><input type="button" onclick="doNlp()" value="Run NLP">
+  <hr>
+  <span id="result">
+  </span>
+</body>
+<script>
+
+var apiai;
+
+function onLoaded() {
+  apiai=new Bravey.ApiAiAdapter("../../apiai-packages/saleriunioni",{language:"IT"});
+
+  apiai.loadEntity("sala_riunioni");
+  apiai.loadEntity("time_range");
+  apiai.loadEntity("people");
+  apiai.loadEntity("confirmation");
+  apiai.loadIntent("Request");
+  apiai.loadIntent("People");
+  apiai.loadIntent("Confirmation");
+
+  apiai.prepare(function(){
+    document.getElementById("result").innerHTML="NLP Ready!";
+  });
+}
+
+function doNlp() {
+  var text=document.getElementById("textInput").value;
+  var html="<b>Text:</b> "+text+"<br>";
+  var out=apiai.nlp.test(text);
+  if (out) {
+    html+="<b>Intent:</b> <tt>"+out.intent+"</tt><br>";
+    for (var a in out.entitiesIndex)
+      html+="<b>Entity "+a+":</b> <tt>"+JSON.stringify(out.entitiesIndex[a].value)+"</tt><br>";
+  } else
+    html+="<i>Can't understand...</i>";
+    document.getElementById("result").innerHTML=html;
+}
+
+</script>

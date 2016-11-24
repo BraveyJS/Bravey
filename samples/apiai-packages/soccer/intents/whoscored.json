@@ -1,0 +1,124 @@
+{
+  "id": "ce213a43-4982-4351-b70d-e189246c3a76",
+  "name": "whoscored",
+  "auto": true,
+  "contexts": [],
+  "state": "LOADED",
+  "priority": 500000,
+  "webhookUsed": false,
+  "userSays": [
+    {
+      "data": [
+        {
+          "text": "Which player scored in the "
+        },
+        {
+          "text": "2013",
+          "alias": "seasonid",
+          "meta": "@sys.number",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "Cagliari",
+          "alias": "team",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " - "
+        },
+        {
+          "text": "Atalanta",
+          "alias": "team1",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " game?"
+        }
+      ],
+      "isTemplate": false
+    },
+    {
+      "data": [
+        {
+          "text": "Who scored in "
+        },
+        {
+          "text": "Fiorentina",
+          "alias": "team",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " - "
+        },
+        {
+          "text": "Catania",
+          "alias": "team1",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " of "
+        },
+        {
+          "text": "2013",
+          "alias": "seasonid",
+          "meta": "@sys.number",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false
+    },
+    {
+      "data": [
+        {
+          "text": "Which players scored in the "
+        },
+        {
+          "text": "2013",
+          "alias": "seasonid",
+          "meta": "@sys.number",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "Verona",
+          "alias": "team",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " - "
+        },
+        {
+          "text": "Milan",
+          "alias": "team1",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " game?"
+        }
+      ],
+      "isTemplate": false
+    }
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "speech": []
+    }
+  ]
+}

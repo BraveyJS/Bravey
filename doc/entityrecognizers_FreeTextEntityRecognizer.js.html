@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: entityrecognizers/FreeTextEntityRecognizer.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: entityrecognizers/FreeTextEntityRecognizer.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Can recognize free text in a sentence. Explicit with &lt;tt>"free text"&lt;/tt>. It works with {@link Bravey.nlp.Sequential} only. BETA!
+ * @constructor
+ * @param {string} entityName - The name of produced entities.
+ * @param {number} [priority=0] - Priority given to extracted entities.
+ */
+Bravey.FreeTextEntityRecognizer = function(entityName, priority) {
+
+  var quotes = /\"([^\"]*)\"/;
+  var prefixes = [];
+  var conjunctions = [];
+
+  /**
+   * Returns the recognizer entity name.
+   * @returns {string} The entity name.
+   */
+  this.getName = function() {
+    return entityName;
+  }
+
+  /**
+   * Adds a sentence prefix. (i.e. "with &lt;tt>title&lt;/tt> ...")
+   * @param {string} string - The prefix to be added.
+   */
+  this.addPrefix = function(prefix) {
+    if (prefixes.indexOf(prefix) == -1) prefixes.push(prefix);
+  }
+
+  /**
+   * Adds a sentence conjunction. (i.e. "which title &lt;tt>is&lt;/tt>...")
+   * @param {string} string - The conjunction to be added.
+   */
+  this.addConjunction = function(conjunction) {
+    conjunctions.push(new RegExp("^\\b" + conjunction + "\\b", "gi"));
+    conjunctions.push(new RegExp("\\b" + conjunction + "\\b$", "gi"));
+  }
+
+  /**
+   * Returns all found entities in a sentence. Returned entities value is &lt;tt>string&lt;/tt>.
+   * @param {string} string - The sentence to be checked.
+   * @param {Entity[]} [out=[]] - The array in which the found entities will be added.
+   * @returns {Entity[]} The set of found entities.
+   */
+  this.getEntities = function(string, out) {
+    return out;
+  }
+
+  this.expand = function(match) { // @TODO: This part can be improved.
+    var pos, found, foundcrop = -1,
+      foundpos = -1;
+    if ((found = quotes.exec(match.string)) != null) {
+      match.position += found.index + 1;
+      match.string = found[1];
+    } else {
+      for (var i = 0; i &lt; prefixes.length; i++) {
+        if (((pos = match.string.indexOf(prefixes[i])) != -1) &amp;&amp; ((foundpos == -1) || (pos &lt; foundpos))) {
+          foundpos = pos;
+          foundcrop = pos + prefixes[i].length;
+        }
+      }
+      if (foundcrop != -1) {
+        match.position += foundcrop;
+        match.string = match.string.substr(foundcrop);
+      }
+      Bravey.Text.entityTrim(match);
+      do {
+        foundpos = 0;
+        for (var i = 0; i &lt; conjunctions.length; i++) {
+          if ((found = conjunctions[i].exec(match.string)) != null) {
+            foundpos = 1;
+            if (found.index == 0) {
+              match.string = match.string.substr(found[0].length);
+              match.position += found[0].length;
+            } else {
+              match.string = match.string.substr(0, found.index);
+            }
+            Bravey.Text.entityTrim(match);
+          }
+        }
+      } while (foundpos);
+      if ((pos = match.string.lastIndexOf(".")) != -1) match.string = match.string.substr(0, pos);
+      Bravey.Text.entityTrim(match);
+    }
+    match.value = match.string;
+  }
+
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Bravey.ApiAiAdapter.html">ApiAiAdapter</a></li><li><a href="Bravey.ContextManager.html">ContextManager</a></li><li><a href="Bravey.DocumentClassifier.html">DocumentClassifier</a></li><li><a href="Bravey.EMailEntityRecognizer.html">EMailEntityRecognizer</a></li><li><a href="Bravey.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.EN.DateEntityRecognizer.html">DateEntityRecognizer</a></li><li><a href="Bravey.Language.EN.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.EN.Stemmer.html">Stemmer</a></li><li><a href="Bravey.Language.EN.TimeEntityRecognizer.html">TimeEntityRecognizer</a></li><li><a href="Bravey.Language.EN.TimePeriodEntityRecognizer.html">TimePeriodEntityRecognizer</a></li><li><a href="Bravey.Language.IT.DateEntityRecognizer.html">DateEntityRecognizer</a></li><li><a href="Bravey.Language.IT.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.IT.Stemmer.html">Stemmer</a></li><li><a href="Bravey.Language.IT.TimeEntityRecognizer.html">TimeEntityRecognizer</a></li><li><a href="Bravey.Language.IT.TimePeriodEntityRecognizer.html">TimePeriodEntityRecognizer</a></li><li><a href="Bravey.Nlp.Fuzzy.html">Fuzzy</a></li><li><a href="Bravey.Nlp.Sequential.html">Sequential</a></li><li><a href="Bravey.NumberEntityRecognizer.html">NumberEntityRecognizer</a></li><li><a href="Bravey.RegexEntityRecognizer.html">RegexEntityRecognizer</a></li><li><a href="Bravey.SessionManager.InMemorySessionManager.html">InMemorySessionManager</a></li><li><a href="Bravey.StringEntityRecognizer.html">StringEntityRecognizer</a></li><li><a href="Bravey.Text.RegexMap.html">RegexMap</a></li></ul><h3>Namespaces</h3><ul><li><a href="Bravey.html">Bravey</a></li><li><a href="Bravey.Data.html">Data</a></li><li><a href="Bravey.Date.html">Date</a></li><li><a href="Bravey.File.html">File</a></li><li><a href="Bravey.Language.html">Language</a></li><li><a href="Bravey.Language.EN.html">EN</a></li><li><a href="Bravey.Language.IT.html">IT</a></li><li><a href="Bravey.Nlp.html">Nlp</a></li><li><a href="Bravey.SessionManager.html">SessionManager</a></li><li><a href="Bravey.Text.html">Text</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Thu Nov 24 2016 10:03:30 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

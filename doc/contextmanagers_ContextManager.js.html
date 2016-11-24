@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: contextmanagers/ContextManager.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: contextmanagers/ContextManager.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * The Bravey context manager. Contexts are handled as tags for multiple NLP instances. It store user sessions contexts and query the right NLP when asked.
+ * @param {SessionManager} [extensions.sessionManager] - An instance of a session manager. {@link Bravey.SessionManager.InMemorySessionManager} is used when not specified.
+ * @constructor
+ */
+Bravey.ContextManager = function(extensions) {
+  extensions = extensions || {};
+
+  var defaultContexts = ["default"];
+  var contexts = {};
+  var parameters = {};
+  var sessionManager = extensions.sessionManager || new Bravey.SessionManager.InMemorySessionManager(extensions);
+
+  /**
+   * Add a NLP instance to the context manager.
+   * @param {NLP} nlp - The NLP instance.
+   * @param {String[]} [contexttags=["default"]] - Related contexts tags.
+   * @param {String} [method=undefined] - Method to be used with NLP test. (see {@link Bravey.Nlp.test})
+   */
+  this.addNlp = function(nlp, contexttags, method) {
+    if (!contexttags) contexttags = defaultContexts;
+    for (var i = 0; i &lt; contexttags.length; i++) {
+      if (!contexts[contexttags[i]]) {
+        contexts[contexttags[i]] = [];
+        parameters[contexttags[i]] = [];
+      }
+      if (contexts[contexttags[i]].indexOf(nlp) == -1) {
+        contexts[contexttags[i]].push(nlp);
+        parameters[contexttags[i]].push({
+          method: method
+        });
+      }
+    }
+  }
+
+  /**
+   * Remove a NLP instance to the context manager.
+   * @param {NLP} nlp - The NLP instance.
+   * @param {String[]} [contexttags=all] - Related contexts tags. Will be removed from all contexts if empty.
+   */
+  this.removeNlp = function(nlp, contexttags) {
+    var found;
+    if (contexttags) {
+      for (var i = 0; i &lt; contexttags.length; i++)
+        if ((found = contexts[contexttags[i]].indexOf(nlp)) != -1) {
+          contexts[contexttags[i]].splice(found, 1);
+          parameters[contexttags[i]].splice(found, 1);
+        }
+    } else
+      for (var i in contexts)
+        if ((found = contexts[i].indexOf(nlp)) != -1) {
+          contexts[i].splice(found, 1);
+          parameters[i].splice(found, 1);
+        }
+  }
+
+  /**
+   * Remove a context.
+   * @param {String[]} contexttag - Tag to be deleted
+   */
+  this.removeContext = function(contexttag) {
+    if (contexts[contexttag]) delete contexts[contexttag];
+  }
+
+  /**
+   * Set the context for a given session ID.
+   * @param {String} sessionid - User session ID.
+   * @param {String[]} contexttag - Tag to be deleted
+   * @returns {boolean} True if sessionid is found and context is set.
+   */
+  this.setSessionIdContext = function(sessionid, contexttag) {
+    return sessionManager.setContext(sessionid, contexttag)
+  }
+
+  /**
+   * Set context data for the specified session ID.
+   * @param {string} sessionid - The session ID.
+   * @param {Object} data - Key/value pair for data to be set.
+   * @returns {boolean} True if sessionid is found and context is set.
+   */
+  this.setSessionIdData = function(sessionid, data) {
+    return sessionManager.setData(sessionid, data);
+  }
+
+  /**
+   * Empty context data for the specified session ID.
+   * @param {string} sessionid - The session ID.
+   * @returns {boolean} True if sessionid is found and context is set.
+   */
+  this.clearSessionIdData = function(sessionid) {
+    return sessionManager.clearData(sessionid);
+  }
+
+  /**
+   * Get context data for the specified session ID.
+   * @param {string} sessionid - The session ID.
+   * @returns {string[]} The related data.
+   */
+  this.getSessionIdData = function(sessionid) {
+    return sessionManager.getData(sessionid);
+  }
+
+  /**
+   * Check if a given sentence matches an intent and extracts its entities using the specified contexts.
+   * @param {string} text - The sentence to be processed.
+   * @param {string[]} [text=["default"]] - The context tags.
+   * @returns {ContextManagerResultByContext} When an intent is found.
+   */
+  this.testByContext = function(text, contexttags) {
+    var ret = {
+        result: false
+      },
+      found;
+    if (!contexttags) contexttags = defaultContexts;
+    for (var i = 0; i &lt; contexttags.length; i++)
+      if (contexts[contexttags[i]])
+        for (var j = 0; j &lt; contexts[contexttags[i]].length; j++) {
+          found = contexts[contexttags[i]][j].test(text, parameters[contexttags[i]][j].method);
+          if (!ret.result || (found.score &amp;&amp; (found.score > ret.result.score) &amp;&amp; (found.found > ret.result.found))) {
+            ret.result = found;
+            ret.context = contexttags[i];
+          }
+        }
+    return ret;
+  }
+
+  /**
+   * Check if a given sentence matches an intent and extracts its entities using the specified user session ID. When not specified, a new session ID is generated.
+   * @param {string} text - The sentence to be processed.
+   * @param {string} [text=&lt;new session id>] - The user session id.
+   * @returns {ContextManagerResultBySessionId} When an intent is found.
+   * @returns {false} When the sentence doesn't match any intent.	 
+   */
+  this.testBySessionId = function(text, sessionid) {
+    var ok, found = {
+      result: false
+    };
+    if (sessionid === undefined) ok = sessionid = sessionManager.reserveSessionId();
+    else ok = sessionManager.keepAlive(sessionid);
+    if (ok) {
+      var contexttags = sessionManager.getContext(sessionid);
+      found = this.testByContext(text, contexttags);
+      found.sessionId = sessionid;
+      found.sessionContext = contexttags;
+      found.sessionData = sessionManager.getData(sessionid);
+    }
+    return found;
+  }
+
+}
+
+/**
+ Describes a match from a specific context. See {@link Bravey.ContextManager.testByContext} 
+ @typedef ContextManagerResultByContext
+ @type {Object}
+ @property {NlpResult} result The result of a query.
+ @property {string} context The matched context tag. &lt;tt>undefined&lt;/tt> if no domain matched.
+*/
+
+/**
+ Describes a match from a specific session ID. See {@link Bravey.ContextManager.testBySessionId} 
+ @typedef ContextManagerResultBySessionId
+ @type {Object}
+ @property {NlpResult} result The result of a query.
+ @property {string} context The matched context tag. &lt;tt>undefined&lt;/tt> if no domain matched.
+ @property {string} sessionId The session ID used for matching.
+ @property {string} sessionContext The session context tags used for matching. &lt;tt>undefined&lt;/tt> if no domain matched.
+ @property {Object} sessionData The session data for the requested sessionId. &lt;tt>undefined&lt;/tt> if no domain matched.
+*/</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Bravey.ApiAiAdapter.html">ApiAiAdapter</a></li><li><a href="Bravey.ContextManager.html">ContextManager</a></li><li><a href="Bravey.DocumentClassifier.html">DocumentClassifier</a></li><li><a href="Bravey.EMailEntityRecognizer.html">EMailEntityRecognizer</a></li><li><a href="Bravey.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.EN.DateEntityRecognizer.html">DateEntityRecognizer</a></li><li><a href="Bravey.Language.EN.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.EN.Stemmer.html">Stemmer</a></li><li><a href="Bravey.Language.EN.TimeEntityRecognizer.html">TimeEntityRecognizer</a></li><li><a href="Bravey.Language.EN.TimePeriodEntityRecognizer.html">TimePeriodEntityRecognizer</a></li><li><a href="Bravey.Language.IT.DateEntityRecognizer.html">DateEntityRecognizer</a></li><li><a href="Bravey.Language.IT.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.IT.Stemmer.html">Stemmer</a></li><li><a href="Bravey.Language.IT.TimeEntityRecognizer.html">TimeEntityRecognizer</a></li><li><a href="Bravey.Language.IT.TimePeriodEntityRecognizer.html">TimePeriodEntityRecognizer</a></li><li><a href="Bravey.Nlp.Fuzzy.html">Fuzzy</a></li><li><a href="Bravey.Nlp.Sequential.html">Sequential</a></li><li><a href="Bravey.NumberEntityRecognizer.html">NumberEntityRecognizer</a></li><li><a href="Bravey.RegexEntityRecognizer.html">RegexEntityRecognizer</a></li><li><a href="Bravey.SessionManager.InMemorySessionManager.html">InMemorySessionManager</a></li><li><a href="Bravey.StringEntityRecognizer.html">StringEntityRecognizer</a></li><li><a href="Bravey.Text.RegexMap.html">RegexMap</a></li></ul><h3>Namespaces</h3><ul><li><a href="Bravey.html">Bravey</a></li><li><a href="Bravey.Data.html">Data</a></li><li><a href="Bravey.Date.html">Date</a></li><li><a href="Bravey.File.html">File</a></li><li><a href="Bravey.Language.html">Language</a></li><li><a href="Bravey.Language.EN.html">EN</a></li><li><a href="Bravey.Language.IT.html">IT</a></li><li><a href="Bravey.Nlp.html">Nlp</a></li><li><a href="Bravey.SessionManager.html">SessionManager</a></li><li><a href="Bravey.Text.html">Text</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Thu Nov 24 2016 10:03:30 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "id": "021a2705-dba2-43b0-bb02-07d6f3167cb5",
+  "name": "confirmation",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "yes",
+      "synonyms": [
+        "si",
+        "Va bene",
+        "Ok",
+        "sì",
+        "certamente",
+        "senza dubbio"
+      ]
+    },
+    {
+      "value": "no",
+      "synonyms": [
+        "no",
+        "non va bene",
+        "non ci siamo"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

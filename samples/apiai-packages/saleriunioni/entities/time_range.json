@@ -1,0 +1,46 @@
+{
+  "id": "12566974-776a-497e-8490-93699e43a9cf",
+  "name": "time_range",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "30",
+      "synonyms": [
+        "mezz\u0027ora",
+        "30 minuti",
+        "una mezz\u0027oretta",
+        "una mezz\u0027ora"
+      ]
+    },
+    {
+      "value": "60",
+      "synonyms": [
+        "un\u0027ora",
+        "60 minuti",
+        "1 ora"
+      ]
+    },
+    {
+      "value": "480",
+      "synonyms": [
+        "8 ore",
+        "otto ore",
+        "tutto il giorno",
+        "per tutto il giorno",
+        "per tutta la giornata"
+      ]
+    },
+    {
+      "value": "120",
+      "synonyms": [
+        "due ore",
+        "un paio d\u0027ore",
+        "un paio di ore",
+        "2 ore",
+        "paio d\u0027ore"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

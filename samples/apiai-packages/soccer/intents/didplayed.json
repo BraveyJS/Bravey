@@ -1,0 +1,124 @@
+{
+  "id": "b8502254-e58c-4e7c-a29f-85ab826e853a",
+  "name": "didplayed",
+  "auto": true,
+  "contexts": [],
+  "state": "LOADED",
+  "priority": 500000,
+  "webhookUsed": false,
+  "userSays": [
+    {
+      "data": [
+        {
+          "text": "Which footballers competed in the "
+        },
+        {
+          "text": "2013",
+          "alias": "seasonid",
+          "meta": "@sys.number",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "Juventus",
+          "alias": "team",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " - "
+        },
+        {
+          "text": "Milan",
+          "alias": "team1",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " game?"
+        }
+      ],
+      "isTemplate": false
+    },
+    {
+      "data": [
+        {
+          "text": "Who played in "
+        },
+        {
+          "text": "Juventus",
+          "alias": "team",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " - "
+        },
+        {
+          "text": "Milan",
+          "alias": "team1",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " of "
+        },
+        {
+          "text": "2013",
+          "alias": "seasonid",
+          "meta": "@sys.number",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false
+    },
+    {
+      "data": [
+        {
+          "text": "Which players were in the "
+        },
+        {
+          "text": "2015",
+          "alias": "seasonid",
+          "meta": "@sys.number",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "Dinamo Zagreb",
+          "alias": "team",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " - "
+        },
+        {
+          "text": "FC Skenderbeu",
+          "alias": "team1",
+          "meta": "@team",
+          "userDefined": false
+        },
+        {
+          "text": " game?"
+        }
+      ],
+      "isTemplate": false
+    }
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [],
+      "speech": []
+    }
+  ]
+}

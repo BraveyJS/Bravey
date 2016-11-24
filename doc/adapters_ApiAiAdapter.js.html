@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: adapters/ApiAiAdapter.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: adapters/ApiAiAdapter.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * A basic unofficial compatibility object that can read {@link http://api.ai|Api.ai} exported packages and simulates its output.
+ * @constructor
+ * @param {string} packagePath - The path to the exported Api.ai package root.
+ * @param {string} extensions.language - The language to be used. Possible values are namespace names of {@link Bravey.Language}. 
+ * @param {string} extensions.nlp - The NLP processor to be used. Possible values are namespace names of {@link Bravey.Nlp}. 
+ */
+Bravey.ApiAiAdapter = function(packagePath, extensions) {
+  extensions = extensions || {};
+
+  var files = [];
+  var loadedData = {};
+  var intents = [];
+  var entities = [];
+
+  var nlp = new Bravey.Nlp[extensions.nlp || "Fuzzy"]("apiai", {
+    stemmer: Bravey.Language[extensions.language].Stemmer
+  });
+  nlp.addEntity(new Bravey.NumberEntityRecognizer("sys_number"));
+  nlp.addEntity(new Bravey.Language[extensions.language].TimeEntityRecognizer("sys_time"));
+  nlp.addEntity(new Bravey.Language[extensions.language].DateEntityRecognizer("sys_date"));
+  nlp.addEntity(new Bravey.Language[extensions.language].TimePeriodEntityRecognizer("sys_time_period"));
+
+  var pos = 0;
+  var onready;
+
+  function sanitizeApiAiId(id) {
+    return id.replace(/[^a-z0-9:]/g, "_");
+  }
+
+  function loadNext() {
+    Bravey.File.load(files[pos], function(text) {
+      loadedData[files[pos]] = text;
+      pos++;
+      if (!files[pos]) dataLoaded();
+      else loadNext();
+    })
+  }
+
+  function dataLoaded() {
+    var entity, missingEntity = {};
+
+    for (var e = 0; e &lt; entities.length; e++) {
+      var data = JSON.parse(loadedData[entities[e].file]);
+      var newEntity = new Bravey.StringEntityRecognizer(entities[e].name);
+      for (var i = 0; i &lt; data.entries.length; i++)
+        for (var j = 0; j &lt; data.entries[i].synonyms.length; j++)
+          newEntity.addMatch(data.entries[i].value, data.entries[i].synonyms[j]);
+      nlp.addEntity(newEntity);
+    }
+
+    for (var e = 0; e &lt; intents.length; e++) {
+      var data = JSON.parse(loadedData[intents[e].file]);
+      for (var i = 0; i &lt; data.userSays.length; i++) {
+        var text = "",
+          skip = false;
+        for (var j = 0; j &lt; data.userSays[i].data.length; j++) {
+          if (data.userSays[i].data[j].meta) {
+            entity = data.userSays[i].data[j].meta.substr(1);
+            text += "@" + entity + ":" + data.userSays[i].data[j].alias;
+          } else text += data.userSays[i].data[j].text;
+        }
+        var names = [];
+        text = text.replace(/\@([.a-z0-9_-]+):([.a-z0-9_-]+)/g, function(a, b, c) {
+          b = sanitizeApiAiId(b);
+          c = sanitizeApiAiId(c);
+          if (!nlp.hasEntity(b)) {
+            skip = true;
+            if (!missingEntity[b]) {
+              console.warn("Missing entity", b, data.userSays[i].data);
+              missingEntity[b] = 1;
+            }
+          }
+          names.push(c);
+          return "{" + b + "}";
+        });
+        if (!skip)
+          nlp.addDocument(text.trim(), intents[e].name, {
+            fromTaggedSentence: true,
+            expandIntent: true,
+            withNames: names
+          });
+      }
+    }
+
+    onready();
+  }
+
+  /**
+   * Prepare for loading an intent from the specified package.
+   * @param {string} name - The intent name.
+   */
+  this.loadIntent = function(name) {
+    var filename = packagePath + "/intents/" + name + ".json";
+    files.push(filename);
+    intents.push({
+      file: filename,
+      name: name
+    });
+  }
+
+  /**
+   * Prepare for loading an entity from the specified package.
+   * @param {string} name - The intent name.
+   */
+  this.loadEntity = function(name) {
+    var filename = packagePath + "/entities/" + name + ".json";
+    files.push(filename);
+    entities.push({
+      file: filename,
+      name: name
+    });
+  }
+
+  /**
+   * Load the needed files and prepares the NLP.
+   * @param {function} cb - The callback called when everything is ready.
+   */
+  this.prepare = function(cb) {
+    onready = cb;
+    loadNext();
+  }
+
+  /**
+   * Check if a given sentence matches an intent and extracts its entities. Output simulates Api.ai structure. For arguments, check {@link Bravey.Nlp.test}.	
+   */
+  this.test = function(text, method) {
+    var out = this.nlp.test(text, method);
+    if (out) {
+      var ret = {
+        result: {
+          source: "agent",
+          resolvedQuery: text,
+          action: "",
+          actionIncomplete: false,
+          parameters: {
+
+          },
+          contexts: [],
+          metadata: {
+            intentName: ""
+          },
+          fulfillment: {
+            speech: ""
+          },
+          score: 0
+        },
+        status: {
+          code: 200,
+          errorType: "success"
+        }
+      };
+      ret.result.metadata.intentName = out.intent;
+      ret.result.score = out.score;
+      for (var a in out.entitiesIndex) ret.result.parameters[a] = out.entitiesIndex[a].value;
+      return ret;
+    } else
+      return {
+        result: {
+          resolvedQuery: text,
+          contexts: [],
+          metadata: {},
+          fulfillment: {
+            speech: ""
+          },
+          score: 0
+        },
+        status: {
+          code: 200,
+          errorType: "success"
+        }
+      };
+  }
+
+  /** @property {Bravey.Nlp} nlp The raw Nlp instance. */
+  this.nlp = nlp;
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Bravey.ApiAiAdapter.html">ApiAiAdapter</a></li><li><a href="Bravey.ContextManager.html">ContextManager</a></li><li><a href="Bravey.DocumentClassifier.html">DocumentClassifier</a></li><li><a href="Bravey.EMailEntityRecognizer.html">EMailEntityRecognizer</a></li><li><a href="Bravey.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.EN.DateEntityRecognizer.html">DateEntityRecognizer</a></li><li><a href="Bravey.Language.EN.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.EN.Stemmer.html">Stemmer</a></li><li><a href="Bravey.Language.EN.TimeEntityRecognizer.html">TimeEntityRecognizer</a></li><li><a href="Bravey.Language.EN.TimePeriodEntityRecognizer.html">TimePeriodEntityRecognizer</a></li><li><a href="Bravey.Language.IT.DateEntityRecognizer.html">DateEntityRecognizer</a></li><li><a href="Bravey.Language.IT.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.IT.Stemmer.html">Stemmer</a></li><li><a href="Bravey.Language.IT.TimeEntityRecognizer.html">TimeEntityRecognizer</a></li><li><a href="Bravey.Language.IT.TimePeriodEntityRecognizer.html">TimePeriodEntityRecognizer</a></li><li><a href="Bravey.Nlp.Fuzzy.html">Fuzzy</a></li><li><a href="Bravey.Nlp.Sequential.html">Sequential</a></li><li><a href="Bravey.NumberEntityRecognizer.html">NumberEntityRecognizer</a></li><li><a href="Bravey.RegexEntityRecognizer.html">RegexEntityRecognizer</a></li><li><a href="Bravey.SessionManager.InMemorySessionManager.html">InMemorySessionManager</a></li><li><a href="Bravey.StringEntityRecognizer.html">StringEntityRecognizer</a></li><li><a href="Bravey.Text.RegexMap.html">RegexMap</a></li></ul><h3>Namespaces</h3><ul><li><a href="Bravey.html">Bravey</a></li><li><a href="Bravey.Data.html">Data</a></li><li><a href="Bravey.Date.html">Date</a></li><li><a href="Bravey.File.html">File</a></li><li><a href="Bravey.Language.html">Language</a></li><li><a href="Bravey.Language.EN.html">EN</a></li><li><a href="Bravey.Language.IT.html">IT</a></li><li><a href="Bravey.Nlp.html">Nlp</a></li><li><a href="Bravey.SessionManager.html">SessionManager</a></li><li><a href="Bravey.Text.html">Text</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Thu Nov 24 2016 10:03:30 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+{
+  "translations": {
+    "symbol": "EN",
+    "currency": "$",
+    "botname": "BillBot (EN)",
+    "botdescription": "I can help you shopping!",
+    "bottips": "<ul><li>Buy some food</li><li>Show me the products</li><li>Add 2 boxes of pasta</li><li>Add 1 toilet paper and 2 cleanser</li><li>Remove 1 roll</li><li>The customer is foo@bar.com. Add 2 pasta</li><li>Description is testing receipt</li><li>Show me the receipt</li></ul>",
+    "intro": "First things first. Which department you want to visit? There are: ",
+    "wehave": "We have:",
+    "listempty": "No products in list.",
+    "customeris": "The customer is",
+    "descriptionis": "The description is &egrave;",
+    "unknowndescription": "I don't know the description.",
+    "unknownaddress": "I don't know the customer e-mail address.",
+    "suggestions": "Ask me the products list or if I've to add or remove something to your cart. You can also add a description to your purchases and your e-mail address. Let me know when you've done or ask me the receipt.",
+    "startshopping": "Nice! Let's do some shopping in the department",
+    "canbuy": "You can buy:",
+    "missingdepartment": "Decide the department first!",
+    "whichdepartment": "Which department you want to visit?",
+    "confirmintro": "So:<br><br>You are doing your purchases in the department",
+    "columndescription": "Product",
+    "columnprice": "Price",
+    "columnquantity": "Qty",
+    "columntotal": "Total",
+    "noreference": "(No e-mail address)",
+    "nodescription": "(No description)",
+    "noname": "(No name)",
+    "total": "TOTAL",
+    "discount": "DISCOUNT",
+    "customer": "Customer e-mail address",
+    "description": "Description",
+    "cantunderstand": "Can't understand...",
+    "nospecifiedcustomer": "Any customer e-mail address specified.",
+    "nospecifieddescription": "Any description specified.",
+    "asdescription": "as description",
+    "asreference": "as e-mail address",
+    "setting": "Setting",
+    "adding": "Adding",
+    "removing": "Removing",
+    "freetextnlpActions": {
+      "description": ["description"]
+    },
+    "freetextnlp": [{
+      "sentence": "{action} is {text}",
+      "intent": "modifylist~action~text"
+    }],
+    "nlpActions": {
+      "add": ["add", "insert", "put", "buy", "pick", "need", "want"],
+      "remove": ["remove", "leave", "toggle", "drop"],
+      "reference": ["mail", "e-mail", "address", "customer", "send to", "send everything"]
+    },
+    "nlp": [{
+      "sentence": "Buy {type}",
+      "intent": "switchtype"
+    }, {
+      "sentence": "Wanna buy {type}",
+      "intent": "switchtype"
+    }, {
+      "sentence": "{type}",
+      "intent": "switchtype"
+    }, {
+      "sentence": "what I can add",
+      "intent": "catalogue"
+    }, {
+      "sentence": "show me the catalogue",
+      "intent": "catalogue"
+    }, {
+      "sentence": "which products",
+      "intent": "catalogue"
+    }, {
+      "sentence": "which prices",
+      "intent": "catalogue"
+    }, {
+      "sentence": "what I can buy",
+      "intent": "catalogue"
+    }, {
+      "sentence": "show me the receipt",
+      "intent": "confirm"
+    }, {
+      "sentence": "show me the total",
+      "intent": "confirm"
+    }, {
+      "sentence": "what I have bought",
+      "intent": "confirm"
+    }, {
+      "sentence": "my cart",
+      "intent": "confirm"
+    }, {
+      "sentence": "ok",
+      "intent": "confirm"
+    }, {
+      "sentence": "done",
+      "intent": "confirm"
+    }, {
+      "sentence": "I'm done",
+      "intent": "confirm"
+    }, {
+      "sentence": "pay",
+      "intent": "confirm"
+    }, {
+      "sentence": "end",
+      "intent": "confirm"
+    }, {
+      "sentence": "all right",
+      "intent": "confirm"
+    }, {
+      "sentence": "finish",
+      "intent": "confirm"
+    }, {
+      "sentence": "nothing more",
+      "intent": "confirm"
+    }]
+  },
+  "dictionary": {
+    "types": {
+      "Brico": ["brico", "bricolage", "tools"],
+      "Supermarket": ["supermarket", "food", "other", "supermarkets"]
+    },
+    "entries": {
+      "Multiple adapter": ["multiple"],
+      "Security camera": ["camera", "cameras", "security"],
+      "Audio Y Splitter Cable": ["splitters", "splitter", "Audio Y", "Y splitter", "Y cable", "Audio Y Splitter Cable"],
+      "Flashlight": ["flashlights", "flashlight", "light", "lights"],
+      "Batteries": ["battery", "batteries"],
+      "Tap": ["tap", "taps", "faucet", "faucets", "spigot", "spigots", "valve", "valves"],
+      "Water": ["water", "water bottle"],
+      "Olive oil": ["oil", "oil bottle", "oil bottles", "olive oil"],
+      "Toilet paper": ["paper", "toilet paper", "paper roll", "roll"],
+      "Chips": ["chip", "chips", "fries"],
+      "Biscuits": ["biscuit", "biscuits"],
+      "Coffee pod": ["coffee", "coffee pods", "pods"],
+      "Pasta": ["pasta", "pasta box", "box of pasta", "boxes of pasta"],
+      "Drink": ["drink", "drink bottle", "drink bottles", "bottles of drink", "bottle of drink"],
+      "Cleanser": ["cleanser", "cleaner", "clean"],
+      "Sugared almond": ["sugared almond", "sugared almonds", "almonds", "sugared", "almond"]
+    }
+  },
+  "data": {
+    "Brico": {
+      "entries": {
+        "Multiple adapter": 7.99,
+        "Security camera": 26.44,
+        "Audio Y Splitter Cable": 6.49,
+        "Flashlight": 15.50,
+        "Batteries": 7.63,
+        "Tap": 69.66
+      },
+      "discount": 5
+    },
+    "Supermarket": {
+      "entries": {
+        "Water": 1.92,
+        "Olive oil": 11.54,
+        "Toilet paper": 1.20,
+        "Chips": 1.59,
+        "Biscuits": 2.13,
+        "Coffee pod": 11.90,
+        "Pasta": 0.79,
+        "Drink": 2.76,
+        "Cleanser": 1.65,
+        "Sugared almond": 8.27
+      },
+      "discount": 0
+    }
+  }
+}

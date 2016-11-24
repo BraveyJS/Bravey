@@ -1,0 +1,87 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Chatterbox samples</title>
+		<link href="../chatterbox.css" rel="stylesheet" type="text/css">	
+		<script src="../chatterbox.js"></script>
+		<script src="../../../../build/bravey.min.js"></script>
+		<style>
+			.demo-panel {
+				overflow: hidden;
+				position: relative;
+				border-radius: 10px;
+				box-shadow: 0px 0px 10px #000;
+				width: 100%;
+				height: 100%;
+			}
+
+			.demo-boxembed {
+				overflow: hidden;
+				position: relative;
+				border-radius: 10px;
+				box-shadow: 0px 0px 10px #000;
+			}
+		</style>
+	</head>
+	<body onload="onl()">
+		<h1>Embedding</h1>
+	    <h2>Responsive, full</h2>
+	    <div style="height:300px" class="demo-panel" id="small-container"></div>
+	    <h2>Responsive, full, specific bot at start</h2>
+	    <div style="height:300px" class="demo-panel" id="small-specificbot"></div>
+	    <h2>Forced responsive, full</h2>
+	    <div style="height:300px" class="demo-panel" id="small-forceresponsive"></div>
+	    <h2>Not responsive, single, merged with page with fake box</h2>
+	    <div id="small-merged-box" class="demo-boxembed"></div>
+	    <h2>Not responsive, single, merged with page without box</h2>
+	    <div id="small-merged"></div>
+	    <h2>Not responsive, single</h2>
+	    <div style="width:33%;height:300px;float:left"><div class="demo-panel" id="sided-container-1"></div></div>
+	    <div style="width:33%;height:300px;float:left"><div class="demo-panel" id="sided-container-2"></div></div>
+	    <div style="width:33%;height:300px;float:left"><div class="demo-panel" id="sided-container-3"></div></div>
+	</body>
+	<script>
+
+	function onl() {
+
+	  var cb=new ChatterBox(document.getElementById("small-container"),"Embedded chat",{root:"../",responsive:"yes"});
+	  cb.addBot("bots/medbot.js","MedBot","avatar/pharma.png","it-IT","",{language:"IT"});
+	  cb.addBot("bots/billbot.js","BillBot","avatar/cart.png","it-IT","",{language:"IT"});
+	  cb.addBot("bots/robomeeting.js","Robomeeting","avatar/meeting.jpg","it-IT");
+	  cb.ready();
+
+	  var cb=new ChatterBox(document.getElementById("small-specificbot"),"Contact at start",{root:"../",responsive:"yes",runbot:"BillBot"});
+	  cb.addBot("bots/medbot.js","MedBot","avatar/pharma.png","it-IT","",{language:"IT"});
+	  cb.addBot("bots/billbot.js","BillBot","avatar/cart.png","it-IT","",{language:"IT"});
+	  cb.addBot("bots/robomeeting.js","Robomeeting","avatar/meeting.jpg","it-IT");
+	  cb.ready();
+
+	  var cb=new ChatterBox(document.getElementById("small-forceresponsive"),"Force responsive",{root:"../",responsive:"force"});
+	  cb.addBot("bots/medbot.js","MedBot","avatar/pharma.png","it-IT","",{language:"IT"});
+	  cb.addBot("bots/billbot.js","BillBot","avatar/cart.png","it-IT","",{language:"IT"});
+	  cb.addBot("bots/robomeeting.js","Robomeeting","avatar/meeting.jpg","it-IT");
+	  cb.ready();
+
+	  var cb=new ChatterBox(document.getElementById("small-merged-box"),"Embed",{single:true,responsive:"merged",root:"../"});
+	  cb.addBot("bots/billbot.js","BillBot","avatar/cart.png","it-IT","",{language:"IT"});
+	  cb.ready();
+
+	  var cb=new ChatterBox(document.getElementById("small-merged"),"Embed",{single:true,responsive:"merged",root:"../"});
+	  cb.addBot("bots/billbot.js","BillBot","avatar/cart.png","it-IT","",{language:"IT"});
+	  cb.ready();
+
+	  var cb=new ChatterBox(document.getElementById("sided-container-1"),"Embed",{single:true,root:"../"});
+	  cb.addBot("bots/medbot.js","MedBot","avatar/pharma.png","it-IT","",{language:"IT"});
+	  cb.ready();
+
+	  var cb=new ChatterBox(document.getElementById("sided-container-2"),"Embed",{single:true,root:"../"});
+	  cb.addBot("bots/billbot.js","BillBot","avatar/cart.png","it-IT","",{language:"IT"});
+	  cb.ready();
+
+	  var cb=new ChatterBox(document.getElementById("sided-container-3"),"Embed",{single:true,root:"../"});
+	  cb.addBot("bots/robomeeting.js","Robomeeting","avatar/meeting.jpg","it-IT");
+	  cb.ready();
+
+	}
+	</script>
+</html>

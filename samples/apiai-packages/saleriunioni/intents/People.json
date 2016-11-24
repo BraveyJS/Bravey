@@ -1,0 +1,176 @@
+{
+  "id": "838061ef-2121-40a9-9cf7-908e326ca7e5",
+  "name": "People",
+  "auto": true,
+  "contexts": [],
+  "userSays": [
+    {
+      "data": [
+        {
+          "text": "francesco",
+          "alias": "people",
+          "meta": "@people",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "francesco",
+          "alias": "people",
+          "meta": "@people",
+          "userDefined": false
+        },
+        {
+          "text": " e "
+        },
+        {
+          "text": "marco",
+          "alias": "people1",
+          "meta": "@people",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "francesco",
+          "alias": "people",
+          "meta": "@people",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "luca",
+          "alias": "people1",
+          "meta": "@people",
+          "userDefined": false
+        },
+        {
+          "text": " e "
+        },
+        {
+          "text": "marco",
+          "alias": "people2",
+          "meta": "@people",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "con "
+        },
+        {
+          "text": "marco",
+          "alias": "people",
+          "meta": "@people",
+          "userDefined": false
+        },
+        {
+          "text": " e "
+        },
+        {
+          "text": "luca",
+          "alias": "people1",
+          "meta": "@people",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "con "
+        },
+        {
+          "text": "marco",
+          "alias": "people",
+          "meta": "@people",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    },
+    {
+      "data": [
+        {
+          "text": "con "
+        },
+        {
+          "text": "marco",
+          "alias": "people",
+          "meta": "@people",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "luca",
+          "alias": "people1",
+          "meta": "@people",
+          "userDefined": false
+        },
+        {
+          "text": " e "
+        },
+        {
+          "text": "francesco",
+          "alias": "people2",
+          "meta": "@people",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0,
+      "created": -1
+    }
+  ],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "dataType": "@people",
+          "name": "people",
+          "value": "$people"
+        },
+        {
+          "dataType": "@people",
+          "name": "people1",
+          "value": "$people1"
+        },
+        {
+          "dataType": "@people",
+          "name": "people2",
+          "value": "$people2"
+        }
+      ],
+      "speech": []
+    }
+  ],
+  "state": "LOADED",
+  "priority": 500000,
+  "webhookUsed": false
+}
