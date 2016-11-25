@@ -118,8 +118,8 @@
     },
     "entries": {
       "Multiple adapter": ["multiple"],
-      "Security camera": ["camera", "cameras", "security"],
-      "Audio Y Splitter Cable": ["splitters", "splitter", "Audio Y", "Y splitter", "Y cable", "Audio Y Splitter Cable"],
+      "Security camera": ["camera", "cameras", "security", "security cameras", "security camera"],
+      "Audio Y Splitter Cable": ["splitters", "splitter", "Audio Y", "Y splitter", "Y cable", "Audio Y Splitter Cable", "Audio Y Splitter", "Y splitter cable"],
       "Flashlight": ["flashlights", "flashlight", "light", "lights"],
       "Batteries": ["battery", "batteries"],
       "Tap": ["tap", "taps", "faucet", "faucets", "spigot", "spigots", "valve", "valves"],
