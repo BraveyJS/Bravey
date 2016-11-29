@@ -3116,7 +3116,7 @@ Bravey.Nlp.Fuzzy = function(nlpName, extensions) {
   var documentClassifier = new Bravey.DocumentClassifier(extensions);
   var entities = {};
   var allEntities = [];
-  var confidence = 0.74999;
+  var confidence = 0.75;
 
   function sortEntities(ent) {
     ent.sort(function(a, b) {
