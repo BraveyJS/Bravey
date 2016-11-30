@@ -8,37 +8,45 @@ Bravey was thought with simplicity in mind: it supports a number of processors, 
 
 You can basically use Bravey from a single object.
 
-	var nlp=new Bravey.Nlp.Fuzzy();
-	nlp.addDocument("I want a pizza!","pizza",{fromFullSentence:true,expandIntent:true});
-	nlp.addDocument("I want some pasta!","pasta",{fromFullSentence:true,expandIntent:true});
-	console.log(nlp.test("Want pizza, please").intent);
-	  // "pizza"
+```javascript
+var nlp = new Bravey.Nlp.Fuzzy();
+nlp.addDocument("I want a pizza!", "pizza", { fromFullSentence: true, expandIntent: true });
+nlp.addDocument("I want some pasta!", "pasta", { fromFullSentence: true, expandIntent: true });
+console.log(nlp.test("Want pizza, please").intent);
+// "pizza"
+```
 
 You can extract some features from a sentence:
 
-	var nlp=new Bravey.Nlp.Fuzzy();
-	nlp.addEntity(new Bravey.NumberEntityRecognizer("quantity"));
-	nlp.addDocument("I want 2 pizzas!","pizza",{fromFullSentence:true,expandIntent:true});
-	console.log(nlp.test("Want 3 pizzas, please").entitiesIndex.quantity.value);
-	  // 3
+```javascript
+var nlp = new Bravey.Nlp.Fuzzy();
+nlp.addEntity(new Bravey.NumberEntityRecognizer("quantity"));
+nlp.addDocument("I want 2 pizzas!", "pizza", { fromFullSentence: true, expandIntent: true });
+console.log(nlp.test("Want 3 pizzas, please").entitiesIndex.quantity.value);
+// 3
+```
 
 And some of them have language support too, like in english...
 
-	var nlp=new Bravey.Nlp.Fuzzy();
-	nlp.addEntity(new Bravey.NumberEntityRecognizer("quantity"));
-	nlp.addEntity(new Bravey.Language.EN.TimeEntityRecognizer("delivery_time"));
-	nlp.addDocument("I want 2 pizzas at 12!","pizza",{fromFullSentence:true,expandIntent:true});
-	console.log(nlp.test("Deliver 3 pizzas for 2pm, please").entitiesIndex);
-	  // {delivery_time:{value:"14:00:00"},quantity:{value:3}}
+```javascript
+var nlp = new Bravey.Nlp.Fuzzy();
+nlp.addEntity(new Bravey.NumberEntityRecognizer("quantity"));
+nlp.addEntity(new Bravey.Language.EN.TimeEntityRecognizer("delivery_time"));
+nlp.addDocument("I want 2 pizzas at 12!", "pizza", { fromFullSentence: true, expandIntent: true });
+console.log(nlp.test("Deliver 3 pizzas for 2pm, please").entitiesIndex);
+// { delivery_time: { value: "14:00:00" }, quantity: { value:3 } }
+```
 
 ... or italian.
 
-	var nlp=new Bravey.Nlp.Fuzzy();
-	nlp.addEntity(new Bravey.NumberEntityRecognizer("quantity"));
-	nlp.addEntity(new Bravey.Language.IT.TimeEntityRecognizer("delivery_time"));
-	nlp.addDocument("Vorrei 2 pizze per le 3!","pizza",{fromFullSentence:true,expandIntent:true});
-	console.log(nlp.test("Consegnami 3 pizze per le 2 del pomeriggio!, please").entitiesIndex);
-	  // {delivery_time:{value:"14:00:00"},quantity:{value:3}}
+```javascript
+var nlp = new Bravey.Nlp.Fuzzy();
+nlp.addEntity(new Bravey.NumberEntityRecognizer("quantity"));
+nlp.addEntity(new Bravey.Language.IT.TimeEntityRecognizer("delivery_time"));
+nlp.addDocument("Vorrei 2 pizze per le 3!", "pizza", { fromFullSentence: true, expandIntent: true });
+console.log(nlp.test("Consegnami 3 pizze per le 2 del pomeriggio!").entitiesIndex);
+// { delivery_time: { value: "14:00:00" }, quantity: { value: 3 }}
+```
 
 That's it!
 
@@ -46,42 +54,46 @@ That's it!
 
 You can leave to Bravey intent and entity guessing...
 
-	var nlp=new Bravey.Nlp.Fuzzy();
-	nlp.addDocument("I want a pizza!","pizza",{fromFullSentence:true,expandIntent:true});
-	nlp.addDocument("I want some pasta!","pasta",{fromFullSentence:true,expandIntent:true});
-	console.log(nlp.test("A pizza, please").intent);
-	  // "pizza"
+```javascript
+var nlp = new Bravey.Nlp.Fuzzy();
+nlp.addDocument("I want a pizza!", "pizza", { fromFullSentence: true, expandIntent: true });
+nlp.addDocument("I want some pasta!", "pasta", { fromFullSentence: true, expandIntent: true });
+console.log(nlp.test("A pizza, please").intent);
+// "pizza"
+```
 
 Or be more specific:
 
-	var nlp=new Bravey.Nlp.Fuzzy();
-	nlp.addIntent("order_food",[{entity:"food_name",id:"food_type"},{entity:"number",id:"quantity"}]);
-	nlp.addIntent("order_drink",[{entity:"drink_name",id:"drink_type"}]);
+```javascript
+var nlp = new Bravey.Nlp.Fuzzy();
+nlp.addIntent("order_food", [{ entity: "food_name", id: "food_type" }, { entity: "number", id: "quantity" }]);
+nlp.addIntent("order_drink", [{ entity: "drink_name", id: "drink_type" }]);
 
-	var drinks=new Bravey.StringEntityRecognizer("drink_name");
-	drinks.addMatch("coke","coke");
-	drinks.addMatch("coke","cola");
-	drinks.addMatch("mojito","mojito");
-	drinks.addMatch("mojito","moito");
-	nlp.addEntity(drinks);
+var drinks = new Bravey.StringEntityRecognizer("drink_name");
+drinks.addMatch("coke", "coke");
+drinks.addMatch("coke", "cola");
+drinks.addMatch("mojito", "mojito");
+drinks.addMatch("mojito", "moito");
+nlp.addEntity(drinks);
 
-	var food=new Bravey.StringEntityRecognizer("food_name");
-	food.addMatch("pizza","pizza");
-	food.addMatch("pizza","pizzas");
-	food.addMatch("pasta","pasta");
-	nlp.addEntity(food);
+var food = new Bravey.StringEntityRecognizer("food_name");
+food.addMatch("pizza", "pizza");
+food.addMatch("pizza", "pizzas");
+food.addMatch("pasta", "pasta");
+nlp.addEntity(food);
 
-	nlp.addEntity(new Bravey.NumberEntityRecognizer("number"));
+nlp.addEntity(new Bravey.NumberEntityRecognizer("number"));
 
-	nlp.addDocument("I want {number} {food_name}!","order_food");
-	nlp.addDocument("I want {drink_name}!","order_drink");
+nlp.addDocument("I want {number} {food_name}!", "order_food");
+nlp.addDocument("I want {drink_name}!", "order_drink");
 
-	console.log(nlp.test("Want a moito, please"));
-	  //{intent:"order_drink",entitiesIndex:{drink_type:{value:"mojito"}}}
-	console.log(nlp.test("I'd like 2 pizzas"));
-	  //{intent:"order_food",entitiesIndex:{food_type:{value:"pizza"},quantity:{value:2}}}
-	console.log(nlp.test("I'd like some pasta"));
-      //{intent:"order_food",entitiesIndex:{food_type:{value:"pasta"}}}
+console.log(nlp.test("Want a moito, please"));
+// { intent: "order_drink", entitiesIndex: { drink_type: { value: "mojito" } } }
+console.log(nlp.test("I'd like 2 pizzas"));
+// { intent: "order_food", entitiesIndex: { food_type: { value: "pizza" }, quantity: { value: 2 } } }
+console.log(nlp.test("I'd like some pasta"));
+// { intent: "order_food", entitiesIndex: { food_type: { value: "pasta" } } }
+```
 
 Have a look to the documentation for more ways for training NLP!
 
@@ -134,8 +146,3 @@ The "adapterCommandLine" example simply replicate the Adapter example within a N
 The "adapterServer" example uses the Node.js built-in web server in order to serve a single hinstance of Bravey and replies in Api.ai format.
 
 ![Adapter (server) sample](doc-static/images/sample-adapterserver.png)
-
-
-
-
-

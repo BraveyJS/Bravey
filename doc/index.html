@@ -47,62 +47,62 @@
 It's built for help you on joining the conversational interfaces bandwagon, so it should be easy enough to use, integrate and understand, so you can spice up your <a href="https://en.wikipedia.org/wiki/Internet_bot">bots</a> or start creating your own.</p>
 <p>Bravey was thought with simplicity in mind: it supports a number of processors, mostly based on <a href="https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering">bayesian filters</a>, with different features and accuracy and some customizable entity recognizers based on regular expressions chaining.</p>
 <h3>Getting started</h3><p>You can basically use Bravey from a single object.</p>
-<pre class="prettyprint source"><code>var nlp=new Bravey.Nlp.Fuzzy();
-nlp.addDocument(&quot;I want a pizza!&quot;,&quot;pizza&quot;,{fromFullSentence:true,expandIntent:true});
-nlp.addDocument(&quot;I want some pasta!&quot;,&quot;pasta&quot;,{fromFullSentence:true,expandIntent:true});
+<pre class="prettyprint source lang-javascript"><code>var nlp = new Bravey.Nlp.Fuzzy();
+nlp.addDocument(&quot;I want a pizza!&quot;, &quot;pizza&quot;, { fromFullSentence: true, expandIntent: true });
+nlp.addDocument(&quot;I want some pasta!&quot;, &quot;pasta&quot;, { fromFullSentence: true, expandIntent: true });
 console.log(nlp.test(&quot;Want pizza, please&quot;).intent);
-  // &quot;pizza&quot;</code></pre><p>You can extract some features from a sentence:</p>
-<pre class="prettyprint source"><code>var nlp=new Bravey.Nlp.Fuzzy();
+// &quot;pizza&quot;</code></pre><p>You can extract some features from a sentence:</p>
+<pre class="prettyprint source lang-javascript"><code>var nlp = new Bravey.Nlp.Fuzzy();
 nlp.addEntity(new Bravey.NumberEntityRecognizer(&quot;quantity&quot;));
-nlp.addDocument(&quot;I want 2 pizzas!&quot;,&quot;pizza&quot;,{fromFullSentence:true,expandIntent:true});
+nlp.addDocument(&quot;I want 2 pizzas!&quot;, &quot;pizza&quot;, { fromFullSentence: true, expandIntent: true });
 console.log(nlp.test(&quot;Want 3 pizzas, please&quot;).entitiesIndex.quantity.value);
-  // 3</code></pre><p>And some of them have language support too, like in english...</p>
-<pre class="prettyprint source"><code>var nlp=new Bravey.Nlp.Fuzzy();
+// 3</code></pre><p>And some of them have language support too, like in english...</p>
+<pre class="prettyprint source lang-javascript"><code>var nlp = new Bravey.Nlp.Fuzzy();
 nlp.addEntity(new Bravey.NumberEntityRecognizer(&quot;quantity&quot;));
 nlp.addEntity(new Bravey.Language.EN.TimeEntityRecognizer(&quot;delivery_time&quot;));
-nlp.addDocument(&quot;I want 2 pizzas at 12!&quot;,&quot;pizza&quot;,{fromFullSentence:true,expandIntent:true});
+nlp.addDocument(&quot;I want 2 pizzas at 12!&quot;, &quot;pizza&quot;, { fromFullSentence: true, expandIntent: true });
 console.log(nlp.test(&quot;Deliver 3 pizzas for 2pm, please&quot;).entitiesIndex);
-  // {delivery_time:{value:&quot;14:00:00&quot;},quantity:{value:3}}</code></pre><p>... or italian.</p>
-<pre class="prettyprint source"><code>var nlp=new Bravey.Nlp.Fuzzy();
+// { delivery_time: { value: &quot;14:00:00&quot; }, quantity: { value:3 } }</code></pre><p>... or italian.</p>
+<pre class="prettyprint source lang-javascript"><code>var nlp = new Bravey.Nlp.Fuzzy();
 nlp.addEntity(new Bravey.NumberEntityRecognizer(&quot;quantity&quot;));
 nlp.addEntity(new Bravey.Language.IT.TimeEntityRecognizer(&quot;delivery_time&quot;));
-nlp.addDocument(&quot;Vorrei 2 pizze per le 3!&quot;,&quot;pizza&quot;,{fromFullSentence:true,expandIntent:true});
-console.log(nlp.test(&quot;Consegnami 3 pizze per le 2 del pomeriggio!, please&quot;).entitiesIndex);
-  // {delivery_time:{value:&quot;14:00:00&quot;},quantity:{value:3}}</code></pre><p>That's it!</p>
+nlp.addDocument(&quot;Vorrei 2 pizze per le 3!&quot;, &quot;pizza&quot;, { fromFullSentence: true, expandIntent: true });
+console.log(nlp.test(&quot;Consegnami 3 pizze per le 2 del pomeriggio!&quot;).entitiesIndex);
+// { delivery_time: { value: &quot;14:00:00&quot; }, quantity: { value: 3 }}</code></pre><p>That's it!</p>
 <h3>Training Bravey</h3><p>You can leave to Bravey intent and entity guessing...</p>
-<pre class="prettyprint source"><code>var nlp=new Bravey.Nlp.Fuzzy();
-nlp.addDocument(&quot;I want a pizza!&quot;,&quot;pizza&quot;,{fromFullSentence:true,expandIntent:true});
-nlp.addDocument(&quot;I want some pasta!&quot;,&quot;pasta&quot;,{fromFullSentence:true,expandIntent:true});
+<pre class="prettyprint source lang-javascript"><code>var nlp = new Bravey.Nlp.Fuzzy();
+nlp.addDocument(&quot;I want a pizza!&quot;, &quot;pizza&quot;, { fromFullSentence: true, expandIntent: true });
+nlp.addDocument(&quot;I want some pasta!&quot;, &quot;pasta&quot;, { fromFullSentence: true, expandIntent: true });
 console.log(nlp.test(&quot;A pizza, please&quot;).intent);
-  // &quot;pizza&quot;</code></pre><p>Or be more specific:</p>
-<pre class="prettyprint source"><code>var nlp=new Bravey.Nlp.Fuzzy();
-nlp.addIntent(&quot;order_food&quot;,[{entity:&quot;food_name&quot;,id:&quot;food_type&quot;},{entity:&quot;number&quot;,id:&quot;quantity&quot;}]);
-nlp.addIntent(&quot;order_drink&quot;,[{entity:&quot;drink_name&quot;,id:&quot;drink_type&quot;}]);
+// &quot;pizza&quot;</code></pre><p>Or be more specific:</p>
+<pre class="prettyprint source lang-javascript"><code>var nlp = new Bravey.Nlp.Fuzzy();
+nlp.addIntent(&quot;order_food&quot;, [{ entity: &quot;food_name&quot;, id: &quot;food_type&quot; }, { entity: &quot;number&quot;, id: &quot;quantity&quot; }]);
+nlp.addIntent(&quot;order_drink&quot;, [{ entity: &quot;drink_name&quot;, id: &quot;drink_type&quot; }]);
 
-var drinks=new Bravey.StringEntityRecognizer(&quot;drink_name&quot;);
-drinks.addMatch(&quot;coke&quot;,&quot;coke&quot;);
-drinks.addMatch(&quot;coke&quot;,&quot;cola&quot;);
-drinks.addMatch(&quot;mojito&quot;,&quot;mojito&quot;);
-drinks.addMatch(&quot;mojito&quot;,&quot;moito&quot;);
+var drinks = new Bravey.StringEntityRecognizer(&quot;drink_name&quot;);
+drinks.addMatch(&quot;coke&quot;, &quot;coke&quot;);
+drinks.addMatch(&quot;coke&quot;, &quot;cola&quot;);
+drinks.addMatch(&quot;mojito&quot;, &quot;mojito&quot;);
+drinks.addMatch(&quot;mojito&quot;, &quot;moito&quot;);
 nlp.addEntity(drinks);
 
-var food=new Bravey.StringEntityRecognizer(&quot;food_name&quot;);
-food.addMatch(&quot;pizza&quot;,&quot;pizza&quot;);
-food.addMatch(&quot;pizza&quot;,&quot;pizzas&quot;);
-food.addMatch(&quot;pasta&quot;,&quot;pasta&quot;);
+var food = new Bravey.StringEntityRecognizer(&quot;food_name&quot;);
+food.addMatch(&quot;pizza&quot;, &quot;pizza&quot;);
+food.addMatch(&quot;pizza&quot;, &quot;pizzas&quot;);
+food.addMatch(&quot;pasta&quot;, &quot;pasta&quot;);
 nlp.addEntity(food);
 
 nlp.addEntity(new Bravey.NumberEntityRecognizer(&quot;number&quot;));
 
-nlp.addDocument(&quot;I want {number} {food_name}!&quot;,&quot;order_food&quot;);
-nlp.addDocument(&quot;I want {drink_name}!&quot;,&quot;order_drink&quot;);
+nlp.addDocument(&quot;I want {number} {food_name}!&quot;, &quot;order_food&quot;);
+nlp.addDocument(&quot;I want {drink_name}!&quot;, &quot;order_drink&quot;);
 
 console.log(nlp.test(&quot;Want a moito, please&quot;));
-  //{intent:&quot;order_drink&quot;,entitiesIndex:{drink_type:{value:&quot;mojito&quot;}}}
+// { intent: &quot;order_drink&quot;, entitiesIndex: { drink_type: { value: &quot;mojito&quot; } } }
 console.log(nlp.test(&quot;I'd like 2 pizzas&quot;));
-  //{intent:&quot;order_food&quot;,entitiesIndex:{food_type:{value:&quot;pizza&quot;},quantity:{value:2}}}
+// { intent: &quot;order_food&quot;, entitiesIndex: { food_type: { value: &quot;pizza&quot; }, quantity: { value: 2 } } }
 console.log(nlp.test(&quot;I'd like some pasta&quot;));
-  //{intent:&quot;order_food&quot;,entitiesIndex:{food_type:{value:&quot;pasta&quot;}}}</code></pre><p>Have a look to the documentation for more ways for training NLP!</p>
+// { intent: &quot;order_food&quot;, entitiesIndex: { food_type: { value: &quot;pasta&quot; } } }</code></pre><p>Have a look to the documentation for more ways for training NLP!</p>
 <h2>Samples</h2><p>Bravey includes a bunch of samples - you can find them into the &quot;samples&quot; directory.</p>
 <h3>Browser samples</h3><p>The &quot;browser&quot; subdirectory contains some samples you can test with your own browser. Most of them are runnable serving the project directory with any web server.</p>
 <h4>Playground sample</h4><p>The &quot;playground&quot; sample quickly explains how most of the conversational interfaces NLP technologies works in English and allow you to play and visually configure a Bravey hinstance. Everything works in your browser so any server side scripting language is needed.</p>
@@ -135,7 +135,7 @@ Some of these bots needs a PHP webproxy, which is shipped together with Chatterb
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Thu Nov 24 2016 10:03:30 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Nov 29 2016 19:45:39 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>
