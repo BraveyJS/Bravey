@@ -53,6 +53,9 @@
       "sentence": "Compro {type}",
       "intent": "switchtype"
     }, {
+      "sentence": "Vorrei prendere {type}",
+      "intent": "switchtype"
+    }, {
       "sentence": "Voglio acquistare {type}",
       "intent": "switchtype"
     }, {
@@ -69,6 +72,9 @@
       "intent": "catalogue"
     }, {
       "sentence": "quali sono i prezzi",
+      "intent": "catalogue"
+    }, {
+      "sentence": "mostrami il listino",
       "intent": "catalogue"
     }, {
       "sentence": "cosa posso comprare",
