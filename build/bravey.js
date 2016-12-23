@@ -4208,7 +4208,7 @@ Bravey.ContextManager = function(extensions) {
       if (contexts[contexttags[i]])
         for (var j = 0; j < contexts[contexttags[i]].length; j++) {
           found = contexts[contexttags[i]][j].test(text, parameters[contexttags[i]][j].method);
-          if (!ret.result || (found.score && (found.score > ret.result.score) && (found.found > ret.result.found))) {
+          if (!ret.result || (found.score && (found.score > ret.result.score) || ((found.score == ret.result.score) || (found.found > ret.result.found)))) {
             ret.result = found;
             ret.context = contexttags[i];
           }
