@@ -10,6 +10,38 @@ var TestTools = {
   formatTime: function(time) {
     return this.pad(Math.floor(time / this.HOUR), 2) + ":" + this.pad(Math.floor((time % this.HOUR) / this.MINUTE), 2) + ":" + this.pad(Math.floor((time % this.MINUTE) / this.SECOND), 2);
   },
+  getYear: function() {
+    var myDate = new Date();
+    return myDate.getFullYear();
+  },
+  getMonth: function() {
+    var myDate = new Date();
+    return this.pad(myDate.getMonth() + 1, 2);
+  },
+  getLastDay: function(month, day) {
+    day = day * 1;
+    month = month * 1;
+    var myDate = new Date();
+    var y = myDate.getFullYear() * 1;
+    var m = myDate.getMonth() + 1;
+    var d = myDate.getDate() * 1;
+    if (month < m)
+      return (y - 1) + "-" + this.pad(month, 2) + "-" + this.pad(day, 2);
+    else
+      return (y) + "-" + this.pad(month, 2) + "-" + this.pad(day, 2);
+  },
+  getNextDay: function(month, day) {
+    day = day * 1;
+    month = month * 1;
+    var myDate = new Date();
+    var y = myDate.getFullYear() * 1;
+    var m = myDate.getMonth() + 1;
+    var d = myDate.getDate() * 1;
+    if (month < m)
+      return (y - 1) + "-" + this.pad(month, 2) + "-" + this.pad(day, 2);
+    else
+      return (y) + "-" + this.pad(month, 2) + "-" + this.pad(day, 2);
+  },
   pad: function(n, width, z) {
     z = z || '0';
     n = n + '';
@@ -834,7 +866,7 @@ QUnit.test("EN.DateEntityRecognizer", function(assert) {
       "position": 92,
       "priority": 10,
       "string": "1st of april",
-      "value": "2016-04-01"
+      "value": TestTools.getYear() + "-04-01"
     }, {
       "entity": "test",
       "position": 129,
@@ -850,37 +882,37 @@ QUnit.test("EN.DateEntityRecognizer", function(assert) {
     "position": 0,
     "priority": 0,
     "string": "last february",
-    "value": "2016-02-01"
+    "value": TestTools.getLastDay(2, 1)
   }, {
     "entity": "test",
     "position": 15,
     "priority": 0,
     "string": "last feb",
-    "value": "2016-02-01"
+    "value": TestTools.getLastDay(2, 1)
   }, {
     "entity": "test",
     "position": 25,
     "priority": 0,
     "string": "last january",
-    "value": "2016-01-01"
+    "value": TestTools.getLastDay(1, 1)
   }, {
     "entity": "test",
     "position": 39,
     "priority": 0,
     "string": "last march 8th",
-    "value": "2016-03-08"
+    "value": TestTools.getLastDay(3, 8)
   }, {
     "entity": "test",
     "position": 55,
     "priority": 0,
     "string": "last february 1st",
-    "value": "2016-02-01"
+    "value": TestTools.getLastDay(2, 1)
   }, {
     "entity": "test",
     "position": 74,
     "priority": 0,
     "string": "last february 15",
-    "value": "2016-02-15"
+    "value": TestTools.getLastDay(2, 15)
   }, {
     "entity": "test",
     "position": 92,
@@ -1229,7 +1261,7 @@ QUnit.test("IT.DateEntityRecognizer", function(assert) {
   assert.deepEqual(reg.getEntities("25/04 dell'80"), [{
     "entity": "test",
     "position": 0,
-    "priority": 0,
+    "priority": 10,
     "string": "25/04 dell'80",
     "value": "1980-04-25"
   }], "Single entities are matched");
@@ -1237,7 +1269,7 @@ QUnit.test("IT.DateEntityRecognizer", function(assert) {
   assert.deepEqual(reg.getEntities("asf 25/04 dell'80"), [{
     "entity": "test",
     "position": 4,
-    "priority": 0,
+    "priority": 10,
     "string": "25/04 dell'80",
     "value": "1980-04-25"
   }], "Last entities are matched");
@@ -1245,7 +1277,7 @@ QUnit.test("IT.DateEntityRecognizer", function(assert) {
   assert.deepEqual(reg.getEntities("25/04 dell'80 asd"), [{
     "entity": "test",
     "position": 0,
-    "priority": 0,
+    "priority": 10,
     "string": "25/04 dell'80",
     "value": "1980-04-25"
   }], "First entities are matched");
@@ -1271,13 +1303,13 @@ QUnit.test("IT.DateEntityRecognizer", function(assert) {
   }, {
     "entity": "test",
     "position": 108,
-    "priority": 0,
+    "priority": 10,
     "string": "il 3 di giugno",
-    "value": "2016-06-03"
+    "value": TestTools.getYear() + "-06-03"
   }, {
     "entity": "test",
     "position": 154,
-    "priority": 0,
+    "priority": 10,
     "string": "25/04 dell'80",
     "value": "1980-04-25"
   }], "Multiple dates are matched");
@@ -1285,67 +1317,67 @@ QUnit.test("IT.DateEntityRecognizer", function(assert) {
   assert.deepEqual(reg.getEntities("lo scorso febbraio, lo scorso Feb, lo scorso gen, lo scorso 8 Marzo, lo scorso 1 febbraio, lo scorso 15 febbraio! 06/01/2014, 12/01/2014, 06/01/15, Giugno 1, 2014, Dicembre 1, 2014"), [{
     "entity": "test",
     "position": 0,
-    "priority": 0,
+    "priority": 5,
     "string": "lo scorso febbraio",
-    "value": "2016-02-01"
+    "value": TestTools.getLastDay(2, 1)
   }, {
     "entity": "test",
     "position": 20,
-    "priority": 0,
+    "priority": 5,
     "string": "lo scorso feb",
-    "value": "2016-02-01"
+    "value": TestTools.getLastDay(2, 1)
   }, {
     "entity": "test",
     "position": 35,
-    "priority": 0,
+    "priority": 5,
     "string": "lo scorso gen",
-    "value": "2016-01-01"
+    "value": TestTools.getLastDay(1, 1)
   }, {
     "entity": "test",
     "position": 50,
-    "priority": 0,
+    "priority": 10,
     "string": "lo scorso 8 marzo",
-    "value": "2016-03-08"
+    "value": TestTools.getLastDay(3, 8)
   }, {
     "entity": "test",
     "position": 69,
-    "priority": 0,
+    "priority": 10,
     "string": "lo scorso 1 febbraio",
-    "value": "2016-02-01"
+    "value": TestTools.getLastDay(2, 1)
   }, {
     "entity": "test",
     "position": 91,
-    "priority": 0,
+    "priority": 10,
     "string": "lo scorso 15 febbraio",
-    "value": "2016-02-15"
+    "value": TestTools.getLastDay(2, 15)
   }, {
     "entity": "test",
     "position": 114,
-    "priority": 0,
+    "priority": 10,
     "string": "06/01/2014",
-    "value": "2014-06-01"
+    "value": "2014-01-06"
   }, {
     "entity": "test",
     "position": 126,
-    "priority": 0,
+    "priority": 10,
     "string": "12/01/2014",
-    "value": "2014-12-01"
+    "value": "2014-01-12"
   }, {
     "entity": "test",
     "position": 138,
-    "priority": 0,
+    "priority": 10,
     "string": "06/01/15",
     "value": "2015-01-06"
   }, {
     "entity": "test",
     "position": 148,
-    "priority": 0,
+    "priority": 5,
     "string": "giugno 1, 2014",
     "value": "2014-06-01"
   }, {
     "entity": "test",
     "position": 164,
-    "priority": 0,
+    "priority": 5,
     "string": "dicembre 1, 2014",
     "value": "2014-12-01"
   }], "Multiple dates are matched");
@@ -1353,73 +1385,73 @@ QUnit.test("IT.DateEntityRecognizer", function(assert) {
   assert.deepEqual(reg.getEntities("2, il 2, il 3 giugno, 3 giugno, 3/06, 3/06/2000, 3/12/80, 8 di marzo, di marzo, nel 2/12/2001, 3 dic! 12 gen-2015, 3-2-1920"), [{
     "entity": "test",
     "position": 3,
-    "priority": 0,
+    "priority": 10,
     "string": "il 2",
-    "value": "2016-02-01"
+    "value": TestTools.getLastDay(TestTools.getMonth(), 2)
   }, {
     "entity": "test",
     "position": 9,
-    "priority": 0,
+    "priority": 10,
     "string": "il 3 giugno",
-    "value": "2016-06-03"
+    "value": TestTools.getYear() + "-06-03"
   }, {
     "entity": "test",
     "position": 22,
-    "priority": 0,
+    "priority": 10,
     "string": "3 giugno",
-    "value": "2016-06-03"
+    "value": TestTools.getYear() + "-06-03"
   }, {
     "entity": "test",
     "position": 32,
-    "priority": 0,
+    "priority": 10,
     "string": "3/06",
-    "value": "2016-06-03"
+    "value": TestTools.getYear() + "-06-03"
   }, {
     "entity": "test",
     "position": 38,
-    "priority": 0,
+    "priority": 10,
     "string": "3/06/2000",
-    "value": "2000-03-06"
+    "value": "2000-06-03"
   }, {
     "entity": "test",
     "position": 49,
-    "priority": 0,
+    "priority": 10,
     "string": "3/12/80",
-    "value": "1980-03-12"
+    "value": "1980-12-03"
   }, {
     "entity": "test",
     "position": 58,
-    "priority": 0,
+    "priority": 10,
     "string": "8 di marzo",
-    "value": "2016-03-08"
+    "value": TestTools.getYear() + "-03-08"
   }, {
     "entity": "test",
     "position": 70,
-    "priority": 0,
+    "priority": 05,
     "string": "di marzo",
-    "value": "2016-03-01"
+    "value": TestTools.getYear() + "-03-01"
   }, {
     "entity": "test",
     "position": 80,
-    "priority": 0,
+    "priority": 10,
     "string": "nel 2/12/2001",
     "value": "2001-12-02"
   }, {
     "entity": "test",
     "position": 95,
-    "priority": 0,
+    "priority": 10,
     "string": "3 dic",
-    "value": "2016-12-03"
+    "value": TestTools.getYear() + "-12-03"
   }, {
     "entity": "test",
     "position": 102,
-    "priority": 0,
+    "priority": 10,
     "string": "12 gen-2015",
     "value": "2015-01-12"
   }, {
     "entity": "test",
     "position": 115,
-    "priority": 0,
+    "priority": 10,
     "string": "3-2-1920",
     "value": "1920-02-03"
   }], "Multiple dates are matched");
