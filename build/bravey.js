@@ -2203,7 +2203,8 @@ Bravey.Language.IT.DateEntityRecognizer = function(entityName) {
       if (match[6]) y = match[6] * 1;
       y = Bravey.Date.centuryFinder(y);
       if (Bravey.Text.calculateScore(match, [1, 4, 6])) return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
-    }
+    },
+    10
   );
 
   // M/(D??)/(Y??)
@@ -2226,7 +2227,8 @@ Bravey.Language.IT.DateEntityRecognizer = function(entityName) {
       if (match[5]) y = match[5] * 1;
       y = Bravey.Date.centuryFinder(y);
       if (Bravey.Text.calculateScore(match, [1, 3, 4])) return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
-    }
+    },
+    5
   );
 
   prefixes = "\\b(per\\b|di\\b|nel giorno di\\b|nella giornata di\\b|la giornata di\\b|lo scorso\\b)?" + Bravey.Text.WORDSEP;
@@ -3157,43 +3159,41 @@ Bravey.Nlp.Fuzzy = function(nlpName, extensions) {
       found = 0,
       prevstring;
 
-    if (out.length)
-      for (var i = 0; i < out.length; i++) {
-        ent = out[i].entity;
-        if (out[i].position >= pos) {
-          if (intent.index[ent]) {
-            if (counters[ent] == undefined) counters[ent] = 0;
-            if (nextid = intent.index[ent][counters[ent]]) {
-              counters[ent]++;
-              found++;
-              var match = {
-                position: out[i].position,
-                entity: ent,
-                value: out[i].value,
-                string: out[i].string,
-                id: nextid
-              };
-              outentities.push(match);
-              outentitiesindex[match.id] = match;
+    for (var i = 0; i < out.length; i++) {
+      ent = out[i].entity;
+      if (out[i].position >= pos) {
+        if (intent.index[ent]) {
+          if (counters[ent] == undefined) counters[ent] = 0;
+          if (nextid = intent.index[ent][counters[ent]]) {
+            counters[ent]++;
+            found++;
+            var match = {
+              position: out[i].position,
+              entity: ent,
+              value: out[i].value,
+              string: out[i].string,
+              id: nextid
+            };
+            outentities.push(match);
+            outentitiesindex[match.id] = match;
 
-              if (pos == -1) prevstring = text.substr(0, out[i].position);
-              else prevstring = text.substr(pos, out[i].position - pos);
+            if (pos == -1) prevstring = text.substr(0, out[i].position);
+            else prevstring = text.substr(pos, out[i].position - pos);
 
-              if (prevstring.length) sentence.push({
-                string: prevstring
-              });
-              sentence.push(match);
+            if (prevstring.length) sentence.push({
+              string: prevstring
+            });
+            sentence.push(match);
 
-              outtext += prevstring;
+            outtext += prevstring;
 
-              outtext += "{" + ent + "}";
-              pos = out[i].position + out[i].string.length;
-            } else
-              exceedEntities = true;
-          } else extraEntities = true;
-        }
+            outtext += "{" + ent + "}";
+            pos = out[i].position + out[i].string.length;
+          } else
+            exceedEntities = true;
+        } else extraEntities = true;
       }
-    else missingEntities = intent.entities.length;
+    }
 
     prevstring = text.substr(pos == -1 ? 0 : pos);
     if (prevstring.length) {
