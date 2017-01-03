@@ -50,43 +50,41 @@ Bravey.Nlp.Fuzzy = function(nlpName, extensions) {
       found = 0,
       prevstring;
 
-    if (out.length)
-      for (var i = 0; i < out.length; i++) {
-        ent = out[i].entity;
-        if (out[i].position >= pos) {
-          if (intent.index[ent]) {
-            if (counters[ent] == undefined) counters[ent] = 0;
-            if (nextid = intent.index[ent][counters[ent]]) {
-              counters[ent]++;
-              found++;
-              var match = {
-                position: out[i].position,
-                entity: ent,
-                value: out[i].value,
-                string: out[i].string,
-                id: nextid
-              };
-              outentities.push(match);
-              outentitiesindex[match.id] = match;
+    for (var i = 0; i < out.length; i++) {
+      ent = out[i].entity;
+      if (out[i].position >= pos) {
+        if (intent.index[ent]) {
+          if (counters[ent] == undefined) counters[ent] = 0;
+          if (nextid = intent.index[ent][counters[ent]]) {
+            counters[ent]++;
+            found++;
+            var match = {
+              position: out[i].position,
+              entity: ent,
+              value: out[i].value,
+              string: out[i].string,
+              id: nextid
+            };
+            outentities.push(match);
+            outentitiesindex[match.id] = match;
 
-              if (pos == -1) prevstring = text.substr(0, out[i].position);
-              else prevstring = text.substr(pos, out[i].position - pos);
+            if (pos == -1) prevstring = text.substr(0, out[i].position);
+            else prevstring = text.substr(pos, out[i].position - pos);
 
-              if (prevstring.length) sentence.push({
-                string: prevstring
-              });
-              sentence.push(match);
+            if (prevstring.length) sentence.push({
+              string: prevstring
+            });
+            sentence.push(match);
 
-              outtext += prevstring;
+            outtext += prevstring;
 
-              outtext += "{" + ent + "}";
-              pos = out[i].position + out[i].string.length;
-            } else
-              exceedEntities = true;
-          } else extraEntities = true;
-        }
+            outtext += "{" + ent + "}";
+            pos = out[i].position + out[i].string.length;
+          } else
+            exceedEntities = true;
+        } else extraEntities = true;
       }
-    else missingEntities = intent.entities.length;
+    }
 
     prevstring = text.substr(pos == -1 ? 0 : pos);
     if (prevstring.length) {
