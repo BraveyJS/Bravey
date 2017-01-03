@@ -728,7 +728,8 @@ Bravey.Language.IT.DateEntityRecognizer = function(entityName) {
       if (match[6]) y = match[6] * 1;
       y = Bravey.Date.centuryFinder(y);
       if (Bravey.Text.calculateScore(match, [1, 4, 6])) return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
-    }
+    },
+    10
   );
 
   // M/(D??)/(Y??)
@@ -751,7 +752,8 @@ Bravey.Language.IT.DateEntityRecognizer = function(entityName) {
       if (match[5]) y = match[5] * 1;
       y = Bravey.Date.centuryFinder(y);
       if (Bravey.Text.calculateScore(match, [1, 3, 4])) return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
-    }
+    },
+    5
   );
 
   prefixes = "\\b(per\\b|di\\b|nel giorno di\\b|nella giornata di\\b|la giornata di\\b|lo scorso\\b)?" + Bravey.Text.WORDSEP;
