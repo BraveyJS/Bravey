@@ -595,6 +595,54 @@ QUnit.test("RegexEntityRecognizer", function(assert) {
 
 });
 
+QUnit.test("Filter.BasicFilter", function(assert) {
+
+  var filter = Bravey.Filter.BasicFilter;
+
+  assert.deepEqual(filter(["I", "am", "the", "king", "of", "the", "hill", "tomorrow", "will", "be", "mine"]), [
+    "king",
+    "hill",
+    "tomorrow",
+    "will",
+    "mine"
+  ], "Short words are removed");
+
+
+  assert.deepEqual(filter(["one", "two", "is"]), [
+    "one",
+    "two",
+    "is"
+  ], "Empty list returns the original list");
+
+  assert.deepEqual(filter(["I", "am", "the", "king", "of", "the", "hill"]), [
+    "I",
+    "am",
+    "the",
+    "king",
+    "of",
+    "the",
+    "hill"
+  ], "Short filtered lists are kept");
+
+
+  assert.deepEqual(filter(["{greet}", "this", "{year}", "we", "will", "go", "to", "{location}", "tomorrow", "will", "be", "mine"]), [
+    "this",
+    "will",
+    "tomorrow",
+    "will",
+    "mine"
+  ], "Entities are removed");
+
+  assert.deepEqual(filter(["{ignore}", "one", "two", "is", "{me}"]), [
+    "{ignore}",
+    "one",
+    "two",
+    "is",
+    "{me}"
+  ], "Empty list returns the original list (with entities");
+
+});
+
 QUnit.test("EN.Stemmer", function(assert) {
 
   assert.deepEqual(Bravey.Language.EN.Stemmer("dog"), "dog", "Singulars are correctly stemmed");
@@ -1557,6 +1605,19 @@ QUnit.test("DocumentClassifier", function(assert) {
   m = cl.classifyDocument("illumunato");
   assert.ok(m.scores.pizza < m.scores.light, "Classifier matches stemmed words");
   assert.strictEqual(m.winner.label, "light", "Classifier matches stemmed words");
+
+  cl = new Bravey.DocumentClassifier({
+    filter: Bravey.Filter.BasicFilter
+  });
+  assert.ok(cl.addDocument("vorrei dirti che il cane dorme", "sleep"), "Adding document to classifier with filter support");
+  assert.ok(cl.addDocument("vorrei dirti che il cane sonnecchia", "sleep"), "Adding document to classifier with filter support");
+  assert.ok(cl.addDocument("vorrei dirti che cane mangia", "eat"), "Adding document to classifier with filter support");
+  m = cl.classifyDocument("noword");
+  assert.ok(m.scores.sleep == m.scores.eat, "Unclassified word gives 0.5 score for both intents");
+  m = cl.classifyDocument("cane");
+  assert.ok(m.scores.sleep > m.scores.eat, "Found word in both intents gives best score to most common sentence");
+  m = cl.classifyDocument("il");
+  assert.ok(m.scores.sleep == m.scores.eat, "Filtered short is unclassified and acts like an unclassified word");
 
 });
 
