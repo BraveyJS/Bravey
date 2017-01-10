@@ -756,7 +756,8 @@ Bravey.Language.IT.DateEntityRecognizer = function(entityName) {
       if (match[6]) y = match[6] * 1;
       y = Bravey.Date.centuryFinder(y);
       if (Bravey.Text.calculateScore(match, [1, 4, 6])) return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
-    }
+    },
+    10
   );
 
   // M/(D??)/(Y??)
@@ -779,7 +780,8 @@ Bravey.Language.IT.DateEntityRecognizer = function(entityName) {
       if (match[5]) y = match[5] * 1;
       y = Bravey.Date.centuryFinder(y);
       if (Bravey.Text.calculateScore(match, [1, 3, 4])) return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
-    }
+    },
+    5
   );
 
   prefixes = "\\b(per\\b|di\\b|nel giorno di\\b|nella giornata di\\b|la giornata di\\b|lo scorso\\b)?" + Bravey.Text.WORDSEP;
@@ -836,6 +838,195 @@ Bravey.Language.IT.FreeTextEntityRecognizer = function(entityName, priority) {
 
   return matcher;
 
+}
+
+/* Italian numbers matching patterns. */
+Bravey.Language.IT.Numbers = [{
+  prefix: "zero",
+  value: 0
+}, {
+  prefix: "vent",
+  value: 20
+}, {
+  prefix: "trent",
+  value: 30
+}, {
+  prefix: "quarant",
+  value: 40
+}, {
+  prefix: "cinquant",
+  value: 50
+}, {
+  prefix: "sessant",
+  value: 60
+}, {
+  prefix: "settant",
+  value: 70
+}, {
+  prefix: "ottant",
+  value: 80
+}, {
+  prefix: "novant",
+  value: 90
+}, {
+  prefix: "uno",
+  value: 1
+}, {
+  prefix: "quattro",
+  value: 4
+}, {
+  prefix: "quattor",
+  value: 4
+}, {
+  prefix: "cinque",
+  value: 5
+}, {
+  prefix: "quin",
+  value: 5
+}, {
+  prefix: "sei",
+  value: 6
+}, {
+  prefix: "sette",
+  value: 7
+}, {
+  prefix: "otto",
+  value: 8
+}, {
+  prefix: "nove",
+  value: 9
+}, {
+  prefix: "dieci",
+  value: 10
+}, {
+  prefix: "dici",
+  value: 10
+}, {
+  prefix: "se",
+  value: 6
+}, {
+  prefix: "un",
+  value: 1
+}, {
+  prefix: "due",
+  value: 2
+}, {
+  prefix: "do",
+  value: 2
+}, {
+  prefix: "tre",
+  value: 3
+}, {
+  prefix: "a",
+  skip: 1
+}, {
+  prefix: "tor",
+  skip: 1
+}, {
+  prefix: "i",
+  skip: 1
+}, {
+  prefix: "n",
+  skip: 1
+}, {
+  prefix: "s",
+  skip: 1
+}, {
+  prefix: "cento",
+  mul: 100
+}, {
+  prefix: "mila",
+  mul: 1000,
+  end: 1
+}, {
+  prefix: "mille",
+  mul: 1000,
+  end: 1
+}, {
+  prefix: "milion",
+  mul: 1000000,
+  end: 1
+}, {
+  prefix: "miliard",
+  mul: 1000000000,
+  end: 1
+}, {
+  prefix: "e",
+  skip: 1
+}, {
+  prefix: "i",
+  skip: 1
+}, {
+  prefix: "o",
+  skip: 1
+}];
+
+/**
+ * Recognizes numbers line '123' or 'centoventitre'. 
+ * @constructor
+ * @param {string} entityName - The name of produced entities.
+ * @returns {Bravey.RegexEntityRecognizer}
+ */
+Bravey.Language.IT.NumberEntityRecognizer = function(entityName, priority) {
+  var digits = new RegExp("^[0-9]+$", "gi");
+
+  var matcher = new Bravey.RegexEntityRecognizer(entityName);
+  // M/(D??)/(Y??)
+  matcher.addMatch(
+    new RegExp(
+      "(\\w+)", "gi"),
+    function(match) {
+      var word = match[0].toLowerCase();
+      var value = 0,
+        partial = 0,
+        found,
+        number, ending = 9990,
+        valid = false;
+      if (word.match(digits)) return word * 1;
+      else {
+        do {
+          found = false;
+          for (var i = 0; i &lt; Bravey.Language.IT.Numbers.length; i++) {
+            number = Bravey.Language.IT.Numbers[i];
+            if (word.substr(0, number.prefix.length) == number.prefix) {
+              word = word.substr(number.prefix.length);
+              if (!number.skip) {
+                if (ending) {
+                  if (number.end) {
+                    if (i &lt; ending) {
+                      value += partial;
+                      partial = 0;
+                    }
+                    ending = i;
+                  } else {
+                    value += partial;
+                    partial = 0;
+                    ending = 0;
+                  }
+                } else
+                if (number.end) ending = i;
+                if (number.value !== undefined) {
+                  partial += number.value;
+                  found = true;
+                  valid = true;
+                }
+                if (number.mul !== undefined) {
+                  if (partial) partial *= number.mul;
+                  else partial = number.mul;
+                  found = true;
+                  valid = true;
+                }
+              } else found = true;
+              if (found) break;
+            }
+          }
+        } while (found);
+        value += partial;
+        if (!word &amp;&amp; valid) return value;
+      }
+    }
+  );
+  return matcher;
 }</code></pre>
         </article>
     </section>
@@ -846,13 +1037,13 @@ Bravey.Language.IT.FreeTextEntityRecognizer = function(entityName, priority) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Bravey.ApiAiAdapter.html">ApiAiAdapter</a></li><li><a href="Bravey.ContextManager.html">ContextManager</a></li><li><a href="Bravey.DocumentClassifier.html">DocumentClassifier</a></li><li><a href="Bravey.EMailEntityRecognizer.html">EMailEntityRecognizer</a></li><li><a href="Bravey.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.EN.DateEntityRecognizer.html">DateEntityRecognizer</a></li><li><a href="Bravey.Language.EN.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.EN.Stemmer.html">Stemmer</a></li><li><a href="Bravey.Language.EN.TimeEntityRecognizer.html">TimeEntityRecognizer</a></li><li><a href="Bravey.Language.EN.TimePeriodEntityRecognizer.html">TimePeriodEntityRecognizer</a></li><li><a href="Bravey.Language.IT.DateEntityRecognizer.html">DateEntityRecognizer</a></li><li><a href="Bravey.Language.IT.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.IT.Stemmer.html">Stemmer</a></li><li><a href="Bravey.Language.IT.TimeEntityRecognizer.html">TimeEntityRecognizer</a></li><li><a href="Bravey.Language.IT.TimePeriodEntityRecognizer.html">TimePeriodEntityRecognizer</a></li><li><a href="Bravey.Nlp.Fuzzy.html">Fuzzy</a></li><li><a href="Bravey.Nlp.Sequential.html">Sequential</a></li><li><a href="Bravey.NumberEntityRecognizer.html">NumberEntityRecognizer</a></li><li><a href="Bravey.RegexEntityRecognizer.html">RegexEntityRecognizer</a></li><li><a href="Bravey.SessionManager.InMemorySessionManager.html">InMemorySessionManager</a></li><li><a href="Bravey.StringEntityRecognizer.html">StringEntityRecognizer</a></li><li><a href="Bravey.Text.RegexMap.html">RegexMap</a></li></ul><h3>Namespaces</h3><ul><li><a href="Bravey.html">Bravey</a></li><li><a href="Bravey.Data.html">Data</a></li><li><a href="Bravey.Date.html">Date</a></li><li><a href="Bravey.File.html">File</a></li><li><a href="Bravey.Language.html">Language</a></li><li><a href="Bravey.Language.EN.html">EN</a></li><li><a href="Bravey.Language.IT.html">IT</a></li><li><a href="Bravey.Nlp.html">Nlp</a></li><li><a href="Bravey.SessionManager.html">SessionManager</a></li><li><a href="Bravey.Text.html">Text</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Bravey.ApiAiAdapter.html">ApiAiAdapter</a></li><li><a href="Bravey.ContextManager.html">ContextManager</a></li><li><a href="Bravey.DocumentClassifier.html">DocumentClassifier</a></li><li><a href="Bravey.EMailEntityRecognizer.html">EMailEntityRecognizer</a></li><li><a href="Bravey.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.EN.DateEntityRecognizer.html">DateEntityRecognizer</a></li><li><a href="Bravey.Language.EN.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.EN.NumberEntityRecognizer.html">NumberEntityRecognizer</a></li><li><a href="Bravey.Language.EN.Stemmer.html">Stemmer</a></li><li><a href="Bravey.Language.EN.TimeEntityRecognizer.html">TimeEntityRecognizer</a></li><li><a href="Bravey.Language.EN.TimePeriodEntityRecognizer.html">TimePeriodEntityRecognizer</a></li><li><a href="Bravey.Language.IT.DateEntityRecognizer.html">DateEntityRecognizer</a></li><li><a href="Bravey.Language.IT.FreeTextEntityRecognizer.html">FreeTextEntityRecognizer</a></li><li><a href="Bravey.Language.IT.NumberEntityRecognizer.html">NumberEntityRecognizer</a></li><li><a href="Bravey.Language.IT.Stemmer.html">Stemmer</a></li><li><a href="Bravey.Language.IT.TimeEntityRecognizer.html">TimeEntityRecognizer</a></li><li><a href="Bravey.Language.IT.TimePeriodEntityRecognizer.html">TimePeriodEntityRecognizer</a></li><li><a href="Bravey.Nlp.Fuzzy.html">Fuzzy</a></li><li><a href="Bravey.Nlp.Sequential.html">Sequential</a></li><li><a href="Bravey.NumberEntityRecognizer.html">NumberEntityRecognizer</a></li><li><a href="Bravey.RegexEntityRecognizer.html">RegexEntityRecognizer</a></li><li><a href="Bravey.SessionManager.InMemorySessionManager.html">InMemorySessionManager</a></li><li><a href="Bravey.StringEntityRecognizer.html">StringEntityRecognizer</a></li><li><a href="Bravey.Text.RegexMap.html">RegexMap</a></li></ul><h3>Namespaces</h3><ul><li><a href="Bravey.html">Bravey</a></li><li><a href="Bravey.Data.html">Data</a></li><li><a href="Bravey.Date.html">Date</a></li><li><a href="Bravey.File.html">File</a></li><li><a href="Bravey.Language.html">Language</a></li><li><a href="Bravey.Language.EN.html">EN</a></li><li><a href="Bravey.Language.IT.html">IT</a></li><li><a href="Bravey.Nlp.html">Nlp</a></li><li><a href="Bravey.SessionManager.html">SessionManager</a></li><li><a href="Bravey.Text.html">Text</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Nov 29 2016 19:45:39 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Tue Jan 10 2017 10:55:12 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>
