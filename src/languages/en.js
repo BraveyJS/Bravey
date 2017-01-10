@@ -815,3 +815,28 @@ Bravey.Language.EN.FreeTextEntityRecognizer = function(entityName, priority) {
   return matcher;
 
 }
+
+/**
+ * Recognizes numbers line '123'. It still not supports english numbers.
+ * @todo Add english numbers recognizer
+ * @constructor
+ * @param {string} entityName - The name of produced entities.
+ * @returns {Bravey.RegexEntityRecognizer}
+ */
+Bravey.Language.EN.NumberEntityRecognizer = function(entityName, priority) {
+
+  var digits = new RegExp("^[0-9]+$", "gi");
+
+  var matcher = new Bravey.RegexEntityRecognizer(entityName);
+  // M/(D??)/(Y??)
+  matcher.addMatch(
+    new RegExp(
+      "(\\w+)", "gi"),
+    function(match) {
+      var word = match[0].toLowerCase();
+      if (word.match(digits))
+        return word * 1;
+    }
+  );
+  return matcher;
+}

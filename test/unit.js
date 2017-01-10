@@ -947,6 +947,19 @@ QUnit.test("EN.DateEntityRecognizer", function(assert) {
 
 });
 
+
+QUnit.test("EN.NumberEntityRecognizer", function(assert) {
+  var reg = new Bravey.Language.EN.NumberEntityRecognizer("test");
+  assert.deepEqual(reg.getEntities("there are 12 apples"), [{
+    "entity": "test",
+    "position": 10,
+    "priority": 0,
+    "string": "12",
+    "value": 12
+  }], "Multiple numbers are matched (english numbers are still not matched.");
+
+});
+
 QUnit.test("IT.Stemmer", function(assert) {
 
   assert.deepEqual(Bravey.Language.IT.Stemmer("cani"), "can", "Singulars are correctly stemmed");
@@ -1456,10 +1469,32 @@ QUnit.test("IT.DateEntityRecognizer", function(assert) {
     "value": "1920-02-03"
   }], "Multiple dates are matched");
 
+});
 
-
+QUnit.test("IT.NumberEntityRecognizer", function(assert) {
+  var reg = new Bravey.Language.IT.NumberEntityRecognizer("test");
+  assert.deepEqual(reg.getEntities("ci sono 12 mele, tredici pere e unmilioneottocentoventimilaseicentoquindici peperoni"), [{
+    "entity": "test",
+    "position": 8,
+    "priority": 0,
+    "string": "12",
+    "value": 12
+  }, {
+    "entity": "test",
+    "position": 17,
+    "priority": 0,
+    "string": "tredici",
+    "value": 13
+  }, {
+    "entity": "test",
+    "position": 32,
+    "priority": 0,
+    "string": "unmilioneottocentoventimilaseicentoquindici",
+    "value": 1820615
+  }], "Multiple numbers are matched");
 
 });
+
 
 QUnit.test("DocumentClassifier", function(assert) {
   var m, cl = new Bravey.DocumentClassifier();

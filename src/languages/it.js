@@ -811,3 +811,192 @@ Bravey.Language.IT.FreeTextEntityRecognizer = function(entityName, priority) {
   return matcher;
 
 }
+
+/* Italian numbers matching patterns. */
+Bravey.Language.IT.Numbers = [{
+  prefix: "zero",
+  value: 0
+}, {
+  prefix: "vent",
+  value: 20
+}, {
+  prefix: "trent",
+  value: 30
+}, {
+  prefix: "quarant",
+  value: 40
+}, {
+  prefix: "cinquant",
+  value: 50
+}, {
+  prefix: "sessant",
+  value: 60
+}, {
+  prefix: "settant",
+  value: 70
+}, {
+  prefix: "ottant",
+  value: 80
+}, {
+  prefix: "novant",
+  value: 90
+}, {
+  prefix: "uno",
+  value: 1
+}, {
+  prefix: "quattro",
+  value: 4
+}, {
+  prefix: "quattor",
+  value: 4
+}, {
+  prefix: "cinque",
+  value: 5
+}, {
+  prefix: "quin",
+  value: 5
+}, {
+  prefix: "sei",
+  value: 6
+}, {
+  prefix: "sette",
+  value: 7
+}, {
+  prefix: "otto",
+  value: 8
+}, {
+  prefix: "nove",
+  value: 9
+}, {
+  prefix: "dieci",
+  value: 10
+}, {
+  prefix: "dici",
+  value: 10
+}, {
+  prefix: "se",
+  value: 6
+}, {
+  prefix: "un",
+  value: 1
+}, {
+  prefix: "due",
+  value: 2
+}, {
+  prefix: "do",
+  value: 2
+}, {
+  prefix: "tre",
+  value: 3
+}, {
+  prefix: "a",
+  skip: 1
+}, {
+  prefix: "tor",
+  skip: 1
+}, {
+  prefix: "i",
+  skip: 1
+}, {
+  prefix: "n",
+  skip: 1
+}, {
+  prefix: "s",
+  skip: 1
+}, {
+  prefix: "cento",
+  mul: 100
+}, {
+  prefix: "mila",
+  mul: 1000,
+  end: 1
+}, {
+  prefix: "mille",
+  mul: 1000,
+  end: 1
+}, {
+  prefix: "milion",
+  mul: 1000000,
+  end: 1
+}, {
+  prefix: "miliard",
+  mul: 1000000000,
+  end: 1
+}, {
+  prefix: "e",
+  skip: 1
+}, {
+  prefix: "i",
+  skip: 1
+}, {
+  prefix: "o",
+  skip: 1
+}];
+
+/**
+ * Recognizes numbers line '123' or 'centoventitre'. 
+ * @constructor
+ * @param {string} entityName - The name of produced entities.
+ * @returns {Bravey.RegexEntityRecognizer}
+ */
+Bravey.Language.IT.NumberEntityRecognizer = function(entityName, priority) {
+  var digits = new RegExp("^[0-9]+$", "gi");
+
+  var matcher = new Bravey.RegexEntityRecognizer(entityName);
+  // M/(D??)/(Y??)
+  matcher.addMatch(
+    new RegExp(
+      "(\\w+)", "gi"),
+    function(match) {
+      var word = match[0].toLowerCase();
+      var value = 0,
+        partial = 0,
+        found,
+        number, ending = 9990,
+        valid = false;
+      if (word.match(digits)) return word * 1;
+      else {
+        do {
+          found = false;
+          for (var i = 0; i < Bravey.Language.IT.Numbers.length; i++) {
+            number = Bravey.Language.IT.Numbers[i];
+            if (word.substr(0, number.prefix.length) == number.prefix) {
+              word = word.substr(number.prefix.length);
+              if (!number.skip) {
+                if (ending) {
+                  if (number.end) {
+                    if (i < ending) {
+                      value += partial;
+                      partial = 0;
+                    }
+                    ending = i;
+                  } else {
+                    value += partial;
+                    partial = 0;
+                    ending = 0;
+                  }
+                } else
+                if (number.end) ending = i;
+                if (number.value !== undefined) {
+                  partial += number.value;
+                  found = true;
+                  valid = true;
+                }
+                if (number.mul !== undefined) {
+                  if (partial) partial *= number.mul;
+                  else partial = number.mul;
+                  found = true;
+                  valid = true;
+                }
+              } else found = true;
+              if (found) break;
+            }
+          }
+        } while (found);
+        value += partial;
+        if (!word && valid) return value;
+      }
+    }
+  );
+  return matcher;
+}
