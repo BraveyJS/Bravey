@@ -14,7 +14,8 @@ Bravey.ApiAiAdapter = function(packagePath, extensions) {
   var entities = [];
 
   var nlp = new Bravey.Nlp[extensions.nlp || "Fuzzy"]("apiai", {
-    stemmer: Bravey.Language[extensions.language].Stemmer
+    stemmer: Bravey.Language[extensions.language].Stemmer,
+    filter: extensions.filter
   });
   nlp.addEntity(new Bravey.Language[extensions.language].NumberEntityRecognizer("sys_number"));
   nlp.addEntity(new Bravey.Language[extensions.language].TimeEntityRecognizer("sys_time"));
