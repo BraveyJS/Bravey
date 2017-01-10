@@ -17,5 +17,6 @@
 	"src/nlp/Sequential.js",
 	"src/adapters/ApiAiAdapter.js",
 	"src/contextmanagers/ContextManager.js",
-	"src/sessionmanagers/InMemorySessionManager.js"
+	"src/sessionmanagers/InMemorySessionManager.js",
+	"src/filters/BasicFilter.js"
 ]
