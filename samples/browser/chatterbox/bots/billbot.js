@@ -54,7 +54,7 @@ window.BOTLoader = function(contact) {
 
     var reference = new Bravey.EMailEntityRecognizer("reference", 200);
 
-    var quantity = new Bravey.NumberEntityRecognizer("amount");
+    var quantity = new Bravey.Language[TRANSLATION.symbol].NumberEntityRecognizer("amount");
 
     var action = new Bravey.StringEntityRecognizer("action", 200);
     for (var a in TRANSLATION.nlpActions)

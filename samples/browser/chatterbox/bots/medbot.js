@@ -54,7 +54,7 @@ window.BOTLoader = function(contact) {
       for (var j in database.color[i]) color.addMatch(i, database.color[i][j]);
 
     var time = new Bravey.Language[database.symbol].TimeEntityRecognizer("time");
-    var number = new Bravey.NumberEntityRecognizer("number");
+    var number = new Bravey.Language[database.symbol].NumberEntityRecognizer("number");
 
     var getMedNlp = new Bravey.Nlp.Fuzzy("getMed", {
       stemmer: Bravey.Language[database.symbol].Stemmer

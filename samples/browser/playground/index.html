@@ -248,7 +248,7 @@ function doNlp() {
   if (nlpDirty) {
     nlp=new Bravey.Nlp.Fuzzy("playground",{stemmer:Bravey.Language.EN.stemmer});
 
-    nlp.addEntity(new Bravey.NumberEntityRecognizer("number"));
+    nlp.addEntity(new Bravey.Language.EN.NumberEntityRecognizer("number"));
     nlp.addEntity(new Bravey.Language.EN.TimeEntityRecognizer("time"));
     nlp.addEntity(new Bravey.Language.EN.DateEntityRecognizer("date"));
     nlp.addEntity(new Bravey.Language.EN.TimePeriodEntityRecognizer("time_period"));
