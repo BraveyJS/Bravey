@@ -36,6 +36,12 @@ Bravey.Language = {};
 Bravey.Nlp = {};
 
 /**
+ * Token filters.
+ * @namespace
+ */
+Bravey.Filter = {};
+
+/**
  * Session managers.
  * @namespace
  */
