@@ -93,6 +93,7 @@ Bravey.DocumentClassifier = function(extensions) {
   var train = function(text, label) {
     registerLabel(label);
     var words = Bravey.Text.tokenize(Bravey.Text.clean(text));
+    if (extensions.filter) words = extensions.filter(words);
     var length = words.length;
     for (var i = 0; i < length; i++)
       incrementStem(extensions.stemmer ? extensions.stemmer(words[i]) : words[i], label);
@@ -101,6 +102,8 @@ Bravey.DocumentClassifier = function(extensions) {
 
   var guess = function(text) {
     var words = Bravey.Text.tokenize(Bravey.Text.clean(text));
+    if (extensions.filter) words = extensions.filter(words);
+
     var length = words.length;
     var labels = getLabels();
     var totalDocCount = 0;
