@@ -101,6 +101,15 @@ Bravey.ContextManager = function(extensions) {
   }
 
   /**
+   * Reserves a new session ID. It also clear expired sessions.
+   * @param {string} id - The session ID to be reserved. Generates a new one if not defined.
+   * @returns {string} The new session ID.
+   */
+  this.reserveSessionId = function(id) {
+    return sessionManager.reserveSessionId(id);
+  }
+
+  /**
    * Check if a given sentence matches an intent and extracts its entities using the specified contexts.
    * @param {string} text - The sentence to be processed.
    * @param {string[]} [text=["default"]] - The context tags.

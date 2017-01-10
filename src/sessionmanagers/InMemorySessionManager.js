@@ -31,13 +31,14 @@ Bravey.SessionManager.InMemorySessionManager = function(extensions) {
    * Reserves a new session ID. It also clear expired sessions.
    * @returns {string} The new session ID.
    */
-  this.reserveSessionId = function() {
-    var id;
-    do {
-      id = Bravey.Text.generateGUID();
-    } while (sessions[id]);
+  this.reserveSessionId = function(id) {
+    if (id == undefined) {
+      do {
+        id = Bravey.Text.generateGUID();
+      } while (sessions[id]);
+    }
     cleanSessions();
-    sessions[id] = makeNewSession();
+    if (!sessions[id]) sessions[id] = makeNewSession();
     return id;
   }
 
