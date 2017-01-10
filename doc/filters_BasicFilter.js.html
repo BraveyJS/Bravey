@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: DateEntityRecognizer</title>
+    <title>JSDoc: Source: filters/BasicFilter.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,204 +17,30 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: DateEntityRecognizer</h1>
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>
-            <span class="ancestors"><a href="Bravey.html">Bravey</a><a href="Bravey.Language.html">.Language</a><a href="Bravey.Language.IT.html">.IT</a>.</span>DateEntityRecognizer</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-
-    <h4 class="name" id="DateEntityRecognizer"><span class="type-signature"></span>new DateEntityRecognizer<span class="signature">(entityName)</span><span class="type-signature"> &rarr; {<a href="Bravey.RegexEntityRecognizer.html">Bravey.RegexEntityRecognizer</a>}</span></h4>
-
-    
-
-
-
-<div class="description">
-    An entity recognizer that can recognizes date expressions. Returned entities value is the same of <a href="Bravey.Date.html#.formatDate">Bravey.Date.formatDate</a>.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>entityName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The name of produced entities.</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="languages_it.js.html">languages/it.js</a>, <a href="languages_it.js.html#line666">line 666</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-    <dt class="tag-todo">To Do:</dt>
-    <dd class="tag-todo">
-        <ul>
-            <li>il primo gennaio, il 2 febbraio, etc...</li>
-        </ul>
-    </dd>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="Bravey.RegexEntityRecognizer.html">Bravey.RegexEntityRecognizer</a></span>
-
-
-    </dd>
-</dl>
+    <h1 class="page-title">Source: filters/BasicFilter.js</h1>
 
     
 
 
 
     
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Removes from tokens entities and words with less than 4 letters.
+ * @constructor
+ * @param {string[]} tokens - The token lists to be filtered.
+ * @param {string[]} - The filtered list
+ */
+Bravey.Filter.BasicFilter = function(tokens) {
+  var out = [];
+  for (var i = 0; i &lt; tokens.length; i++)
+    if ((tokens[i][0] != "{") &amp;&amp; (tokens[i].length > 3)) out.push(tokens[i]);
+  if (out.length == 0) return tokens;
+  else return out;
+}</code></pre>
+        </article>
+    </section>
 
 
 
