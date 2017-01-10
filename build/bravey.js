@@ -38,6 +38,12 @@ Bravey.Language = {};
 Bravey.Nlp = {};
 
 /**
+ * Token filters.
+ * @namespace
+ */
+Bravey.Filter = {};
+
+/**
  * Session managers.
  * @namespace
  */
@@ -1367,6 +1373,7 @@ Bravey.DocumentClassifier = function(extensions) {
   var train = function(text, label) {
     registerLabel(label);
     var words = Bravey.Text.tokenize(Bravey.Text.clean(text));
+    if (extensions.filter) words = extensions.filter(words);
     var length = words.length;
     for (var i = 0; i < length; i++)
       incrementStem(extensions.stemmer ? extensions.stemmer(words[i]) : words[i], label);
@@ -1375,6 +1382,8 @@ Bravey.DocumentClassifier = function(extensions) {
 
   var guess = function(text) {
     var words = Bravey.Text.tokenize(Bravey.Text.clean(text));
+    if (extensions.filter) words = extensions.filter(words);
+
     var length = words.length;
     var labels = getLabels();
     var totalDocCount = 0;
@@ -4141,7 +4150,8 @@ Bravey.ApiAiAdapter = function(packagePath, extensions) {
   var entities = [];
 
   var nlp = new Bravey.Nlp[extensions.nlp || "Fuzzy"]("apiai", {
-    stemmer: Bravey.Language[extensions.language].Stemmer
+    stemmer: Bravey.Language[extensions.language].Stemmer,
+    filter: extensions.filter
   });
   nlp.addEntity(new Bravey.Language[extensions.language].NumberEntityRecognizer("sys_number"));
   nlp.addEntity(new Bravey.Language[extensions.language].TimeEntityRecognizer("sys_time"));
@@ -4600,4 +4610,19 @@ Bravey.SessionManager.InMemorySessionManager = function(extensions) {
     if (sessions[sessionid]) return sessions[sessionid].data;
   }
 
+}
+// File:src/filters/BasicFilter.js
+
+/**
+ * Removes from tokens entities and words with less than 4 letters.
+ * @constructor
+ * @param {string[]} tokens - The token lists to be filtered.
+ * @param {string[]} - The filtered list
+ */
+Bravey.Filter.BasicFilter = function(tokens) {
+  var out = [];
+  for (var i = 0; i < tokens.length; i++)
+    if ((tokens[i][0] != "{") && (tokens[i].length > 3)) out.push(tokens[i]);
+  if (out.length < 3) return tokens;
+  else return out;
 }
