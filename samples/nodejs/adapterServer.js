@@ -5,7 +5,8 @@ var Bravey = require("../../build/bravey.js");
 var http = require('http');
 
 var apiai = new Bravey.ApiAiAdapter("../apiai-packages/soccer", {
-  language: "EN"
+  language: "EN",
+  filter: Bravey.Filter.BasicFilter
 });
 
 apiai.loadEntity("competition");

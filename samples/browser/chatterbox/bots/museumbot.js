@@ -34,7 +34,8 @@ window.BOTLoader = function(contact) {
     db = JSON.parse(file);
 
     nlp = new Bravey.Nlp.Fuzzy("musei", {
-      stemmer: Bravey.Language.IT.Stemmer
+      stemmer: Bravey.Language.IT.Stemmer,
+      filter: Bravey.Filter.BasicFilter
     });
     var fields = {
       "tipologia_museo": true,

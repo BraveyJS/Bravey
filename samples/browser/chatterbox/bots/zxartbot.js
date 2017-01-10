@@ -22,7 +22,8 @@ window.BOTLoader = function(contact) {
   );
 
   var nlp = new Bravey.Nlp.Fuzzy("art", {
-    stemmer: Bravey.Language.EN.Stemmer
+    stemmer: Bravey.Language.EN.Stemmer,
+    filter: Bravey.Filter.BasicFilter
   });
 
   var year = new Bravey.StringEntityRecognizer("year");

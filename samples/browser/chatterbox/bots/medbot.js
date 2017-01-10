@@ -57,7 +57,8 @@ window.BOTLoader = function(contact) {
     var number = new Bravey.Language[database.symbol].NumberEntityRecognizer("number");
 
     var getMedNlp = new Bravey.Nlp.Fuzzy("getMed", {
-      stemmer: Bravey.Language[database.symbol].Stemmer
+      stemmer: Bravey.Language[database.symbol].Stemmer,
+      filter: Bravey.Filter.BasicFilter
     });
     getMedNlp.addEntity(medType);
     getMedNlp.addEntity(color);

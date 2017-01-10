@@ -70,7 +70,7 @@ function onLoaded() {
   Bravey.File.load("opendata.json",function(file){
     db=JSON.parse(file);
 
-    nlp=new Bravey.Nlp.Fuzzy("musei",{stemmer:Bravey.Language.IT.Stemmer});
+    nlp=new Bravey.Nlp.Fuzzy("musei",{stemmer:Bravey.Language.IT.Stemmer,filter: Bravey.Filter.BasicFilter});
     var fields={
       "tipologia_museo":true,
       "parcheggi_vicini":{

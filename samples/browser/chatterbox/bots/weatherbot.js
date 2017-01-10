@@ -15,7 +15,8 @@ window.BOTLoader = function(contact) {
     airports = JSON.parse(airports);
 
     var nlp = new Bravey.Nlp.Fuzzy("weatherbot", {
-      stemmer: Bravey.Language.EN.Stemmer
+      stemmer: Bravey.Language.EN.Stemmer,
+      filter: Bravey.Filter.BasicFilter
     });
 
     var places = new Bravey.StringEntityRecognizer("place", 100);

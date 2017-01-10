@@ -246,7 +246,7 @@ function updateIntentEditor(intent) {
 function doNlp() {
   var html="<i>Can't understand...</i>",text=$("#sentence").val();
   if (nlpDirty) {
-    nlp=new Bravey.Nlp.Fuzzy("playground",{stemmer:Bravey.Language.EN.stemmer});
+    nlp=new Bravey.Nlp.Fuzzy("playground",{stemmer:Bravey.Language.EN.stemmer,filter:Bravey.Filter.BasicFilter});
 
     nlp.addEntity(new Bravey.Language.EN.NumberEntityRecognizer("number"));
     nlp.addEntity(new Bravey.Language.EN.TimeEntityRecognizer("time"));

@@ -4,7 +4,8 @@
 var Bravey = require("../../build/bravey.js");
 
 var apiai = new Bravey.ApiAiAdapter("../apiai-packages/saleriunioni", {
-  language: "IT"
+  language: "IT",
+  filter: Bravey.Filter.BasicFilter
 });
 
 apiai.loadEntity("sala_riunioni");

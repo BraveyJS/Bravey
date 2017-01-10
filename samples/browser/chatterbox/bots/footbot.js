@@ -34,7 +34,8 @@ window.BOTLoader = function(contact) {
     idx.competition = JSON.parse(competitions);
 
     var nlp = new Bravey.Nlp.Fuzzy("footbot", {
-      stemmer: Bravey.Language.EN.Stemmer
+      stemmer: Bravey.Language.EN.Stemmer,
+      filter: Bravey.Filter.BasicFilter
     });
 
     var competition = new Bravey.StringEntityRecognizer("competition", 100);

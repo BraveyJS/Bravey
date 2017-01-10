@@ -3,7 +3,8 @@ window.BOTLoader = function(contact) {
   contact.setDescription("Posso prenotare una sala riunioni per te. (per ora ti dir&ograve; cosa ho capito di ci&ograve; che scrivi)");
 
   apiai = new Bravey.ApiAiAdapter(contact.root + "../../apiai-packages/saleriunioni", {
-    language: "IT"
+    language: "IT",
+    filter: Bravey.Filter.BasicFilter
   });
 
   apiai.loadEntity("sala_riunioni");

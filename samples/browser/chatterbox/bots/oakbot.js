@@ -13,7 +13,8 @@ window.BOTLoader = function(contact) {
   );
 
   var nlp = new Bravey.Nlp.Fuzzy("oakbot", {
-    stemmer: Bravey.Language.EN.Stemmer
+    stemmer: Bravey.Language.EN.Stemmer,
+    filter: Bravey.Filter.BasicFilter
   });
 
   contact.request("GET", "http://pokeapi.co/api/v2/pokemon/?limit=151", 0, function(pokemon) {
@@ -78,7 +79,8 @@ window.BOTLoader = function(contact) {
     });
 
     var pokenlp = new Bravey.Nlp.Fuzzy("pokenlp", {
-      stemmer: Bravey.Language.EN.Stemmer
+      stemmer: Bravey.Language.EN.Stemmer,
+      filter: Bravey.Filter.BasicFilter
     });
     var pokeStats = new Bravey.StringEntityRecognizer("pokemon_stat", 100);
     pokenlp.addEntity(pokeStats);

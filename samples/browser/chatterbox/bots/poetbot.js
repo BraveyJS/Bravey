@@ -17,7 +17,8 @@ window.BOTLoader = function(contact) {
       titles = JSON.parse(titles).titles;
 
       var spl, nlp = new Bravey.Nlp.Fuzzy("poetbot", {
-        stemmer: Bravey.Language.EN.Stemmer
+        stemmer: Bravey.Language.EN.Stemmer,
+        filter: Bravey.Filter.BasicFilter
       });
       nlp.setConfidence(0.65);
 
