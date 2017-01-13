@@ -816,27 +816,101 @@ Bravey.Language.EN.FreeTextEntityRecognizer = function(entityName, priority) {
 
 }
 
+/* English numbers matching patterns. */
+Bravey.Language.EN.Numbers = {
+  wordsSeparator: /(\w+)([^\w]+)/gi,
+  sum: {
+    'zero': 0,
+    'one': 1,
+    'two': 2,
+    'three': 3,
+    'four': 4,
+    'five': 5,
+    'six': 6,
+    'seven': 7,
+    'eight': 8,
+    'nine': 9,
+    'ten': 10,
+    'eleven': 11,
+    'twelve': 12,
+    'thirteen': 13,
+    'fourteen': 14,
+    'fifteen': 15,
+    'sixteen': 16,
+    'seventeen': 17,
+    'eighteen': 18,
+    'nineteen': 19,
+    'twenty': 20,
+    'thirty': 30,
+    'forty': 40,
+    'fifty': 50,
+    'sixty': 60,
+    'seventy': 70,
+    'eighty': 80,
+    'ninety': 90,
+  },
+  mul: {
+    'thousand': 1000,
+    'million': 1000000
+  }
+}
+
 /**
- * Recognizes numbers line '123'. It still not supports english numbers.
- * @todo Add english numbers recognizer
+ * Recognizes numbers line '123' or 'one hundred twenty three'. 
  * @constructor
  * @param {string} entityName - The name of produced entities.
  * @returns {Bravey.RegexEntityRecognizer}
  */
 Bravey.Language.EN.NumberEntityRecognizer = function(entityName, priority) {
+  this.getName = function() {
+    return entityName;
+  }
 
-  var digits = new RegExp("^[0-9]+$", "gi");
+  this.getEntities = function(string, out) {
+    if (!out) out = [];
+    var tokens = string.toLowerCase().split(/(\w+)/);
 
-  var matcher = new Bravey.RegexEntityRecognizer(entityName);
-  // M/(D??)/(Y??)
-  matcher.addMatch(
-    new RegExp(
-      "(\\w+)", "gi"),
-    function(match) {
-      var word = match[0].toLowerCase();
-      if (word.match(digits))
-        return word * 1;
+    var mul, token, temp = 0,
+      sum = 0,
+      isnumber, current, valid, cursor = 0,
+      end;
+    for (var i = 0; i < tokens.length + 1; i++) {
+      token = tokens[i] == undefined ? "*" : tokens[i];
+      isnumber = true;
+      if (!current) {
+        valid = 0;
+        current = {
+          value: 0,
+          entity: entityName,
+          string: "",
+          priority: priority || 0
+        };
+      }
+      if (token.trim()) {
+        if (Bravey.Language.EN.Numbers.sum[token] != null)
+          sum += Bravey.Language.EN.Numbers.sum[token];
+        else if (token == 'hundred')
+          sum *= 100;
+        else if (!isNaN(token * 1))
+          sum += token * 1;
+        else if (Bravey.Language.EN.Numbers.mul[token]) {
+          mul = Bravey.Language.EN.Numbers.mul[token];
+          temp += sum * mul;
+          sum = 0;
+        } else isnumber = false;
+        if (isnumber) {
+          valid = 1;
+          end = cursor + token.length;
+          if (current.position == undefined) current.position = cursor;
+        } else if (valid) {
+          current.value = temp + sum;
+          current.string = string.substr(current.position, end - current.position);
+          out.push(current);
+          temp = sum = current = 0;
+        }
+      }
+      cursor += token.length;
     }
-  );
-  return matcher;
+    return out;
+  }
 }

@@ -998,14 +998,34 @@ QUnit.test("EN.DateEntityRecognizer", function(assert) {
 
 QUnit.test("EN.NumberEntityRecognizer", function(assert) {
   var reg = new Bravey.Language.EN.NumberEntityRecognizer("test");
-  assert.deepEqual(reg.getEntities("there are 12 apples"), [{
+
+  assert.deepEqual(reg.getEntities("ten"), [{
+    "entity": "test",
+    "position": 0,
+    "priority": 0,
+    "string": "ten",
+    "value": 10
+  }], "Single numbers are matched");
+
+  assert.deepEqual(reg.getEntities("there are 12 apples, thirteen pears and one million eight hundred twenty thousand six hundred fifteen peppers"), [{
     "entity": "test",
     "position": 10,
     "priority": 0,
     "string": "12",
     "value": 12
+  }, {
+    "entity": "test",
+    "position": 21,
+    "priority": 0,
+    "string": "thirteen",
+    "value": 13
+  }, {
+    "entity": "test",
+    "position": 40,
+    "priority": 0,
+    "string": "one million eight hundred twenty thousand six hundred fifteen",
+    "value": 1820615
   }], "Multiple numbers are matched (english numbers are still not matched.");
-
 });
 
 QUnit.test("IT.Stemmer", function(assert) {
@@ -1521,6 +1541,15 @@ QUnit.test("IT.DateEntityRecognizer", function(assert) {
 
 QUnit.test("IT.NumberEntityRecognizer", function(assert) {
   var reg = new Bravey.Language.IT.NumberEntityRecognizer("test");
+
+  assert.deepEqual(reg.getEntities("dieci"), [{
+    "entity": "test",
+    "position": 0,
+    "priority": 0,
+    "string": "dieci",
+    "value": 10
+  }], "Single numbers are matched");
+
   assert.deepEqual(reg.getEntities("ci sono 12 mele, tredici pere e unmilioneottocentoventimilaseicentoquindici peperoni"), [{
     "entity": "test",
     "position": 8,
