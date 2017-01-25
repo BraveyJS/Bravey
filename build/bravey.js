@@ -3384,8 +3384,7 @@ Bravey.Language.EN.NumberEntityRecognizer = function(entityName, priority) {
             i--;
             token = "";
             isnumber = false;
-          }
-          temp = token * 1;
+          } else temp = token * 1;
         } else if (Bravey.Language.EN.Numbers.mul[token]) {
           mul = Bravey.Language.EN.Numbers.mul[token];
           temp += sum * mul;
