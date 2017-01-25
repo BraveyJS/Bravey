@@ -3379,9 +3379,14 @@ Bravey.Language.EN.NumberEntityRecognizer = function(entityName, priority) {
           sum += Bravey.Language.EN.Numbers.sum[token];
         else if (token == 'hundred')
           sum *= 100;
-        else if (!isNaN(token * 1))
-          sum += token * 1;
-        else if (Bravey.Language.EN.Numbers.mul[token]) {
+        else if (!isNaN(token * 1)) {
+          if (valid) {
+            i--;
+            token = "";
+            isnumber = false;
+          }
+          temp = token * 1;
+        } else if (Bravey.Language.EN.Numbers.mul[token]) {
           mul = Bravey.Language.EN.Numbers.mul[token];
           temp += sum * mul;
           sum = 0;
@@ -4268,11 +4273,11 @@ Bravey.ApiAiAdapter = function(packagePath, extensions) {
         for (var j = 0; j < data.userSays[i].data.length; j++) {
           if (data.userSays[i].data[j].meta) {
             entity = data.userSays[i].data[j].meta.substr(1);
-            text += "@" + entity + ":" + data.userSays[i].data[j].alias;
-          } else text += data.userSays[i].data[j].text;
+            text += "{" + entity + ":" + data.userSays[i].data[j].alias + "}";
+          } else text += data.userSays[i].data[j].text.replace(/\@([.a-z0-9_-]+):([.a-z0-9_-]+)/g, "{$1:$2}");
         }
         var names = [];
-        text = text.replace(/\@([.a-z0-9_-]+):([.a-z0-9_-]+)/g, function(a, b, c) {
+        text = text.replace(/\{([.a-z0-9_-]+):([.a-z0-9_-]+)\}/g, function(a, b, c) {
           b = sanitizeApiAiId(b);
           c = sanitizeApiAiId(c);
           if (!nlp.hasEntity(b)) {
