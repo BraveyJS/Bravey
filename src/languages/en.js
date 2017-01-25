@@ -891,9 +891,14 @@ Bravey.Language.EN.NumberEntityRecognizer = function(entityName, priority) {
           sum += Bravey.Language.EN.Numbers.sum[token];
         else if (token == 'hundred')
           sum *= 100;
-        else if (!isNaN(token * 1))
-          sum += token * 1;
-        else if (Bravey.Language.EN.Numbers.mul[token]) {
+        else if (!isNaN(token * 1)) {
+          if (valid) {
+            i--;
+            token = "";
+            isnumber = false;
+          }
+          temp = token * 1;
+        } else if (Bravey.Language.EN.Numbers.mul[token]) {
           mul = Bravey.Language.EN.Numbers.mul[token];
           temp += sum * mul;
           sum = 0;
