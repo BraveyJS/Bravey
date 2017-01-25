@@ -54,6 +54,8 @@
   "nlp": {
     "newMed": [
       "è un {medtype}",
+      "una {medtype}",
+      "una {medtype}",
       "è di colore {color}",
       "alle {time}",
       "Prendo {medtype} {color} alle {time}.",
