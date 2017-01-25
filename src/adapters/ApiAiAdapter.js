@@ -58,11 +58,11 @@ Bravey.ApiAiAdapter = function(packagePath, extensions) {
         for (var j = 0; j < data.userSays[i].data.length; j++) {
           if (data.userSays[i].data[j].meta) {
             entity = data.userSays[i].data[j].meta.substr(1);
-            text += "@" + entity + ":" + data.userSays[i].data[j].alias;
-          } else text += data.userSays[i].data[j].text;
+            text += "{" + entity + ":" + data.userSays[i].data[j].alias + "}";
+          } else text += data.userSays[i].data[j].text.replace(/\@([.a-z0-9_-]+):([.a-z0-9_-]+)/g, "{$1:$2}");
         }
         var names = [];
-        text = text.replace(/\@([.a-z0-9_-]+):([.a-z0-9_-]+)/g, function(a, b, c) {
+        text = text.replace(/\{([.a-z0-9_-]+):([.a-z0-9_-]+)\}/g, function(a, b, c) {
           b = sanitizeApiAiId(b);
           c = sanitizeApiAiId(c);
           if (!nlp.hasEntity(b)) {
