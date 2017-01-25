@@ -1043,7 +1043,7 @@ QUnit.test("EN.NumberEntityRecognizer", function(assert) {
     "position": 0,
     "priority": 0,
     "string": "200",
-    "value": 0
+    "value": 200
   }, {
     "entity": "test",
     "position": 4,
@@ -1051,6 +1051,22 @@ QUnit.test("EN.NumberEntityRecognizer", function(assert) {
     "string": "15",
     "value": 15
   }], "200 15 -> 200, 15");
+
+  assert.deepEqual(reg.getEntities("the last chievo game 2016 2017"), [{
+    "entity": "test",
+    "position": 21,
+    "priority": 0,
+    "string": "2016",
+    "value": 2016
+  }, {
+    "entity": "test",
+    "position": 26,
+    "priority": 0,
+    "string": "2017",
+    "value": 2017
+  }], "Numbers at end");
+
+
 
   assert.deepEqual(reg.getEntities("there are 12 apples, thirteen pears and one million eight hundred twenty thousand six hundred fifteen peppers"), [{
     "entity": "test",
