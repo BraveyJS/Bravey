@@ -1007,6 +1007,51 @@ QUnit.test("EN.NumberEntityRecognizer", function(assert) {
     "value": 10
   }], "Single numbers are matched");
 
+  assert.deepEqual(reg.getEntities("two hundred fifteen"), [{
+    "entity": "test",
+    "position": 0,
+    "priority": 0,
+    "string": "two hundred fifteen",
+    "value": 215
+  }], "two hundred fifteen -> 215");
+
+
+  assert.deepEqual(reg.getEntities("two hundred, fifteen"), [{
+    "entity": "test",
+    "position": 0,
+    "priority": 0,
+    "string": "two hundred",
+    "value": 200
+  }, {
+    "entity": "test",
+    "position": 13,
+    "priority": 0,
+    "string": "fifteen",
+    "value": 15
+  }], "two hundred, fifteen -> 200, 15");
+
+  assert.deepEqual(reg.getEntities("215"), [{
+    "entity": "test",
+    "position": 0,
+    "priority": 0,
+    "string": "215",
+    "value": 215
+  }], "215 -> 215");
+
+  assert.deepEqual(reg.getEntities("200 15"), [{
+    "entity": "test",
+    "position": 0,
+    "priority": 0,
+    "string": "200",
+    "value": 0
+  }, {
+    "entity": "test",
+    "position": 4,
+    "priority": 0,
+    "string": "15",
+    "value": 15
+  }], "200 15 -> 200, 15");
+
   assert.deepEqual(reg.getEntities("there are 12 apples, thirteen pears and one million eight hundred twenty thousand six hundred fifteen peppers"), [{
     "entity": "test",
     "position": 10,
@@ -2386,9 +2431,11 @@ function italianApiAiTest(assert, args) {
         start: "08:00:00"
       }
     });
+
     TestTools.nlpTest(assert, apiai.nlp, "No", "Confirmation", {
       confirmation: "no"
     });
+
     assert.deepEqual(apiai.test("Per favore vorrei una sala riunioni domani alle 3 in mattinata"), {
       "result": {
         "action": "",
