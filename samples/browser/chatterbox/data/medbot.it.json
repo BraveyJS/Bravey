@@ -1,40 +1,42 @@
 {
   "symbol": "IT",
-  "warning": "Questa versione del chatbot &egrave; una dimostrazione tecnica e non &egrave; pensato per l'utilizzo nella vita reale. Nessun dato &egrave; immagazzinato su server remoti o all'interno dell'applicazione: le schedulazioni e le notifiche verranno cancellate alla chiusura di questa pagina web.",
-  "description": "Sono qui per aiutarti con le tue medicazioni!",
-  "tips": "<ul><li>Devo prendere una medicazione blu</li><li>Uno sciroppo rosso</li><li>Una medicina verde alle 6 del mattino</li><li>Una pillola verde alle 8 e mezza di sera</li><li>Scatta una foto</li><li>Cosa devo prendere?</li><li>Non prendo pi&ugrave; la 1</li></ul>",
-  "suggestion": "Comincia ad aggiungerne una descrivendomi il tipo, il colore e l'orario in cui dovresti assumerlo. Se vuoi posso anche scattare una foto del prodotto.",
-  "notUnderstand": "Non credo di aver capito. Descrivimi pure una delle medicazioni che devi assumere.",
+  "warning": "Questa versione del chatbot &egrave; una dimostrazione tecnica e non &egrave; pensato per l'utilizzo nella vita reale. Nessun dato &egrave; immagazzinato su server remoti o all'interno dell'applicazione: le schedulazioni e le notifiche verranno cancellate alla chiusura di questa pagina web",
+  "description": "Sono qui per aiutarti con la tua terapia",
+  "tips": "<ul><li>Devo prendere una compressa blu</li><li>Una compressa rossa</li><li>Una medicina verde alle 6 del mattino</li><li>Una pillola verde alle 8 e mezza di sera</li><li>Cosa devo prendere?</li><li>Scatta una foto</li><li>Non prendo pi&ugrave; la 1</li></ul>",
+  "suggestion": "Comincia ad aggiungere una medicina indicando il tipo, il colore e l'orario di assunzione",
+  "notUnderstand": "Ehi sono un bot demo, non sono ancora capace di rispondere a tutte le tue domande!",
   "number": "Numero",
   "time": "Ora",
-  "medication": "Una medicazione",
-  "theMedication": "La medicazione",
-  "medsInfo": "Se vuoi eliminare una medicazione, chiedimelo indicando anche il numero corrispondente.",
+  "medicationTable":"Descrizione",
+  "medication": "Una medicina",
+  "theMedication": "La medicina",
+  "medsInfo": "Se vuoi eliminare una medicina chiedimelo indicando il suo numero",
   "alert": "Ciao! E' ora di prendere le tue medicine! Devi assumere:",
   "photo": "Scatta ora una foto del farmaco che devi assumere.",
   "alreadyPhoto": "Stai già scattando la foto di un farmaco!",
   "photoDone": "Hai scattato questa foto:",
-  "done": "Perfetto! Ti avviser&ograve; quando sar&agrave; l'ora giusta!",
-  "list": "Ecco l'elenco delle tue medicazioni:",
-  "emptyList": "Per ora non ho registrato alcuna medicazione.",
-  "deletedMed": "Va bene! Non ti chiederò più di prendere ",
-  "theMedicationLowercase": "la medicazione",
-  "cantFind": "Non riesco a trovare la medicazione che richiedi. Ecco le medicazioni che conosco:",
-  "noMeds": "Per ora non ho registrato alcuna medicazione.",
+  "done": "Perfetto! Ho aggiunto una <b>{medtype} {color}</b> alla tua terapia!<br/>Ti avviser&ograve; alle <b>{time}</b> per ricordarti di prenderla :)",
+  "list": "Ecco l'elenco delle tue medicine:",
+  "emptyList": "Per ora non ho registrato nessuna medicina",
+  "deletedMed": "Va bene! Non ti chiederò più di prendere la <b>{medtype} {color}</b> alle <b>{time}</b>",
+  "theMedicationLowercase": "la medicina",
+  "cantFind": "Non riesco a trovare la medicina che richiedi. Ecco le medicine che conosco:",
+  "noMeds": "Per ora non ho registrato nessuna medicina",
   "shoot": "Scatta",
+  "cameraNotAvailable":"Spiacenti ma l'accesso alla fotocamera non &egrave; supportato su questo browser o dispositivo.",
+  "introMed": "Ciao, sono qui per aiutarti con la tua terapia",
+  "closeMed": "Sono nato per fare questo...<br>Contatta <a href='mailto:pharma@vidiemme.it'>pharma@vidiemme.it</a> per conoscermi meglio :)",
   "bootstrap": [
-    "Ciao! Sono il tuo bot assistente e sono qui per ricordarti quando prendere le tue medicine!",
-    "Terr&ograve; tutte le tue informazioni private e anonime e potrai condividerle con il tuo medico quando desideri.",
-    "Comincia a parlarmi delle tue medicazioni. "
+    "Ciao! Sono il tuo bot assistente e sono qui per ricordarti quando prendere le tue medicine!"
   ],
   "medFields": {
     "medtype": {
       "prefix": "di tipo",
-      "question": "Di che tipo? Pillola, capsula, sciroppo etc."
+      "question": "Che tipo di medicina vuoi aggiungere? Pillola, capsula, compressa,..."
     },
     "color": {
       "prefix": "di colore",
-      "question": "Di che colore è? Rosso, verde, blu etc."
+      "question": "Di che colore è? Rossa, verde, blu,..."
     },
     "time": {
       "prefix": "alle",
@@ -44,32 +46,48 @@
   "medType": {
     "pillola": ["pillola", "pillolone", "pillolina", "pastiglia", "pastiglie"],
     "capsula": ["capsula", "capsulina", "capsulona", "capsule", "capsuline", "capsulone"],
-    "sciroppo": ["sciroppo", "sciroppino"]
+    "compressa": ["compressa", "compressina"],
+    "supposta": ["supposta", "suppostona"]
   },
   "color": {
-    "rosso": ["rosso", "carminio", "rossa"],
+    "rossa": ["rosso", "carminio", "rossa"],
     "verde": ["verde", "verdino"],
-    "blu": ["blu", "bluetto"]
+    "blu": ["blu", "bluetto"],
+    "gialla": ["gialla","giallo","giallina","giallino"],
+    "arancione": ["arancione","arancio","arancino"],
+    "viola": ["viola","violetto"],
+    "bianca": ["bianca","bianco"],
+    "nera": ["nero","nera"]
   },
   "nlp": {
     "newMed": [
+      "ciao",
       "è un {medtype}",
       "una {medtype}",
       "una {medtype}",
       "è di colore {color}",
+      "prendo {medtype} {color} alle {time}",
+      "pevo prendere una {medtype} {color} alle {time}",
+      "pevo prendere la {medtype} {color} alle {time}",
+      "pevo prendere {medtype}",
+      "aggiungi una {medtype}",
+      "ciao devo prendere una {medtype} {color} alle {time}",
+      "ciao devo prendere la {medtype} {color} alle {time}",
+      "ciao devo prendere {medtype}",
+      "mi hanno prescritto {medtype} {color} alle {time}",
+      "ciao devo assumere {medtype} {color} alle {time}",
+      "ciao devo assumere {medtype}",
+      "la devo prendere alle {time}",
       "alle {time}",
-      "Prendo {medtype} {color} alle {time}.",
-      "Devo prendere una {medtype} {color} alle {time}.",
-      "Devo prendere la {medtype} {color} alle {time}.",
-      "Devo prendere {medtype}",
-      "Mi hanno prescritto {medtype} {color} alle {time}.",
-      "Devo assumere {medtype} {color} alle {time}.",
-      "la devo prendere alle {time}.",
-      "alle {time}.",
-      "per le {time}."
+      "per le {time}",
+      "posso aggiungere una medicina?",
+      "posso aggiungere un'altra medicina?",
+      "posso inserire una medicina?"
     ],
-    "photoMed": ["Fai una foto", "Il farmaco e questo", "Ti mostro il prodotto"],
-    "listMed": ["Elenco delle medicazioni", "Cosa devo prendere?", "Quali medicazioni prendere?", "Quali medicine devo assumere?"],
-    "deleteMed": ["Elimina la medicazione {number}", "Rimuovi {number}", "Togli {number}", "Non prendo piu la medicazione {number}"]
+    "photoMed": ["Fai una foto", "Il farmaco e questo", "Ti mostro il prodotto","Scatta foto"],
+    "listMed": ["Mi mostri l'elenco?","Elenco delle medicine", "Cosa devo prendere?", "Quali medicine prendere?", "Quali medicine devo assumere?"],
+    "deleteMed": ["Elimina la medicina {number}", "Rimuovi {number}", "Togli {number}", "Non prendo piu la medicina {number}"],
+    "introMed": ["ciao bot", "buongiorno bot", "mi puoi aiutare","mi serve aiuto","aiutami","aiutami per favore","ho bisogno di aiuto","devi aiutarmi"],
+    "closeMed": ["grazie mille", "grazie del supporto", "grazie bot","grazie e alla prossima","ti ringrazio"]
   }
 }

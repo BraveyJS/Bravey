@@ -3,7 +3,7 @@ window.BOTLoader = function(contact) {
   contact.setDescription("...");
   contact.setTips("...");
 
-  contact.request("GET", (contact.root + "data/medbot." + contact.settings.language + ".json").toLowerCase(), 0, function(database) {
+  contact.request("GET", (contact.root + "data/medbot." + contact.settings.language + ".json?a=1").toLowerCase(), 0, function(database) {
     database = JSON.parse(database);
 
     contact.setDescription(database.description);
@@ -20,12 +20,27 @@ window.BOTLoader = function(contact) {
       return html;
     }
 
+    function formatTime(time) {
+      var spl=time.split(":");
+      return spl[0]+":"+spl[1];
+    }
+
+    function replaceText(text,obj) {
+      var html = text;
+      html=html.replace(/\{medtype\}/g,obj.medtype);
+      html=html.replace(/\{color\}/g,obj.color);
+      html=html.replace(/\{time\}/g,formatTime(obj.time));
+      return html;
+    }
+
     function medSummary(context) {
-      var html = "<table style='background-color:#fff' border=1><tr style='font-weight:bold'><td>" + database.number + "</td><td>" + database.time + "</td><td>" + database.description + "</td></tr>";
-      for (var i = 0; i < context.meds.length; i++)
-        html += "<tr><td>" + (i + 1) + "</td><td>" + context.meds[i].time + "</td><td>" + getMedLabel(database.medication, context.meds[i], {
+      var html = "<table style='background-color:#fff; border-collapse: collapse; text-align:center; font-size: 15px;' cellpadding=5 border=1><tr style='font-weight:bold'><td>" + database.number + "</td><td>" + database.time + "</td><td>" + database.medicationTable + "</td></tr>";
+      for (var i = 0; i < context.meds.length; i++) {
+        var orario = context.meds[i].time.split(":");
+        html += "<tr><td>" + (i + 1) + "</td><td>" + formatTime(context.meds[i].time) + "</td><td>" + getMedLabel(database.medication, context.meds[i], {
           time: 1
         }) + "</td></tr>";
+      }
       html += "</table>";
       html += "<br>" + database.medsInfo;
       return html;
@@ -115,10 +130,6 @@ window.BOTLoader = function(contact) {
                   node.innerHTML = database.alreadyPhoto;
                 } else {
                   node.innerHTML = database.photo + "<br><br><div id='my_camera' style='width:320px; height:240px;'></div><br>";
-                  Webcam.set({
-                    swfURL: 'libs/webcamjs/webcam.swf'
-                  });
-                  Webcam.attach('#my_camera');
                   var trigger = document.createElement("input");
                   trigger.type = "button";
                   trigger.value = database.shoot;
@@ -133,8 +144,14 @@ window.BOTLoader = function(contact) {
                       if (quest) contact.say(quest);
                     });
                   }
-                  node.appendChild(trigger)
-
+                  node.appendChild(trigger);
+                  Webcam.on( 'error', function(err) {
+                      node.innerHTML = database.cameraNotAvailable;
+                  } );
+                  Webcam.set({
+                    swfURL: 'libs/webcamjs/webcam.swf'
+                  });
+                  Webcam.attach('#my_camera');
                 }
               });
               break;
@@ -143,11 +160,10 @@ window.BOTLoader = function(contact) {
             {
               for (var a in database.medFields)
                 if (out.result.entitiesIndex[a] !== undefined) context.newMed[a] = out.result.entitiesIndex[a].value;
-              html += getMedLabel(database.medication, context.newMed) + ". ";
               var check = getQuestion(context.newMed);
               if (check) html += check;
               else {
-                html += database.done;
+                html = replaceText(database.done,context.newMed);
                 context.meds.push(context.newMed);
                 context.newMed = {};
               }
@@ -170,7 +186,7 @@ window.BOTLoader = function(contact) {
                 var id = out.result.entitiesIndex.number.value - 1;
                 if (context.meds[id]) {
                   var removed = context.meds.splice(id, 1);
-                  html += database.deletedMed + getMedLabel(database.theMedicationLowercase, removed[0]) + ".";
+                  html = replaceText(database.deletedMed,removed[0]);
                 } else {
                   html += database.cantFind + "<br><br>" + medSummary(context);
                 }
@@ -178,6 +194,16 @@ window.BOTLoader = function(contact) {
                 html += database.noMeds + " " + database.suggestion;
               }
               contact.say(html);
+              break;
+            }
+          case "introMed":
+            {
+              contact.say(database.introMed+"<br>"+database.suggestion);
+              break;
+            }
+          case "closeMed":
+            {
+              contact.say(database.closeMed);
               break;
             }
           default:

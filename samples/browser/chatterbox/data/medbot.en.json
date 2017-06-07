@@ -3,10 +3,11 @@
   "warning": "This version of the chatbot is a tech demo and don't have to be used for real life medications. No data is stored on external servers nor within the application: the schedules and notifications will be wiped when this web page will be closed.",
   "description": "I'm here to help you with your medications!",
   "tips": "<ul><li>I have to take a blue medication</li><li>It is a capsule</li><li>Sorry. It's green and I've to take it at 3pm</li><li>A green pill at 14</li><li>Take photo</li><li>List my medications, please.</li><li>I don't take the medication 1.</li></ul>",
-  "suggestion": "Let's start describing the type, the color and when you've to take your medication. If you want, I can take a photo of the product.",
-  "notUnderstand": "I do not understand. Describe your medication now.",
+  "suggestion": "Let's start describing the type, the color and when you've to take your medication.",
+  "notUnderstand": "Hey I am a demo, I’m not still able to answer to your questions!",
   "number": "Number",
   "time": "Time",
+  "medicationTable":"Description",
   "medication": "A medication",
   "theMedication": "The medication",
   "medsInfo": "If you want to remove a medication, ask to me specifying its number.",
@@ -14,27 +15,28 @@
   "photo": "Shoot a picture of the medication.",
   "alreadyPhoto": "You're already shooting a picture!",
   "photoDone": "You've shooted this picture:",
-  "done": "Thank you! I'll tell you when the time is right!",
+  "done": "Perfect! I've added a {color} {medtype} medication at {time} to your therapy. I'll tell you when the time is right!",
   "list": "This is a list of your medications:",
   "emptyList": "No medications have been registered.",
-  "deletedMed": "Ok! I'll stop notify you ",
+  "deletedMed": "I won’t ask you anymore to take <b>{medtype} {color}</b> at <b>{time}</b>",
   "theMedicationLowercase": "the medication",
   "cantFind": "Can't find the medication you're asking for. These are the medications I know:",
   "noMeds": "No medications scheduled for now.",
   "shoot": "Shoot",
+  "cameraNotAvailable":"Sorry, camera access is not available on this browser or device.",
+  "introMed": "Hi! I'm here to help you with your therapy.",
+  "closeMed": "I was born for this!<br>Contact <a href='mailto:pharma@vidiemme.it'>pharma@vidiemme.it</a> if you want to know more about me! :)",
   "bootstrap": [
-    "Hi! I'm your assistant and I'll notify you when it's the time to take your medications.",
-    "I'll keep your informations private and anonymous and you'll be able to share them with your doctor when you want.",
-    "Start talking about your medication."
+    "Hi! I'm your assistant and I'll notify you when it's the time to take your medications."
   ],
   "medFields": {
     "medtype": {
       "prefix": "type",
-      "question": "Which type of medications you're going to describe me? Pill, capsule, syrup etc."
+      "question": "Which type of medications you're going to describe me? Pill, capsule,..."
     },
     "color": {
       "prefix": "color",
-      "question": "Which color this medication is? Red, green, blue etc."
+      "question": "Which color this medication is? Red, green, blue,..."
     },
     "time": {
       "prefix": "at",
@@ -44,15 +46,23 @@
   "medType": {
     "pill": ["pill", "pills"],
     "capsule": ["capsule", "capsules"],
-    "syrup": ["syrup"]
+    "tablet": ["tablet", "tablets"],
+    "suppository": ["suppository", "suppositories"]
   },
   "color": {
     "red": ["red"],
     "green": ["green"],
-    "blue": ["blu", "blue"]
+    "blue": ["blu", "blue"],
+    "yellow": ["yellow"],
+    "orange": ["orange"],
+    "violet": ["violet","purple"],
+    "white": ["white"],
+    "black": ["black"]
   },
   "nlp": {
     "newMed": [
+      "hello",
+      "hi",
       "it is a {medtype}",
       "the color {color}",
       "the colour {color}",
@@ -64,10 +74,13 @@
       "I need {medtype} {color} at {time}.",
       "go on {medtype} {color} at {time}.",
       "I'm taking {medtype} {color} at {time}.",
-      "I've to take it at {time}."
+      "I've to take it at {time}.",
+      "add {medtype}"
     ],
-    "photoMed": ["Shoot a photo", "photo", "this is the med", "this is the medication", "take photo"],
+    "photoMed": ["shoot a photo", "photo", "this is the med", "this is the medication", "take photo", "take picture"],
     "listMed": ["list the medications", "list medication", "what I have to take"],
-    "deleteMed": ["Remove medication {number}", "remove {number}", "delete {number}", "I'm not taking the number {number}", "I'm not taking {number}"]
+    "deleteMed": ["remove medication {number}", "remove {number}", "delete {number}", "I'm not taking the number {number}", "I'm not taking {number}"],
+    "introMed": ["good morning bot", "goodmorning chatbot","can you help me?","I need help","help me"],
+    "closeMed": ["thank you", "thank you for support","bye"]    
   }
 }
