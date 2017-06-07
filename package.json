@@ -1,9 +1,10 @@
 {
-  "name": "Bravey",
+  "name": "bravey",
   "version": "0.0.1",
   "description": "A simple JavaScript NLP-like library to help you creating your own bot.",
   "main": "build/bravey.js",
   "directories": {
+    "doc": "doc",
     "test": "test"
   },
   "scripts": {
@@ -16,7 +17,27 @@
     "argparse": "^1.0.3",
     "jscs": "^1.13.1",
     "uglify-js": "^2.6.0",
-    "jsdoc":"^3.4.0",
-    "js-beautify":"^1.6.4"
-  }
+    "jsdoc": "^3.4.0",
+    "js-beautify": "^1.6.4"
+  },
+  "dependencies": {
+    "js-beautify": "^1.6.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BraveyJS/Bravey.git"
+  },
+  "keywords": [
+    "nlp",
+    "chatbot",
+    "chat",
+    "bot",
+    "ai",
+    "natural",
+    "language"
+  ],
+  "bugs": {
+    "url": "https://github.com/BraveyJS/Bravey/issues"
+  },
+  "homepage": "https://braveyjs.github.io/"
 }
