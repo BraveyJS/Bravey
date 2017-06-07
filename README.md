@@ -4,6 +4,50 @@ It's built for help you on joining the conversational interfaces bandwagon, so i
 
 Bravey was thought with simplicity in mind: it supports a number of processors, mostly based on [bayesian filters](https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering), with different features and accuracy and some customizable entity recognizers based on regular expressions chaining.
 
+### Installation
+
+## Via NPM
+
+Add Bravey to your project with your usual...
+
+```
+npm install bravey
+```
+
+... and your're ready to go.
+
+```javascript
+var Bravey = require("bravey");
+var nlp = new Bravey.Nlp.Fuzzy();
+nlp.addDocument("I want a pizza!", "pizza", { fromFullSentence: true, expandIntent: true });
+nlp.addDocument("I want some pasta!", "pasta", { fromFullSentence: true, expandIntent: true });
+console.log(nlp.test("Want pizza, please").intent);
+// "pizza"
+```
+
+## Via SCRIPT tag
+
+Include the `bravey.js` or `bravey.min.js` you can find into the `build/` directory in your web page. It will be available after the page loading.
+
+```html
+<html>
+    <head>
+        <script src="bravey.js"></script>
+    </head>
+    <body onload="test()">
+        What you want is... <span id='product'></span>!
+    </body>
+    <script>
+        function test() {
+            var nlp = new Bravey.Nlp.Fuzzy();
+            nlp.addDocument("I want a pizza!", "pizza", { fromFullSentence: true, expandIntent: true });
+            nlp.addDocument("I want some pasta!", "pasta", { fromFullSentence: true, expandIntent: true });
+            document.getElementById("product").innerHTML=nlp.test("Want pizza, please").intent;
+        }
+    </script>
+</html>
+```
+
 ### Getting started
 
 You can basically use Bravey from a single object.
