@@ -6,7 +6,7 @@ Bravey was thought with simplicity in mind: it supports a number of processors, 
 
 ### Installation
 
-## Via NPM
+#### Via NPM
 
 Add Bravey to your project with your usual...
 
@@ -25,7 +25,7 @@ console.log(nlp.test("Want pizza, please").intent);
 // "pizza"
 ```
 
-## Via SCRIPT tag
+#### Via SCRIPT tag
 
 Include the `bravey.js` or `bravey.min.js` you can find into the `build/` directory in your web page. It will be available after the page loading.
 
