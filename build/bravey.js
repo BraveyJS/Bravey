@@ -1261,7 +1261,7 @@ Bravey.EMailEntityRecognizer = function(entityName, priority) {
    * @returns {Entity[]} The set of found entities.
    */
   this.getEntities = function(string, out) {
-    var match;
+    var piece, match;
     if (!out) out = [];
     while ((match = regex.exec(string)) != null) {
       piece = string.substr(match.index, match[0].length);
@@ -3858,6 +3858,7 @@ Bravey.Nlp.Sequential = function(nlpName, extensions) {
 
   function guessIntent(text, root, names) {
     var intentname = root || "",
+      nextid, ent,
       outtext = "",
       entities = [],
       counters = {},

@@ -41,6 +41,7 @@ Bravey.Nlp.Sequential = function(nlpName, extensions) {
 
   function guessIntent(text, root, names) {
     var intentname = root || "",
+      nextid, ent,
       outtext = "",
       entities = [],
       counters = {},
