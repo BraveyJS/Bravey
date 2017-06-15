@@ -1,5 +1,5 @@
 /**
- * Can recognize stacked regular expressions in a sentence.
+ * Can recognize stacked regular expressions in a sentence. Cleans up the input text first.
  * @constructor
  * @param {string} entityName - The name of produced entities.
  */
