@@ -25,7 +25,7 @@ var TestTools = {
     var y = myDate.getFullYear() * 1;
     var m = myDate.getMonth() + 1;
     var d = myDate.getDate() * 1;
-    if (month < m)
+    if (month > m)
       return (y - 1) + "-" + this.pad(month, 2) + "-" + this.pad(day, 2);
     else
       return (y) + "-" + this.pad(month, 2) + "-" + this.pad(day, 2);
@@ -519,17 +519,19 @@ QUnit.test("StringEntityRecognizer", function(assert) {
 
 });
 
+
+
 QUnit.test("RegexEntityRecognizer", function(assert) {
   var reg = new Bravey.RegexEntityRecognizer("test");
-  reg.addMatch(new RegExp("\\b([0-9]+)\\b", "gi"), function(match) {
+  reg.addMatch(new RegExp("\\b([0-9]+)\\b", "g"), function(match) {
     return "the number is " + match[1]
   });
-  reg.addMatch(new RegExp("\\btime is ([0-9]+)\\b", "gi"), function(match) {
+  reg.addMatch(new RegExp("\\btime is ([0-9]+)\\b", "g"), function(match) {
     return "the time is " + match[1]
   });
 
   assert.deepEqual(
-    reg.getEntities("This is a number 12 but when the time is now, is when the time is 12 o'clock. Nowatime is 38"), [{
+    reg.getEntities("This is a number 12 but when the time is now, is when the time is 14 o'clock. this is spaced   time  is 12. This is dirty Timé is 45. Nowatime is 38"), [{
       "entity": "test",
       "position": 17,
       "priority": 0,
@@ -539,15 +541,27 @@ QUnit.test("RegexEntityRecognizer", function(assert) {
       "entity": "test",
       "position": 58,
       "priority": 0,
+      "string": "time is 14",
+      "value": "the time is 14"
+    }, {
+      "entity": "test",
+      "position": 93,
+      "priority": 0,
       "string": "time is 12",
       "value": "the time is 12"
     }, {
       "entity": "test",
-      "position": 90,
+      "position": 119,
+      "priority": 0,
+      "string": "time is 45",
+      "value": "the time is 45"
+    }, {
+      "entity": "test",
+      "position": 143,
       "priority": 0,
       "string": "38",
       "value": "the number is 38"
-    }], "Stacked regex are matched. Longest match first");
+    }], "Stacked regex are matched as cleaned text. Longest match first");
 
   assert.deepEqual(reg.getEntities("12"), [{
     "entity": "test",
@@ -1099,6 +1113,28 @@ QUnit.test("IT.Stemmer", function(assert) {
   assert.deepEqual(Bravey.Language.IT.Stemmer("prendono"), "prend", "Verbs are correctly stemmed");
   assert.deepEqual(Bravey.Language.IT.Stemmer("prenderono"), "prend", "Verbs are correctly stemmed");
   assert.deepEqual(Bravey.Language.IT.Stemmer("prenderanno"), "prend", "Verbs are correctly stemmed");
+
+});
+
+
+QUnit.test("Nlp.Fuzzy + Mixed Regex Recognizers", function(assert) {
+
+  var nlp = new Bravey.Nlp.Fuzzy("test");
+
+  var numberRegexp = new RegExp("\\b([0-9]+)\\b", "g");
+  var timeRegexp = new RegExp("\\btime is ([0-9]+)\\b", "g");
+
+  var dateEntity = new Bravey.Language.EN.DateEntityRecognizer("dateEntity");
+  nlp.addEntity(dateEntity);
+
+  TestTools.nlpAddDocument(assert, nlp, "We will meet at 12 january 2017", "mixmatch", {
+    fromFullSentence: true,
+    expandIntent: true
+  }, "we will meet at {dateEntity}");
+  TestTools.nlpAddDocument(assert, nlp, "See you 22 february      2016, ok?", "mixmatch", {
+    fromFullSentence: true,
+    expandIntent: true
+  }, "see you {dateEntity}, ok?");
 
 });
 
