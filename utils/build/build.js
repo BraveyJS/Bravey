@@ -167,7 +167,7 @@ function main() {
 
 	if ( args.docs ){
 		console.log(' * Building docs');
-		exec('node ../../node_modules/jsdoc/jsdoc.js --readme ../../README.md -r ../../src/ -d ../../doc/' ,function(err,stdout,stderr){
+		exec('node ../../node_modules/jsdoc/jsdoc.js -c jsdoc-conf.json --readme ../../README.md' ,function(err,stdout,stderr){
 		      console.log("   * Result: ",err,stdout,stderr);
 		 })
 		deleteFolderRecursive("../../doc/doc-static");
