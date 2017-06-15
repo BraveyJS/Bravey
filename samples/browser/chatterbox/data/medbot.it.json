@@ -7,7 +7,7 @@
   "notUnderstand": "Ehi sono un bot demo, non sono ancora capace di rispondere a tutte le tue domande!",
   "number": "Numero",
   "time": "Ora",
-  "medicationTable":"Descrizione",
+  "medicationTable": "Descrizione",
   "medication": "Una medicina",
   "theMedication": "La medicina",
   "medsInfo": "Se vuoi eliminare una medicina chiedimelo indicando il suo numero",
@@ -23,7 +23,7 @@
   "cantFind": "Non riesco a trovare la medicina che richiedi. Ecco le medicine che conosco:",
   "noMeds": "Per ora non ho registrato nessuna medicina",
   "shoot": "Scatta",
-  "cameraNotAvailable":"Spiacenti ma l'accesso alla fotocamera non &egrave; supportato su questo browser o dispositivo.",
+  "cameraNotAvailable": "Spiacenti ma l'accesso alla fotocamera non &egrave; supportato su questo browser o dispositivo.",
   "introMed": "Ciao, sono qui per aiutarti con la tua terapia",
   "closeMed": "Sono nato per fare questo...<br>Contatta <a href='mailto:pharma@vidiemme.it'>pharma@vidiemme.it</a> per conoscermi meglio :)",
   "bootstrap": [
@@ -53,11 +53,11 @@
     "rossa": ["rosso", "carminio", "rossa"],
     "verde": ["verde", "verdino"],
     "blu": ["blu", "bluetto"],
-    "gialla": ["gialla","giallo","giallina","giallino"],
-    "arancione": ["arancione","arancio","arancino"],
-    "viola": ["viola","violetto"],
-    "bianca": ["bianca","bianco"],
-    "nera": ["nero","nera"]
+    "gialla": ["gialla", "giallo", "giallina", "giallino"],
+    "arancione": ["arancione", "arancio", "arancino"],
+    "viola": ["viola", "violetto"],
+    "bianca": ["bianca", "bianco"],
+    "nera": ["nero", "nera"]
   },
   "nlp": {
     "newMed": [
@@ -84,10 +84,10 @@
       "posso aggiungere un'altra medicina?",
       "posso inserire una medicina?"
     ],
-    "photoMed": ["Fai una foto", "Il farmaco e questo", "Ti mostro il prodotto","Scatta foto"],
-    "listMed": ["Mi mostri l'elenco?","Elenco delle medicine", "Cosa devo prendere?", "Quali medicine prendere?", "Quali medicine devo assumere?"],
+    "photoMed": ["Fai una foto", "Il farmaco e questo", "Ti mostro il prodotto", "Scatta foto"],
+    "listMed": ["Mi mostri l'elenco?", "Elenco delle medicine", "Cosa devo prendere?", "Quali medicine prendere?", "Quali medicine devo assumere?"],
     "deleteMed": ["Elimina la medicina {number}", "Rimuovi {number}", "Togli {number}", "Non prendo piu la medicina {number}"],
-    "introMed": ["ciao bot", "buongiorno bot", "mi puoi aiutare","mi serve aiuto","aiutami","aiutami per favore","ho bisogno di aiuto","devi aiutarmi"],
-    "closeMed": ["grazie mille", "grazie del supporto", "grazie bot","grazie e alla prossima","ti ringrazio"]
+    "introMed": ["ciao bot", "buongiorno bot", "mi puoi aiutare", "mi serve aiuto", "aiutami", "aiutami per favore", "ho bisogno di aiuto", "devi aiutarmi"],
+    "closeMed": ["grazie mille", "grazie del supporto", "grazie bot", "grazie e alla prossima", "ti ringrazio"]
   }
 }

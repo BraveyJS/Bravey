@@ -7,7 +7,7 @@
   "notUnderstand": "Hey I am a demo, I’m not still able to answer to your questions!",
   "number": "Number",
   "time": "Time",
-  "medicationTable":"Description",
+  "medicationTable": "Description",
   "medication": "A medication",
   "theMedication": "The medication",
   "medsInfo": "If you want to remove a medication, ask to me specifying its number.",
@@ -23,7 +23,7 @@
   "cantFind": "Can't find the medication you're asking for. These are the medications I know:",
   "noMeds": "No medications scheduled for now.",
   "shoot": "Shoot",
-  "cameraNotAvailable":"Sorry, camera access is not available on this browser or device.",
+  "cameraNotAvailable": "Sorry, camera access is not available on this browser or device.",
   "introMed": "Hi! I'm here to help you with your therapy.",
   "closeMed": "I was born for this!<br>Contact <a href='mailto:pharma@vidiemme.it'>pharma@vidiemme.it</a> if you want to know more about me! :)",
   "bootstrap": [
@@ -55,7 +55,7 @@
     "blue": ["blu", "blue"],
     "yellow": ["yellow"],
     "orange": ["orange"],
-    "violet": ["violet","purple"],
+    "violet": ["violet", "purple"],
     "white": ["white"],
     "black": ["black"]
   },
@@ -80,7 +80,7 @@
     "photoMed": ["shoot a photo", "photo", "this is the med", "this is the medication", "take photo", "take picture"],
     "listMed": ["list the medications", "list medication", "what I have to take"],
     "deleteMed": ["remove medication {number}", "remove {number}", "delete {number}", "I'm not taking the number {number}", "I'm not taking {number}"],
-    "introMed": ["good morning bot", "goodmorning chatbot","can you help me?","I need help","help me"],
-    "closeMed": ["thank you", "thank you for support","bye"]    
+    "introMed": ["good morning bot", "goodmorning chatbot", "can you help me?", "I need help", "help me"],
+    "closeMed": ["thank you", "thank you for support", "bye"]
   }
 }

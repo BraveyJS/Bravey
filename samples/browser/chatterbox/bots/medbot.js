@@ -21,15 +21,15 @@ window.BOTLoader = function(contact) {
     }
 
     function formatTime(time) {
-      var spl=time.split(":");
-      return spl[0]+":"+spl[1];
+      var spl = time.split(":");
+      return spl[0] + ":" + spl[1];
     }
 
-    function replaceText(text,obj) {
+    function replaceText(text, obj) {
       var html = text;
-      html=html.replace(/\{medtype\}/g,obj.medtype);
-      html=html.replace(/\{color\}/g,obj.color);
-      html=html.replace(/\{time\}/g,formatTime(obj.time));
+      html = html.replace(/\{medtype\}/g, obj.medtype);
+      html = html.replace(/\{color\}/g, obj.color);
+      html = html.replace(/\{time\}/g, formatTime(obj.time));
       return html;
     }
 
@@ -145,9 +145,9 @@ window.BOTLoader = function(contact) {
                     });
                   }
                   node.appendChild(trigger);
-                  Webcam.on( 'error', function(err) {
-                      node.innerHTML = database.cameraNotAvailable;
-                  } );
+                  Webcam.on('error', function(err) {
+                    node.innerHTML = database.cameraNotAvailable;
+                  });
                   Webcam.set({
                     swfURL: 'libs/webcamjs/webcam.swf'
                   });
@@ -163,7 +163,7 @@ window.BOTLoader = function(contact) {
               var check = getQuestion(context.newMed);
               if (check) html += check;
               else {
-                html = replaceText(database.done,context.newMed);
+                html = replaceText(database.done, context.newMed);
                 context.meds.push(context.newMed);
                 context.newMed = {};
               }
@@ -186,7 +186,7 @@ window.BOTLoader = function(contact) {
                 var id = out.result.entitiesIndex.number.value - 1;
                 if (context.meds[id]) {
                   var removed = context.meds.splice(id, 1);
-                  html = replaceText(database.deletedMed,removed[0]);
+                  html = replaceText(database.deletedMed, removed[0]);
                 } else {
                   html += database.cantFind + "<br><br>" + medSummary(context);
                 }
@@ -198,7 +198,7 @@ window.BOTLoader = function(contact) {
             }
           case "introMed":
             {
-              contact.say(database.introMed+"<br>"+database.suggestion);
+              contact.say(database.introMed + "<br>" + database.suggestion);
               break;
             }
           case "closeMed":
