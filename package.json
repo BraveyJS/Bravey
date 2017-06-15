@@ -1,6 +1,6 @@
 {
   "name": "bravey",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "A simple JavaScript NLP-like library to help you creating your own bot.",
   "main": "build/bravey.js",
   "directories": {
