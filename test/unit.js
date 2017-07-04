@@ -2044,8 +2044,8 @@ QUnit.test("PT.DateEntityRecognizer", function(assert) {
     "value": "2018-12-01"
   }], "Long date without day is matched, even with some text around");
 
-  now = new Date();
-  end = new Date();
+  var now = new Date();
+  var end = new Date();
   end.setTime(end.getTime() + (10 * 1000 * 3600 * 24));
   assert.deepEqual(reg.getEntities("em 10 dias"), [{
     "entity": "test",
@@ -2094,34 +2094,30 @@ QUnit.test("PT.NumberEntityRecognizer", function(assert) {
   }], "A number is matched");
 
   assert.deepEqual(reg.getEntities("são quinze agora e sete mil e novecentos depois, dois mil trezentos e onze ou 1000 pra sempre"), [{
-      "entity": "test",
-      "position": 4,
-      "priority": 0,
-      "string": "quinze",
-      "value": 15
-    },
-    {
-      "entity": "test",
-      "position": 19,
-      "priority": 0,
-      "string": "sete mil e novecentos",
-      "value": 7900
-    },
-    {
-      "entity": "test",
-      "position": 49,
-      "priority": 0,
-      "string": "dois mil trezentos e onze",
-      "value": 2311
-    },
-    {
-      "entity": "test",
-      "position": 78,
-      "priority": 0,
-      "string": "1000",
-      "value": 1000
-    }
-  ], "Multiple numbers are matched");
+    "entity": "test",
+    "position": 4,
+    "priority": 0,
+    "string": "quinze",
+    "value": 15
+  }, {
+    "entity": "test",
+    "position": 19,
+    "priority": 0,
+    "string": "sete mil e novecentos",
+    "value": 7900
+  }, {
+    "entity": "test",
+    "position": 49,
+    "priority": 0,
+    "string": "dois mil trezentos e onze",
+    "value": 2311
+  }, {
+    "entity": "test",
+    "position": 78,
+    "priority": 0,
+    "string": "1000",
+    "value": 1000
+  }], "Multiple numbers are matched");
 
 });
 
@@ -3063,6 +3059,20 @@ QUnit.test("Documentation: samples", function(assert) {
     expandIntent: true
   });
   TestTools.nlpTest(assert, nlp, "Consegnami 3 pizze per le 2 del pomeriggio!", "pizza", {
+    "delivery_time": "14:00:00",
+    "quantity": 3
+  });
+
+  // ---
+
+  var nlp = new Bravey.Nlp.Fuzzy();
+  nlp.addEntity(new Bravey.NumberEntityRecognizer("quantity"));
+  nlp.addEntity(new Bravey.Language.PT.TimeEntityRecognizer("delivery_time"));
+  nlp.addDocument("Quero 2 pizzas para 3:00!", "pizza", {
+    fromFullSentence: true,
+    expandIntent: true
+  });
+  TestTools.nlpTest(assert, nlp, "Me veja 3 pizzas para 2 da tarde!", "pizza", {
     "delivery_time": "14:00:00",
     "quantity": 3
   });
