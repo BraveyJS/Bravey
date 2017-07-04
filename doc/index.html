@@ -91,6 +91,12 @@ nlp.addEntity(new Bravey.NumberEntityRecognizer(&quot;quantity&quot;));
 nlp.addEntity(new Bravey.Language.IT.TimeEntityRecognizer(&quot;delivery_time&quot;));
 nlp.addDocument(&quot;Vorrei 2 pizze per le 3!&quot;, &quot;pizza&quot;, { fromFullSentence: true, expandIntent: true });
 console.log(nlp.test(&quot;Consegnami 3 pizze per le 2 del pomeriggio!&quot;).entitiesIndex);
+// { delivery_time: { value: &quot;14:00:00&quot; }, quantity: { value: 3 }}</code></pre><p>... or even portuguese.</p>
+<pre class="prettyprint source lang-javascript"><code>var nlp = new Bravey.Nlp.Fuzzy();
+nlp.addEntity(new Bravey.NumberEntityRecognizer(&quot;quantity&quot;));
+nlp.addEntity(new Bravey.Language.PT.TimeEntityRecognizer(&quot;delivery_time&quot;));
+nlp.addDocument(&quot;Quero 2 pizzas para 3:00!&quot;, &quot;pizza&quot;, { fromFullSentence: true, expandIntent: true });
+console.log(nlp.test(&quot;Me veja 3 pizzas para 2 da tarde!&quot;).entitiesIndex);
 // { delivery_time: { value: &quot;14:00:00&quot; }, quantity: { value: 3 }}</code></pre><p>That's it!</p>
 <h3>Training Bravey</h3><p>You can leave to Bravey intent and entity guessing...</p>
 <pre class="prettyprint source lang-javascript"><code>var nlp = new Bravey.Nlp.Fuzzy();
