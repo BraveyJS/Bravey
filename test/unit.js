@@ -1936,6 +1936,7 @@ QUnit.test("PT.TimePeriodEntityRecognizer", function(assert) {
     }
   }], "In hours is matched");
   
+  /*
   now = new Date();
   end1 = new Date();
   end1.setTime( end1.getTime() + ( 10 * 1000 * 60 * 60 ) );
@@ -1962,122 +1963,7 @@ QUnit.test("PT.TimePeriodEntityRecognizer", function(assert) {
 		  "end": end2.toLocaleTimeString( 'pt-BR' )
 		}
 	},	
-	], "Multiple time ranges");  
-
-  /*
-  assert.deepEqual(reg.getEntities("ci vediamo di mattina o nel pomeriggio. Al massimo passo io in mattinata o stasera. Tra 20 minuti partiamo. Tra 2 ore e' il momento."), [{
-      "entity": "test",
-      "position": 11,
-      "priority": 0,
-      "string": "di mattina",
-      "value": {
-        "end": "12:00:00",
-        "start": "08:00:00"
-      }
-    }, {
-      "entity": "test",
-      "position": 24,
-      "priority": 0,
-      "string": "nel pomeriggio",
-      "value": {
-        "end": "23:59:00",
-        "start": "15:00:00"
-      }
-    }, {
-      "entity": "test",
-      "position": 60,
-      "priority": 0,
-      "string": "in mattinata",
-      "value": {
-        "end": "12:00:00",
-        "start": "08:00:00"
-      }
-    }, {
-      "entity": "test",
-      "position": 75,
-      "priority": 0,
-      "string": "stasera",
-      "value": {
-        "end": "23:59:00",
-        "start": "12:00:00"
-      }
-    }, {
-      "entity": "test",
-      "position": 84,
-      "priority": 0,
-      "string": "tra 20 minuti",
-      "value": {
-        "end": TestTools.formatTime(now + (20 * TestTools.MINUTE)),
-        "start": TestTools.formatTime(now)
-      }
-    }, {
-      "entity": "test",
-      "position": 108,
-      "priority": 0,
-      "string": "tra 2 ore",
-      "value": {
-        "end": TestTools.formatTime(now + (2 * TestTools.HOUR)),
-        "start": TestTools.formatTime(now)
-      }
-    }],
-    "Multiple time ranges are matched"
-  );
-
-  assert.deepEqual(reg.getEntities("tra 10 secondi, tra 10, tra 10 minuti, 10 minuti, in 5 ore, stasera, nel pomeriggio, di mattina"), [{
-    "entity": "test",
-    "position": 0,
-    "priority": 0,
-    "string": "tra 10 secondi",
-    "value": {
-      "end": TestTools.formatTime(now + (10 * TestTools.SECOND)),
-      "start": TestTools.formatTime(now)
-    }
-  }, {
-    "entity": "test",
-    "position": 24,
-    "priority": 0,
-    "string": "tra 10 minuti",
-    "value": {
-      "end": TestTools.formatTime(now + (10 * TestTools.MINUTE)),
-      "start": TestTools.formatTime(now)
-    }
-  }, {
-    "entity": "test",
-    "position": 50,
-    "priority": 0,
-    "string": "in 5 ore",
-    "value": {
-      "end": TestTools.formatTime(now + (5 * TestTools.HOUR)),
-      "start": TestTools.formatTime(now)
-    }
-  }, {
-    "entity": "test",
-    "position": 60,
-    "priority": 0,
-    "string": "stasera",
-    "value": {
-      "end": "23:59:00",
-      "start": "12:00:00"
-    }
-  }, {
-    "entity": "test",
-    "position": 69,
-    "priority": 0,
-    "string": "nel pomeriggio",
-    "value": {
-      "end": "23:59:00",
-      "start": "15:00:00"
-    }
-  }, {
-    "entity": "test",
-    "position": 85,
-    "priority": 0,
-    "string": "di mattina",
-    "value": {
-      "end": "12:00:00",
-      "start": "08:00:00"
-    }
-  }], "Multiple time ranges are matched");
+	], "Multiple time ranges");
   */
   
 });
@@ -2198,28 +2084,45 @@ QUnit.test("PT.NumberEntityRecognizer", function(assert) {
     "string": "dez",
     "value": 10
   }], "Single numbers are matched");
-
-  /*
-  assert.deepEqual(reg.getEntities("ci sono 12 mele, tredici pere e unmilioneottocentoventimilaseicentoquindici peperoni"), [{
+  
+  assert.deepEqual(reg.getEntities("tem 10 teclas"), [{
     "entity": "test",
-    "position": 8,
+    "position": 4,
     "priority": 0,
-    "string": "12",
-    "value": 12
-  }, {
-    "entity": "test",
-    "position": 17,
-    "priority": 0,
-    "string": "tredici",
-    "value": 13
-  }, {
-    "entity": "test",
-    "position": 32,
-    "priority": 0,
-    "string": "unmilioneottocentoventimilaseicentoquindici",
-    "value": 1820615
-  }], "Multiple numbers are matched");
-  */
+    "string": "10",
+    "value": 10
+  }], "A number is matched");  
+  
+  assert.deepEqual(reg.getEntities("são quinze agora e sete mil e novecentos depois, dois mil trezentos e onze ou 1000 pra sempre"), [
+	{
+		"entity": "test",
+		"position": 4,
+		"priority": 0,
+		"string": "quinze",
+		"value": 15
+	},
+	{
+		"entity": "test",
+		"position": 19,
+		"priority": 0,
+		"string": "sete mil e novecentos",
+		"value": 7900
+	},
+	{
+		"entity": "test",
+		"position": 49,
+		"priority": 0,
+		"string": "dois mil trezentos e onze",
+		"value": 2311
+	},	
+	{
+		"entity": "test",
+		"position": 78,
+		"priority": 0,
+		"string": "1000",
+		"value": 1000
+	}	
+	], "Multiple numbers are matched");
 
 });
 

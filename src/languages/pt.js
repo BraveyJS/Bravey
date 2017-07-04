@@ -1448,66 +1448,6 @@ Bravey.Language.PT.TimePeriodEntityRecognizer = function(entityName) {
 
   var matcher = new Bravey.RegexEntityRecognizer(entityName);
 
-  /*
-  var rangematcher = new Bravey.Text.RegexMap([{
-    str: ["segundo", "segundos", "seg", "s"],
-    val: Bravey.Date.SECOND
-  }, {
-    str: ["minuto", "minutos", "min", "m"],
-    val: Bravey.Date.MINUTE
-  }, {
-    str: ["hora", "horas", "hrs", "hs", "h"],
-    val: Bravey.Date.HOUR
-  }], 0);
-
-  matcher.addMatch(
-		new RegExp(
-			"\\b(entre\\b|em\\b|às\\b|e\\b)?" + Bravey.Text.WORDSEP +
-			"([0-9]+)" + Bravey.Text.WORDSEP +
-			rangematcher.regex(2) +
-			"\\b(e\\b)?" + Bravey.Text.WORDSEP +
-			"([0-9]+)?" + Bravey.Text.WORDSEP +
-			rangematcher.regex(1) +
-			"\\b(e\\b)?" + Bravey.Text.WORDSEP +
-			"([0-9]+)?" + Bravey.Text.WORDSEP +
-			rangematcher.regex(0) +			
-			"\\b", "gi"),
-		
-		function(match) {
-			//console.log( '----------------------------------' );
-			//console.log( match );
-			//console.log( '----------------------------------' );
-			
-			var h = 0;
-			if ( match[ 1 ] ) {
-				h = match[ 1 ] * 1;
-			}
-			var m = 0;
-			if ( match[ 4 ] ) {
-				h = match[ 4 ] * 1;
-			}
-			var s = 0;
-			if ( match[ 7 ] ) {
-				s = match[ 7 ] * 1;
-			}
-			
-			return Bravey.Date.formatTime( (new Date(0, 0, 0, h, m, s, 0)).getTime() );
-			/*
-			
-			var then, now, date = new Date();
-			now = then = (date.getHours() * Bravey.Date.HOUR) + (date.getMinutes() * Bravey.Date.MINUTE);
-			then += (match[2] * rangematcher.get(match, 3));
-			
-			if (Bravey.Text.calculateScore(match, [1, 3])) {
-			  return {
-					start: Bravey.Date.formatTime(now),
-					end: Bravey.Date.formatTime(then)
-				};
-			}
-			*/
-//		}
-//  ); 
-
 	matcher.addMatch(new RegExp("\\b(de madrugada|na madrugada)\\b", "gi"), function(match) {
 		return {
 		  start: "00:00:00",
@@ -1547,8 +1487,6 @@ Bravey.Language.PT.TimePeriodEntityRecognizer = function(entityName) {
 				var value = match[ 2 ] * 1;
 				var increase = 0;
 				switch ( match[ 3 ] ) {
-					//case "semanas": increase = 7 * Bravey.Date.DAY * value; break;
-					//case "dias": increase = Bravey.Date.DAY * value; break;
 					case "horas": increase = Bravey.Date.HOUR * value; break;
 					case "minutos": increase = Bravey.Date.MINUTE * value; break;
 					case "segundos": increase = Bravey.Date.SECOND * value; break;
@@ -1744,10 +1682,11 @@ Bravey.Language.PT.FreeTextEntityRecognizer = function(entityName, priority) {
   return matcher;
 };
 
-/* English numbers matching patterns. */
+/* Portuguese numbers matching patterns. */
 Bravey.Language.PT.Numbers = {
-  wordsSeparator: /(\w+)([^\w]+)/gi,
+  wordsSeparator: /(\w+)/gi,
   sum: {
+	'e': 0,
     'zero': 0,
     'um': 1,
     'dois': 2,
@@ -1776,12 +1715,23 @@ Bravey.Language.PT.Numbers = {
     'setenta': 70,
     'oitenta': 80,
     'noventa': 90,
-    'cem': 100
+    'cem': 100,
+	'duzentos': 200,
+	'trezentos': 300,
+	'quatrocentos': 400,
+	'quinhentos': 500,
+	'seiscentos': 600,
+	'setecentos': 700,
+	'oitocentos': 800,
+	'novecentos': 900
   },
   mul: {
     'cento': 100,
     'mil': 1000,
     'milhão': 1000000
+  },
+  skip: {
+	  e: 1
   }
 };
 
@@ -1792,61 +1742,74 @@ Bravey.Language.PT.Numbers = {
  * @returns {Bravey.RegexEntityRecognizer}
  */
 Bravey.Language.PT.NumberEntityRecognizer = function(entityName, priority) {
-  this.getName = function() {
-    return entityName;
-  };
-
-  this.getEntities = function(string, out) {
-    if (!out) out = [];
-    var tokens = string.toLowerCase().split(/(\w+)/);
-
-    var mul, token, temp = 0,
-      sum = 0,
-      isnumber, current, valid, cursor = 0,
-      end;
-    for (var i = 0; i < tokens.length + 1; i++) {
-      token = tokens[i] == undefined ? "*" : tokens[i];
-      isnumber = true;
-      if (!current) {
-        valid = 0;
-        current = {
-          value: 0,
-          entity: entityName,
-          string: "",
-          priority: priority || 0
-        };
-      }
-      if (token.trim()) {
-        if (Bravey.Language.PT.Numbers.sum[token] != null)
-          sum += Bravey.Language.PT.Numbers.sum[token];
-        else if (token == 'cem')
-          sum *= 100;
-        else if (!isNaN(token * 1)) {
-          if (valid) {
-            i--;
-            token = "";
-            isnumber = false;
-          } else temp = token * 1;
-        } else if (Bravey.Language.PT.Numbers.mul[token]) {
-          mul = Bravey.Language.PT.Numbers.mul[token];
-          temp += sum * mul;
-          sum = 0;
-        } else isnumber = false;
-        if (isnumber) {
-          valid = 1;
-          end = cursor + token.length;
-          if (current.position == undefined) current.position = cursor;
-        } else if (valid) {
-          current.value = temp + sum;
-          current.string = string.substr(current.position, end - current.position);
-          out.push(current);
-          temp = sum = current = 0;
-        }
-      }
-      cursor += token.length;
-    }
-    return out;
-  };
+	
+	this.getName = function() {
+		return entityName;
+	};
   
+	this.getEntities = function(string, out) {
+		if (!out) out = [];
+		var tokens = string.toLowerCase().split(/(\w+)/);
+		var mul, token, temp = 0,
+			sum = 0,
+			isnumber, current, valid, cursor = 0,
+			end;
+		for (var i = 0; i < tokens.length + 1; i++) {
+			token = tokens[i] == undefined ? "*" : tokens[i];
+			isnumber = true;
+			if (!current) {
+				valid = 0;
+				current = {
+				  value: 0,
+				  entity: entityName,
+				  string: "",
+				  priority: priority || 0
+				};
+			}
+			
+			if (token.trim()) {
+				
+				if (token.trim() == 'e' && 0 == sum ) { // skip "e" before a number
+					cursor += token.length;
+					continue;
+				}					
+
+				if (Bravey.Language.PT.Numbers.sum[token] != null) {
+					sum += Bravey.Language.PT.Numbers.sum[token];
+				} else if (!isNaN(token * 1)) {
+					if (valid) {
+						i--;
+						token = "";
+						isnumber = false;
+					} else {
+						temp = token * 1;
+					}
+				} else if (Bravey.Language.PT.Numbers.mul[token]) {
+					mul = Bravey.Language.PT.Numbers.mul[token];
+					temp += sum * mul;
+					sum = 0;
+				} else {
+					isnumber = false;
+				}
+				
+				if (isnumber) {
+					valid = 1;
+					end = cursor + token.length;
+					if (current.position == undefined) {
+						current.position = cursor;
+					}
+				} else if (valid) {
+					current.value = temp + sum;
+					current.string = string.substr(current.position, end - current.position);
+					out.push(current);
+					temp = sum = current = 0;
+				}
+			}
+			
+			cursor += token.length;
+		}
+		return out;
+	};
+
 };
   
