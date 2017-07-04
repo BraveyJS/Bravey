@@ -549,11 +549,11 @@ Bravey.Language.EN.Stemmer = (function() {
         return true;
       }
     }
-    /**
-     * Stem a given word.
-     * @param {string} word - The word to be stemmed.
-     * @returns {string} The stemmed word.
-     */
+  /**
+   * Stem a given word.
+   * @param {string} word - The word to be stemmed.
+   * @returns {string} The stemmed word.
+   */
   return function(word) {
     st.setCurrent(word);
     st.stem();

@@ -13,6 +13,7 @@
 	"src/classifiers/DocumentClassifier.js",
 	"src/languages/it.js",
 	"src/languages/en.js",
+	"src/languages/pt.js",	
 	"src/nlp/Fuzzy.js",
 	"src/nlp/Sequential.js",
 	"src/adapters/ApiAiAdapter.js",

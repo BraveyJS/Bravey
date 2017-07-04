@@ -17,22 +17,22 @@ var ChatterBox = function(parent, title, options) {
           }
       }
     } 
-    else switch (options.responsive) {
-      case "force":
-        {
-          options.responsiveClass = "forceresponsive";
-          break;
-        }
-      case "yes":
-        {
-          options.responsiveClass = "responsive";
-          break;
-        }
-      default:
-        {
-          options.responsiveClass = "";
-        }
-    }
+  else switch (options.responsive) {
+    case "force":
+      {
+        options.responsiveClass = "forceresponsive";
+        break;
+      }
+    case "yes":
+      {
+        options.responsiveClass = "responsive";
+        break;
+      }
+    default:
+      {
+        options.responsiveClass = "";
+      }
+  }
 
   var self = this;
   var recognition = 0;
