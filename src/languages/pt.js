@@ -9,289 +9,272 @@ Bravey.Language.PT = {};
  * @constructor
  */
 Bravey.Language.PT.Stemmer = (function() {
-	
-	/**
-	 * Base stemmer obtained from https://github.com/snowballstem/snowball-website
-	 */
-	function BaseStemmer() {
-		this.setCurrent = function(value) {
-			this.current = value;
-			this.cursor = 0;
-			this.limit = this.current.length;
-			this.limit_backward = 0;
-			this.bra = this.cursor;
-			this.ket = this.limit;
-		};
 
-		this.getCurrent = function() {
-			return this.current;
-		};
+  /**
+   * Base stemmer obtained from https://github.com/snowballstem/snowball-website
+   */
+  function BaseStemmer() {
+    this.setCurrent = function(value) {
+      this.current = value;
+      this.cursor = 0;
+      this.limit = this.current.length;
+      this.limit_backward = 0;
+      this.bra = this.cursor;
+      this.ket = this.limit;
+    };
 
-		this.copy_from = function(other) {
-			this.current          = other.current;
-			this.cursor           = other.cursor;
-			this.limit            = other.limit;
-			this.limit_backward   = other.limit_backward;
-			this.bra              = other.bra;
-			this.ket              = other.ket;
-		};
+    this.getCurrent = function() {
+      return this.current;
+    };
 
-		this.in_grouping = function(s, min, max) {
-			if (this.cursor >= this.limit) return false;
-			var ch = this.current.charCodeAt(this.cursor);
-			if (ch > max || ch < min) return false;
-			ch -= min;
-			if ((s[ch >>> 3] & (0x1 << (ch & 0x7))) == 0) return false;
-			this.cursor++;
-			return true;
-		};
+    this.copy_from = function(other) {
+      this.current = other.current;
+      this.cursor = other.cursor;
+      this.limit = other.limit;
+      this.limit_backward = other.limit_backward;
+      this.bra = other.bra;
+      this.ket = other.ket;
+    };
 
-		this.in_grouping_b = function(s, min, max) {
-			if (this.cursor <= this.limit_backward) return false;
-			var ch = this.current.charCodeAt(this.cursor - 1);
-			if (ch > max || ch < min) return false;
-			ch -= min;
-			if ((s[ch >>> 3] & (0x1 << (ch & 0x7))) == 0) return false;
-			this.cursor--;
-			return true;
-		};
+    this.in_grouping = function(s, min, max) {
+      if (this.cursor >= this.limit) return false;
+      var ch = this.current.charCodeAt(this.cursor);
+      if (ch > max || ch < min) return false;
+      ch -= min;
+      if ((s[ch >>> 3] & (0x1 << (ch & 0x7))) == 0) return false;
+      this.cursor++;
+      return true;
+    };
 
-		this.out_grouping = function(s, min, max) {
-			if (this.cursor >= this.limit) return false;
-			var ch = this.current.charCodeAt(this.cursor);
-			if (ch > max || ch < min) {
-				this.cursor++;
-				return true;
-			}
-			ch -= min;
-			if ((s[ch >>> 3] & (0X1 << (ch & 0x7))) == 0) {
-				this.cursor++;
-				return true;
-			}
-			return false;
-		};
+    this.in_grouping_b = function(s, min, max) {
+      if (this.cursor <= this.limit_backward) return false;
+      var ch = this.current.charCodeAt(this.cursor - 1);
+      if (ch > max || ch < min) return false;
+      ch -= min;
+      if ((s[ch >>> 3] & (0x1 << (ch & 0x7))) == 0) return false;
+      this.cursor--;
+      return true;
+    };
 
-		this.out_grouping_b = function(s, min, max) {
-			if (this.cursor <= this.limit_backward) return false;
-			var ch = this.current.charCodeAt(this.cursor - 1);
-			if (ch > max || ch < min) {
-				this.cursor--;
-				return true;
-			}
-			ch -= min;
-			if ((s[ch >>> 3] & (0x1 << (ch & 0x7))) == 0) {
-				this.cursor--;
-				return true;
-			}
-			return false;
-		};
+    this.out_grouping = function(s, min, max) {
+      if (this.cursor >= this.limit) return false;
+      var ch = this.current.charCodeAt(this.cursor);
+      if (ch > max || ch < min) {
+        this.cursor++;
+        return true;
+      }
+      ch -= min;
+      if ((s[ch >>> 3] & (0X1 << (ch & 0x7))) == 0) {
+        this.cursor++;
+        return true;
+      }
+      return false;
+    };
 
-		this.eq_s = function(s) {
-			if (this.limit - this.cursor < s.length) return false;
-				if (this.current.slice(this.cursor, this.cursor + s.length) != s)
-				{
-					return false;
-				}
-			this.cursor += s.length;
-			return true;
-		};
+    this.out_grouping_b = function(s, min, max) {
+      if (this.cursor <= this.limit_backward) return false;
+      var ch = this.current.charCodeAt(this.cursor - 1);
+      if (ch > max || ch < min) {
+        this.cursor--;
+        return true;
+      }
+      ch -= min;
+      if ((s[ch >>> 3] & (0x1 << (ch & 0x7))) == 0) {
+        this.cursor--;
+        return true;
+      }
+      return false;
+    };
 
-		this.eq_s_b = function(s) {
-			if (this.cursor - this.limit_backward < s.length) return false;
-				if (this.current.slice(this.cursor - s.length, this.cursor) != s)
-				{
-					return false;
-				}
-			this.cursor -= s.length;
-			return true;
-		};
+    this.eq_s = function(s) {
+      if (this.limit - this.cursor < s.length) return false;
+      if (this.current.slice(this.cursor, this.cursor + s.length) != s) {
+        return false;
+      }
+      this.cursor += s.length;
+      return true;
+    };
 
-		/** @return {number} */ this.find_among = function(v) {
-			var i = 0;
-			var j = v.length;
+    this.eq_s_b = function(s) {
+      if (this.cursor - this.limit_backward < s.length) return false;
+      if (this.current.slice(this.cursor - s.length, this.cursor) != s) {
+        return false;
+      }
+      this.cursor -= s.length;
+      return true;
+    };
 
-			var c = this.cursor;
-			var l = this.limit;
+    /** @return {number} */
+    this.find_among = function(v) {
+      var i = 0;
+      var j = v.length;
 
-			var common_i = 0;
-			var common_j = 0;
+      var c = this.cursor;
+      var l = this.limit;
 
-			var first_key_inspected = false;
+      var common_i = 0;
+      var common_j = 0;
 
-			while (true)
-				{
-				var k = i + ((j - i) >>> 1);
-				var diff = 0;
-				var common = common_i < common_j ? common_i : common_j; // smaller
-				var w = v[k];
-				var i2;
-		/// s : string, substring_i : int, result : int, method
-				for (i2 = common; i2 < w[0].length; i2++)
-					{
-				if (c + common == l)
-						{
-					diff = -1;
-					break;
-				}
-				diff = this.current.charCodeAt(c + common) - w[0].charCodeAt(i2);
-				if (diff != 0) break;
-				common++;
-				}
-				if (diff < 0)
-					{
-				j = k;
-				common_j = common;
-				}
-					else
-					{
-				i = k;
-				common_i = common;
-				}
-				if (j - i <= 1)
-					{
-				if (i > 0) break; // v->s has been inspected
-				if (j == i) break; // only one item in v
+      var first_key_inspected = false;
 
-				// - but now we need to go round once more to get
-				// v->s inspected. This looks messy, but is actually
-				// the optimal approach.
+      while (true) {
+        var k = i + ((j - i) >>> 1);
+        var diff = 0;
+        var common = common_i < common_j ? common_i : common_j; // smaller
+        var w = v[k];
+        var i2;
+        /// s : string, substring_i : int, result : int, method
+        for (i2 = common; i2 < w[0].length; i2++) {
+          if (c + common == l) {
+            diff = -1;
+            break;
+          }
+          diff = this.current.charCodeAt(c + common) - w[0].charCodeAt(i2);
+          if (diff != 0) break;
+          common++;
+        }
+        if (diff < 0) {
+          j = k;
+          common_j = common;
+        } else {
+          i = k;
+          common_i = common;
+        }
+        if (j - i <= 1) {
+          if (i > 0) break; // v->s has been inspected
+          if (j == i) break; // only one item in v
 
-				if (first_key_inspected) break;
-				first_key_inspected = true;
-				}
-			}
-			while (true)
-				{
-				var w = v[i];
-				if (common_i >= w[0].length)
-					{
-				this.cursor = c + w[0].length;
-				if (w.length < 4) return w[2];
-				var res = w[3](this);
-				this.cursor = c + w[0].length;
-				if (res) return w[2];
-				}
-				i = w[1];
-				if (i < 0) return 0;
-			}
-		};
+          // - but now we need to go round once more to get
+          // v->s inspected. This looks messy, but is actually
+          // the optimal approach.
 
-		// find_among_b is for backwards processing. Same comments apply
-			this.find_among_b = function(v) {
-			var i = 0;
-			var j = v.length
+          if (first_key_inspected) break;
+          first_key_inspected = true;
+        }
+      }
+      while (true) {
+        var w = v[i];
+        if (common_i >= w[0].length) {
+          this.cursor = c + w[0].length;
+          if (w.length < 4) return w[2];
+          var res = w[3](this);
+          this.cursor = c + w[0].length;
+          if (res) return w[2];
+        }
+        i = w[1];
+        if (i < 0) return 0;
+      }
+    };
 
-			var c = this.cursor;
-			var lb = this.limit_backward;
+    // find_among_b is for backwards processing. Same comments apply
+    this.find_among_b = function(v) {
+      var i = 0;
+      var j = v.length
 
-			var common_i = 0;
-			var common_j = 0;
+      var c = this.cursor;
+      var lb = this.limit_backward;
 
-			var first_key_inspected = false;
+      var common_i = 0;
+      var common_j = 0;
 
-			while (true)
-				{
-				var k = i + ((j - i) >> 1);
-				var diff = 0;
-				var common = common_i < common_j ? common_i : common_j;
-				var w = v[k];
-				var i2;
-				for (i2 = w[0].length - 1 - common; i2 >= 0; i2--)
-					{
-				if (c - common == lb)
-						{
-					diff = -1;
-					break;
-				}
-				diff = this.current.charCodeAt(c - 1 - common) - w[0].charCodeAt(i2);
-				if (diff != 0) break;
-				common++;
-				}
-				if (diff < 0)
-					{
-				j = k;
-				common_j = common;
-				}
-					else
-					{
-				i = k;
-				common_i = common;
-				}
-				if (j - i <= 1)
-					{
-				if (i > 0) break;
-				if (j == i) break;
-				if (first_key_inspected) break;
-				first_key_inspected = true;
-				}
-			}
-			while (true) {
-				var w = v[i];
-				if (common_i >= w[0].length) {
-					this.cursor = c - w[0].length;
-					if (w.length < 4) return w[2];
-					var res = w[3](this);
-					this.cursor = c - w[0].length;
-					if (res) return w[2];
-				}
-				i = w[1];
-				if (i < 0) return 0;
-			}
-		};
+      var first_key_inspected = false;
 
-		/* to replace chars between c_bra and c_ket in this.current by the
-		 * chars in s.
-		 */
-		this.replace_s = function(c_bra, c_ket, s) {
-			var adjustment = s.length - (c_ket - c_bra);
-			this.current = this.current.slice(0, c_bra) + s + this.current.slice(c_ket);
-			this.limit += adjustment;
-			if (this.cursor >= c_ket) this.cursor += adjustment;
-			else if (this.cursor > c_bra) this.cursor = c_bra;
-			return adjustment;
-		};
+      while (true) {
+        var k = i + ((j - i) >> 1);
+        var diff = 0;
+        var common = common_i < common_j ? common_i : common_j;
+        var w = v[k];
+        var i2;
+        for (i2 = w[0].length - 1 - common; i2 >= 0; i2--) {
+          if (c - common == lb) {
+            diff = -1;
+            break;
+          }
+          diff = this.current.charCodeAt(c - 1 - common) - w[0].charCodeAt(i2);
+          if (diff != 0) break;
+          common++;
+        }
+        if (diff < 0) {
+          j = k;
+          common_j = common;
+        } else {
+          i = k;
+          common_i = common;
+        }
+        if (j - i <= 1) {
+          if (i > 0) break;
+          if (j == i) break;
+          if (first_key_inspected) break;
+          first_key_inspected = true;
+        }
+      }
+      while (true) {
+        var w = v[i];
+        if (common_i >= w[0].length) {
+          this.cursor = c - w[0].length;
+          if (w.length < 4) return w[2];
+          var res = w[3](this);
+          this.cursor = c - w[0].length;
+          if (res) return w[2];
+        }
+        i = w[1];
+        if (i < 0) return 0;
+      }
+    };
 
-		this.slice_check = function() {
-			if (this.bra < 0 ||
-				this.bra > this.ket ||
-				this.ket > this.limit ||
-				this.limit > this.current.length) {
-				return false;
-			}
-			return true;
-		};
+    /* to replace chars between c_bra and c_ket in this.current by the
+     * chars in s.
+     */
+    this.replace_s = function(c_bra, c_ket, s) {
+      var adjustment = s.length - (c_ket - c_bra);
+      this.current = this.current.slice(0, c_bra) + s + this.current.slice(c_ket);
+      this.limit += adjustment;
+      if (this.cursor >= c_ket) this.cursor += adjustment;
+      else if (this.cursor > c_bra) this.cursor = c_bra;
+      return adjustment;
+    };
 
-		this.slice_from = function(s) {
-			var result = false;
-			if (this.slice_check()) {
-				this.replace_s(this.bra, this.ket, s);
-				result = true;
-			}
-			return result;
-		};
+    this.slice_check = function() {
+      if (this.bra < 0 ||
+        this.bra > this.ket ||
+        this.ket > this.limit ||
+        this.limit > this.current.length) {
+        return false;
+      }
+      return true;
+    };
 
-		this.slice_del = function() {
-			return this.slice_from("");
-		};
+    this.slice_from = function(s) {
+      var result = false;
+      if (this.slice_check()) {
+        this.replace_s(this.bra, this.ket, s);
+        result = true;
+      }
+      return result;
+    };
 
-		this.insert = function(c_bra, c_ket, s) {
-			var adjustment = this.replace_s(c_bra, c_ket, s);
-			if (c_bra <= this.bra) this.bra += adjustment;
-			if (c_bra <= this.ket) this.ket += adjustment;
-		};
+    this.slice_del = function() {
+      return this.slice_from("");
+    };
 
-		this.slice_to = function() {
-			var result = '';
-			if (this.slice_check()) {
-				result = this.current.slice(this.bra, this.ket);
-			}
-			return result;
-		};
+    this.insert = function(c_bra, c_ket, s) {
+      var adjustment = this.replace_s(c_bra, c_ket, s);
+      if (c_bra <= this.bra) this.bra += adjustment;
+      if (c_bra <= this.ket) this.ket += adjustment;
+    };
 
-		this.assign_to = function() {
-			return this.current.slice(0, this.limit);
-		};
-	};	
+    this.slice_to = function() {
+      var result = '';
+      if (this.slice_check()) {
+        result = this.current.slice(this.bra, this.ket);
+      }
+      return result;
+    };
+
+    this.assign_to = function() {
+      return this.current.slice(0, this.limit);
+    };
+  };
 
   /**
    * Portuguese stemmer obtained from https://github.com/snowballstem/snowball-website
@@ -1382,56 +1365,56 @@ Bravey.Language.PT.Stemmer = (function() {
  */
 Bravey.Language.PT.TimeEntityRecognizer = function(entityName) {
 
-	var matcher = new Bravey.RegexEntityRecognizer(entityName);
-  
-	var exp1 = "\\b(às\\b|as\\b|em\\b)?" + Bravey.Text.WORDSEP +
-		"([0-9]+)" + Bravey.Text.WORDSEP +
-		"\\b(horas\\b|hrs\\b|h\\b|:\\b)?" + Bravey.Text.WORDSEP +
-		"\\b(e\\b|,\\b|com\\b)?" + Bravey.Text.WORDSEP +
-		"([0-9]+)?" + Bravey.Text.WORDSEP +
-		"\\b(minutos\\b|min\\b|m\\b)?" + Bravey.Text.WORDSEP +
-		"\\b(e\\b|,\\b|:\\b)?" + Bravey.Text.WORDSEP +
-		"([0-9]+)?" + Bravey.Text.WORDSEP +
-		"\\b(segundos\\b|seg\\b|s\\b)?" + Bravey.Text.WORDSEP +
-		"\\b(meia\\b|quinze\\b|quarenta e cinco\\b)?" + Bravey.Text.WORDSEP + // for minutes only
-		"\\b(da noite\\b|da tarde\\b|pm\\b|da manha\\b|am\\b)?" + Bravey.Text.WORDSEP // am/pm modifier
-		;
+  var matcher = new Bravey.RegexEntityRecognizer(entityName);
 
-	matcher.addMatch(
-		new RegExp( exp1, "gi"),
-		function(match) {
-		
-			var hour = 0;
-			if ( match[ 2 ] ) {
-				hour = match[ 2 ] * 1;
-			}
-			
-			var min = 0;
-			if ( match[ 5 ] ) {
-				min = match[ 5 ] * 1;
-			} else if ( match[ 10 ] ) {
-				if ( 'meia' === match[ 10 ] ) min = 30;
-				else if ( 'quinze' === match[ 10 ] ) min = 15;
-				else if ( 'quarenta e cinco' === match[ 10 ] ) min = 45;
-			}
-			
-			var sec = 0;
-			if ( match[ 8 ] ) {
-				sec = match[ 8 ] * 1;
-			}
-			
-			if ( match[ 11 ] ) {
-				if ( ( 'da manha' == match[ 11 ] || 'am' == match[ 11 ] ) && hour > 12 ) {
-					hour -= 12;
-				}
-				if ( ( 'da noite' == match[ 11 ] || 'da tarde' == match[ 11 ] || 'pm' == match[ 11 ] ) && hour < 12 ) {
-					hour += 12;
-				}				
-			}
-			
-			return Bravey.Text.pad( hour, 2 ) + ':' + Bravey.Text.pad( min, 2 ) + ':' + Bravey.Text.pad( sec, 2 );
-		}
-		);
+  var exp1 = "\\b(às\\b|as\\b|em\\b)?" + Bravey.Text.WORDSEP +
+    "([0-9]+)" + Bravey.Text.WORDSEP +
+    "\\b(horas\\b|hrs\\b|h\\b|:\\b)?" + Bravey.Text.WORDSEP +
+    "\\b(e\\b|,\\b|com\\b)?" + Bravey.Text.WORDSEP +
+    "([0-9]+)?" + Bravey.Text.WORDSEP +
+    "\\b(minutos\\b|min\\b|m\\b)?" + Bravey.Text.WORDSEP +
+    "\\b(e\\b|,\\b|:\\b)?" + Bravey.Text.WORDSEP +
+    "([0-9]+)?" + Bravey.Text.WORDSEP +
+    "\\b(segundos\\b|seg\\b|s\\b)?" + Bravey.Text.WORDSEP +
+    "\\b(meia\\b|quinze\\b|quarenta e cinco\\b)?" + Bravey.Text.WORDSEP + // for minutes only
+    "\\b(da noite\\b|da tarde\\b|pm\\b|da manha\\b|am\\b)?" + Bravey.Text.WORDSEP // am/pm modifier
+  ;
+
+  matcher.addMatch(
+    new RegExp(exp1, "gi"),
+    function(match) {
+
+      var hour = 0;
+      if (match[2]) {
+        hour = match[2] * 1;
+      }
+
+      var min = 0;
+      if (match[5]) {
+        min = match[5] * 1;
+      } else if (match[10]) {
+        if ('meia' === match[10]) min = 30;
+        else if ('quinze' === match[10]) min = 15;
+        else if ('quarenta e cinco' === match[10]) min = 45;
+      }
+
+      var sec = 0;
+      if (match[8]) {
+        sec = match[8] * 1;
+      }
+
+      if (match[11]) {
+        if (('da manha' == match[11] || 'am' == match[11]) && hour > 12) {
+          hour -= 12;
+        }
+        if (('da noite' == match[11] || 'da tarde' == match[11] || 'pm' == match[11]) && hour < 12) {
+          hour += 12;
+        }
+      }
+
+      return Bravey.Text.pad(hour, 2) + ':' + Bravey.Text.pad(min, 2) + ':' + Bravey.Text.pad(sec, 2);
+    }
+  );
 
   matcher.bindTo(this);
 
@@ -1448,61 +1431,66 @@ Bravey.Language.PT.TimePeriodEntityRecognizer = function(entityName) {
 
   var matcher = new Bravey.RegexEntityRecognizer(entityName);
 
-	matcher.addMatch(new RegExp("\\b(de madrugada|na madrugada)\\b", "gi"), function(match) {
-		return {
-		  start: "00:00:00",
-		  end: "05:59:59"
-		}
-	});
-  
-	matcher.addMatch(new RegExp("\\b(de manha|na manha)\\b", "gi"), function(match) {
-		return {
-		  start: "06:00:00",
-		  end: "11:59:59"
-		}
-	});
-	
-	matcher.addMatch(new RegExp("\\b(a tarde|de tarde|na tarde)\\b", "gi"), function(match) {
-		return {
-		  start: "12:00:00",
-		  end: "17:59:59"
-		}
-	});
-	
-	matcher.addMatch(new RegExp("\\b(a noite|de noite|na noite)\\b", "gi"), function(match) {
-		return {
-		  start: "18:00:00",
-		  end: "23:59:59"
-		}
-	});
-	
-	matcher.addMatch(
-		new RegExp(
-			"\\b(daqui a|daqui|em)\\b" + Bravey.Text.WORDSEP +
-			"([0-9]+)" + Bravey.Text.WORDSEP +
-			"\\b(horas|minutos|segundos)\\b" + Bravey.Text.WORDSEP
-			, "gi"),	
-		function(match) {			
-			if ( match[ 2 ] && match[ 3 ] ) {
-				var value = match[ 2 ] * 1;
-				var increase = 0;
-				switch ( match[ 3 ] ) {
-					case "horas": increase = Bravey.Date.HOUR * value; break;
-					case "minutos": increase = Bravey.Date.MINUTE * value; break;
-					case "segundos": increase = Bravey.Date.SECOND * value; break;
-				}
-				var now = new Date();
-				var	end = new Date();
-				end.setTime( end.getTime() + increase ); 
-				return {
-					start: now.toLocaleTimeString( 'pt-BR' ),
-					end: end.toLocaleTimeString( 'pt-BR' )
-					};				
-			}
-		}
-	);
+  matcher.addMatch(new RegExp("\\b(de madrugada|na madrugada)\\b", "gi"), function(match) {
+    return {
+      start: "00:00:00",
+      end: "05:59:59"
+    }
+  });
 
-	matcher.bindTo(this);
+  matcher.addMatch(new RegExp("\\b(de manha|na manha)\\b", "gi"), function(match) {
+    return {
+      start: "06:00:00",
+      end: "11:59:59"
+    }
+  });
+
+  matcher.addMatch(new RegExp("\\b(a tarde|de tarde|na tarde)\\b", "gi"), function(match) {
+    return {
+      start: "12:00:00",
+      end: "17:59:59"
+    }
+  });
+
+  matcher.addMatch(new RegExp("\\b(a noite|de noite|na noite)\\b", "gi"), function(match) {
+    return {
+      start: "18:00:00",
+      end: "23:59:59"
+    }
+  });
+
+  matcher.addMatch(
+    new RegExp(
+      "\\b(daqui a|daqui|em)\\b" + Bravey.Text.WORDSEP +
+      "([0-9]+)" + Bravey.Text.WORDSEP +
+      "\\b(horas|minutos|segundos)\\b" + Bravey.Text.WORDSEP, "gi"),
+    function(match) {
+      if (match[2] && match[3]) {
+        var value = match[2] * 1;
+        var increase = 0;
+        switch (match[3]) {
+          case "horas":
+            increase = Bravey.Date.HOUR * value;
+            break;
+          case "minutos":
+            increase = Bravey.Date.MINUTE * value;
+            break;
+          case "segundos":
+            increase = Bravey.Date.SECOND * value;
+            break;
+        }
+        var now = new Date();
+        var end = new Date();
+        end.setTime(end.getTime() + increase);
+        return {
+          start: now.toLocaleTimeString('pt-BR'),
+          end: end.toLocaleTimeString('pt-BR')
+        };
+      }
+    }
+  );
+
+  matcher.bindTo(this);
 };
 
 /**
@@ -1557,22 +1545,22 @@ Bravey.Language.PT.DateEntityRecognizer = function(entityName) {
 
   // examples: "30/01/2000", "30-01-2000", "30/01", "30-01"
   matcher.addMatch(
-    new RegExp( "\\b(([0-9]{1,2})(/|-)([0-9]{1,2})((/|-)([0-9]{2,4}))?)\\b", "gi" ),
-    function(match) {		
+    new RegExp("\\b(([0-9]{1,2})(/|-)([0-9]{1,2})((/|-)([0-9]{2,4}))?)\\b", "gi"),
+    function(match) {
       var now = new Date();
       var y = now.getFullYear();
-	  if ( match[ 2 ] && match[ 4 ] ) {
-		var d = match[2] * 1;
-		var m = ( match[4] * 1 ) - 1; // month is zero-based
-		if ( match[ 7 ] ) {
-			y = match[7] * 1;	
-		}
-		return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
-	  }
+      if (match[2] && match[4]) {
+        var d = match[2] * 1;
+        var m = (match[4] * 1) - 1; // month is zero-based
+        if (match[7]) {
+          y = match[7] * 1;
+        }
+        return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
+      }
     }
   );
-  
-  
+
+
   // examples: "1° de janeiro de 2000", "22 de janeiro de 2000", "1° de janeiro"
   matcher.addMatch(
     new RegExp(
@@ -1580,37 +1568,35 @@ Bravey.Language.PT.DateEntityRecognizer = function(entityName) {
       "(de)" + Bravey.Text.WORDSEP +
       months.regex() + Bravey.Text.WORDSEP +
       "(de\\b)?" + Bravey.Text.WORDSEP +
-      "([0-9]{2,4})?\\b"
-	  , "gi"),
+      "([0-9]{2,4})?\\b", "gi"),
     function(match) {
       var now = new Date();
       var y = now.getFullYear();
       var m = now.getMonth();
-      var d = now.getDate();	  
-	  if ( match[ 1 ] ) d = match[ 1 ] * 1;	 
-	  if ( match[ 4 ] ) m = months.get( match, 4, m );	  
-      if ( match[ 6 ] ) y = match[ 6 ] * 1;
+      var d = now.getDate();
+      if (match[1]) d = match[1] * 1;
+      if (match[4]) m = months.get(match, 4, m);
+      if (match[6]) y = match[6] * 1;
       y = Bravey.Date.centuryFinder(y);
-	  return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
+      return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
     }
-  );  
-  
+  );
+
   // examples: "janeiro de 2000"
   matcher.addMatch(
     new RegExp(
       months.regex() + Bravey.Text.WORDSEP +
       "(de)" + Bravey.Text.WORDSEP +
-      "([0-9]{2,4})\\b"
-	  , "gi"),
+      "([0-9]{2,4})\\b", "gi"),
     function(match) {
       var now = new Date();
       var y = now.getFullYear();
       var m = now.getMonth();
       var d = 1;
-	  if ( match[ 1 ] ) m = months.get( match, 1, m );	  
-      if ( match[ 3 ] ) y = match[ 3 ] * 1;
+      if (match[1]) m = months.get(match, 1, m);
+      if (match[3]) y = match[3] * 1;
       y = Bravey.Date.centuryFinder(y);
-	  return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
+      return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
     }
   );
 
@@ -1629,31 +1615,34 @@ Bravey.Language.PT.DateEntityRecognizer = function(entityName) {
   matcher.addMatch(new RegExp(prefixes + "(anteontem)\\b", "gi"), function(match) {
     return Bravey.Date.formatDate((new Date()).getTime() - (Bravey.Date.DAY * 2))
   });
-  
-	matcher.addMatch(
-		new RegExp(
-			"\\b(daqui a|daqui|em)\\b" + Bravey.Text.WORDSEP +
-			"([0-9]+)" + Bravey.Text.WORDSEP +
-			"\\b(semanas|dias)\\b" + Bravey.Text.WORDSEP
-			, "gi"),	
-		function(match) {			
-			if ( match[ 2 ] && match[ 3 ] ) {
-				var value = match[ 2 ] * 1;
-				var increase = 0;
-				switch ( match[ 3 ] ) {
-					case "semanas": increase = 7 * Bravey.Date.DAY * value; break;
-					case "dias": increase = Bravey.Date.DAY * value; break;
-				}
-				var now = new Date();
-				var	end = new Date();
-				end.setTime( end.getTime() + increase ); 
-				return {
-					start: Bravey.Date.formatDate( now ),
-					end: Bravey.Date.formatDate( end )
-					};				
-			}
-		}
-	);  
+
+  matcher.addMatch(
+    new RegExp(
+      "\\b(daqui a|daqui|em)\\b" + Bravey.Text.WORDSEP +
+      "([0-9]+)" + Bravey.Text.WORDSEP +
+      "\\b(semanas|dias)\\b" + Bravey.Text.WORDSEP, "gi"),
+    function(match) {
+      if (match[2] && match[3]) {
+        var value = match[2] * 1;
+        var increase = 0;
+        switch (match[3]) {
+          case "semanas":
+            increase = 7 * Bravey.Date.DAY * value;
+            break;
+          case "dias":
+            increase = Bravey.Date.DAY * value;
+            break;
+        }
+        var now = new Date();
+        var end = new Date();
+        end.setTime(end.getTime() + increase);
+        return {
+          start: Bravey.Date.formatDate(now),
+          end: Bravey.Date.formatDate(end)
+        };
+      }
+    }
+  );
 
   matcher.bindTo(this);
 };
@@ -1686,7 +1675,7 @@ Bravey.Language.PT.FreeTextEntityRecognizer = function(entityName, priority) {
 Bravey.Language.PT.Numbers = {
   wordsSeparator: /(\w+)/gi,
   sum: {
-	'e': 0,
+    'e': 0,
     'zero': 0,
     'um': 1,
     'dois': 2,
@@ -1716,14 +1705,14 @@ Bravey.Language.PT.Numbers = {
     'oitenta': 80,
     'noventa': 90,
     'cem': 100,
-	'duzentos': 200,
-	'trezentos': 300,
-	'quatrocentos': 400,
-	'quinhentos': 500,
-	'seiscentos': 600,
-	'setecentos': 700,
-	'oitocentos': 800,
-	'novecentos': 900
+    'duzentos': 200,
+    'trezentos': 300,
+    'quatrocentos': 400,
+    'quinhentos': 500,
+    'seiscentos': 600,
+    'setecentos': 700,
+    'oitocentos': 800,
+    'novecentos': 900
   },
   mul: {
     'cento': 100,
@@ -1731,7 +1720,7 @@ Bravey.Language.PT.Numbers = {
     'milhão': 1000000
   },
   skip: {
-	  e: 1
+    e: 1
   }
 };
 
@@ -1742,74 +1731,73 @@ Bravey.Language.PT.Numbers = {
  * @returns {Bravey.RegexEntityRecognizer}
  */
 Bravey.Language.PT.NumberEntityRecognizer = function(entityName, priority) {
-	
-	this.getName = function() {
-		return entityName;
-	};
-  
-	this.getEntities = function(string, out) {
-		if (!out) out = [];
-		var tokens = string.toLowerCase().split(/(\w+)/);
-		var mul, token, temp = 0,
-			sum = 0,
-			isnumber, current, valid, cursor = 0,
-			end;
-		for (var i = 0; i < tokens.length + 1; i++) {
-			token = tokens[i] == undefined ? "*" : tokens[i];
-			isnumber = true;
-			if (!current) {
-				valid = 0;
-				current = {
-				  value: 0,
-				  entity: entityName,
-				  string: "",
-				  priority: priority || 0
-				};
-			}
-			
-			if (token.trim()) {
-				
-				if (token.trim() == 'e' && 0 == sum ) { // skip "e" before a number
-					cursor += token.length;
-					continue;
-				}					
 
-				if (Bravey.Language.PT.Numbers.sum[token] != null) {
-					sum += Bravey.Language.PT.Numbers.sum[token];
-				} else if (!isNaN(token * 1)) {
-					if (valid) {
-						i--;
-						token = "";
-						isnumber = false;
-					} else {
-						temp = token * 1;
-					}
-				} else if (Bravey.Language.PT.Numbers.mul[token]) {
-					mul = Bravey.Language.PT.Numbers.mul[token];
-					temp += sum * mul;
-					sum = 0;
-				} else {
-					isnumber = false;
-				}
-				
-				if (isnumber) {
-					valid = 1;
-					end = cursor + token.length;
-					if (current.position == undefined) {
-						current.position = cursor;
-					}
-				} else if (valid) {
-					current.value = temp + sum;
-					current.string = string.substr(current.position, end - current.position);
-					out.push(current);
-					temp = sum = current = 0;
-				}
-			}
-			
-			cursor += token.length;
-		}
-		return out;
-	};
+  this.getName = function() {
+    return entityName;
+  };
+
+  this.getEntities = function(string, out) {
+    if (!out) out = [];
+    var tokens = string.toLowerCase().split(/(\w+)/);
+    var mul, token, temp = 0,
+      sum = 0,
+      isnumber, current, valid, cursor = 0,
+      end;
+    for (var i = 0; i < tokens.length + 1; i++) {
+      token = tokens[i] == undefined ? "*" : tokens[i];
+      isnumber = true;
+      if (!current) {
+        valid = 0;
+        current = {
+          value: 0,
+          entity: entityName,
+          string: "",
+          priority: priority || 0
+        };
+      }
+
+      if (token.trim()) {
+
+        if (token.trim() == 'e' && 0 == sum) { // skip "e" before a number
+          cursor += token.length;
+          continue;
+        }
+
+        if (Bravey.Language.PT.Numbers.sum[token] != null) {
+          sum += Bravey.Language.PT.Numbers.sum[token];
+        } else if (!isNaN(token * 1)) {
+          if (valid) {
+            i--;
+            token = "";
+            isnumber = false;
+          } else {
+            temp = token * 1;
+          }
+        } else if (Bravey.Language.PT.Numbers.mul[token]) {
+          mul = Bravey.Language.PT.Numbers.mul[token];
+          temp += sum * mul;
+          sum = 0;
+        } else {
+          isnumber = false;
+        }
+
+        if (isnumber) {
+          valid = 1;
+          end = cursor + token.length;
+          if (current.position == undefined) {
+            current.position = cursor;
+          }
+        } else if (valid) {
+          current.value = temp + sum;
+          current.string = string.substr(current.position, end - current.position);
+          out.push(current);
+          temp = sum = current = 0;
+        }
+      }
+
+      cursor += token.length;
+    }
+    return out;
+  };
 
 };
-  

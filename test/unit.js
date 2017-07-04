@@ -1718,23 +1718,23 @@ QUnit.test("PT: Nlp.Fuzzy + Mixed Regex Recognizers", function(assert) {
     fromFullSentence: true,
     expandIntent: true
   }, "nos encontraremos em {dateEntity}");
-  
+
   TestTools.nlpAddDocument(assert, nlp, "Te vejo em 22 de fevereiro de 2016, ok?", "mixmatch", {
     fromFullSentence: true,
     expandIntent: true
   }, "te vejo em {dateEntity}, ok?");
-  
+
   TestTools.nlpAddDocument(assert, nlp, "Nos encontraremos em 1° de dezembro de 2018", "mixmatch", {
     fromFullSentence: true,
     expandIntent: true
-  }, "nos encontraremos em {dateEntity}");  
+  }, "nos encontraremos em {dateEntity}");
 
 });
 
 QUnit.test("PT.TimeEntityRecognizer", function(assert) {
 
   var reg = new Bravey.Language.PT.TimeEntityRecognizer("test");
-  
+
   assert.deepEqual(reg.getEntities("às 3:00"), [{
     "entity": "test",
     "position": 0,
@@ -1742,22 +1742,22 @@ QUnit.test("PT.TimeEntityRecognizer", function(assert) {
     "string": "as 3:00",
     "value": "03:00:00"
   }], "Single hour");
-  
+
   assert.deepEqual(reg.getEntities("às 3:30"), [{
     "entity": "test",
     "position": 0,
     "priority": 0,
     "string": "as 3:30",
     "value": "03:30:00"
-  }], "Hour with minutes");  
-  
+  }], "Hour with minutes");
+
   assert.deepEqual(reg.getEntities("às 3:30:45"), [{
     "entity": "test",
     "position": 0,
     "priority": 0,
     "string": "as 3:30:45",
     "value": "03:30:45"
-  }], "Hour with minutes and seconds");    
+  }], "Hour with minutes and seconds");
 
   assert.deepEqual(reg.getEntities("às 3 horas"), [{
     "entity": "test",
@@ -1782,7 +1782,7 @@ QUnit.test("PT.TimeEntityRecognizer", function(assert) {
     "string": "as 3 horas",
     "value": "03:00:00"
   }], "First entities are matched");
-  
+
   assert.deepEqual(reg.getEntities("às 3 horas e 15 minutos"), [{
     "entity": "test",
     "position": 0,
@@ -1790,7 +1790,7 @@ QUnit.test("PT.TimeEntityRecognizer", function(assert) {
     "string": "as 3 horas e 15 minutos",
     "value": "03:15:00"
   }], "Hours and minutes are matched");
-  
+
   assert.deepEqual(reg.getEntities("às 3 horas, 15 minutos e 45 segundos"), [{
     "entity": "test",
     "position": 0,
@@ -1798,7 +1798,7 @@ QUnit.test("PT.TimeEntityRecognizer", function(assert) {
     "string": "as 3 horas, 15 minutos e 45 segundos",
     "value": "03:15:45"
   }], "Hours, minutes, and seconds are matched");
-  
+
   assert.deepEqual(reg.getEntities("às 3 h 15 m 45 s"), [{
     "entity": "test",
     "position": 0,
@@ -1806,7 +1806,7 @@ QUnit.test("PT.TimeEntityRecognizer", function(assert) {
     "string": "as 3 h 15 m 45 s",
     "value": "03:15:45"
   }], "Short format for hours, minutes, and seconds are matched");
-  
+
   assert.deepEqual(reg.getEntities("às 3 e meia"), [{
     "entity": "test",
     "position": 0,
@@ -1814,15 +1814,15 @@ QUnit.test("PT.TimeEntityRecognizer", function(assert) {
     "string": "as 3 e meia",
     "value": "03:30:00"
   }], "Maches hour and a half");
-  
+
   assert.deepEqual(reg.getEntities("às 3 e quinze"), [{
     "entity": "test",
     "position": 0,
     "priority": 0,
     "string": "as 3 e quinze",
     "value": "03:15:00"
-  }], "Maches hour and a quarter");  
-  
+  }], "Maches hour and a quarter");
+
   assert.deepEqual(reg.getEntities("às 3 e quarenta e cinco"), [{
     "entity": "test",
     "position": 0,
@@ -1830,7 +1830,7 @@ QUnit.test("PT.TimeEntityRecognizer", function(assert) {
     "string": "as 3 e quarenta e cinco",
     "value": "03:45:00"
   }], "Maches hour and three quarters");
-  
+
   assert.deepEqual(reg.getEntities("às 3 e quarenta e cinco da tarde"), [{
     "entity": "test",
     "position": 0,
@@ -1838,7 +1838,7 @@ QUnit.test("PT.TimeEntityRecognizer", function(assert) {
     "string": "as 3 e quarenta e cinco da tarde",
     "value": "15:45:00"
   }], "Maches pm -> afternoon");
-  
+
   assert.deepEqual(reg.getEntities("às 9 e meia da noite"), [{
     "entity": "test",
     "position": 0,
@@ -1846,14 +1846,14 @@ QUnit.test("PT.TimeEntityRecognizer", function(assert) {
     "string": "as 9 e meia da noite",
     "value": "21:30:00"
   }], "Maches pm -> night");
-  
+
   assert.deepEqual(reg.getEntities("às 9 e meia da manhã"), [{
     "entity": "test",
     "position": 0,
     "priority": 0,
     "string": "as 9 e meia da manha",
     "value": "09:30:00"
-  }], "Maches am");  
+  }], "Maches am");
 
 });
 
@@ -1868,7 +1868,7 @@ QUnit.test("PT.TimePeriodEntityRecognizer", function(assert) {
     "string": "de manha",
     "value": {
       "start": "06:00:00",
-	  "end": "11:59:59",
+      "end": "11:59:59",
     }
   }], "Single entities are matched");
 
@@ -1879,7 +1879,7 @@ QUnit.test("PT.TimePeriodEntityRecognizer", function(assert) {
     "string": "de manha",
     "value": {
       "start": "06:00:00",
-	  "end": "11:59:59",
+      "end": "11:59:59",
     }
   }], "Last entities are matched");
 
@@ -1890,52 +1890,52 @@ QUnit.test("PT.TimePeriodEntityRecognizer", function(assert) {
     "string": "de manha",
     "value": {
       "start": "06:00:00",
-	  "end": "11:59:59",
+      "end": "11:59:59",
     }
   }], "First entities are matched");
 
   var now = new Date();
   var end = new Date();
-  end.setTime( end.getTime() + ( 10 * 1000 ) );
+  end.setTime(end.getTime() + (10 * 1000));
   assert.deepEqual(reg.getEntities("em 10 segundos"), [{
     "entity": "test",
     "position": 0,
     "priority": 0,
     "string": "em 10 segundos",
     "value": {
-      "start": now.toLocaleTimeString( 'pt-BR' ),
-	  "end": end.toLocaleTimeString( 'pt-BR' )
+      "start": now.toLocaleTimeString('pt-BR'),
+      "end": end.toLocaleTimeString('pt-BR')
     }
   }], "In seconds is matched");
-  
+
   now = new Date();
   end = new Date();
-  end.setTime( end.getTime() + ( 10 * 1000 * 60 ) );
+  end.setTime(end.getTime() + (10 * 1000 * 60));
   assert.deepEqual(reg.getEntities("em 10 minutos"), [{
     "entity": "test",
     "position": 0,
     "priority": 0,
     "string": "em 10 minutos",
     "value": {
-      "start": now.toLocaleTimeString( 'pt-BR' ),
-	  "end": end.toLocaleTimeString( 'pt-BR' )
+      "start": now.toLocaleTimeString('pt-BR'),
+      "end": end.toLocaleTimeString('pt-BR')
     }
   }], "In minutes is matched");
-  
+
   now = new Date();
   end = new Date();
-  end.setTime( end.getTime() + ( 10 * 1000 * 3600 ) );
+  end.setTime(end.getTime() + (10 * 1000 * 3600));
   assert.deepEqual(reg.getEntities("em 10 horas"), [{
     "entity": "test",
     "position": 0,
     "priority": 0,
     "string": "em 10 horas",
     "value": {
-      "start": now.toLocaleTimeString( 'pt-BR' ),
-	  "end": end.toLocaleTimeString( 'pt-BR' )
+      "start": now.toLocaleTimeString('pt-BR'),
+      "end": end.toLocaleTimeString('pt-BR')
     }
   }], "In hours is matched");
-  
+
   /*
   now = new Date();
   end1 = new Date();
@@ -1965,7 +1965,7 @@ QUnit.test("PT.TimePeriodEntityRecognizer", function(assert) {
 	},	
 	], "Multiple time ranges");
   */
-  
+
 });
 
 QUnit.test("PT.DateEntityRecognizer", function(assert) {
@@ -1995,15 +1995,15 @@ QUnit.test("PT.DateEntityRecognizer", function(assert) {
     "string": "25/04/1980",
     "value": "1980-04-25"
   }], "First entities are matched");
-  
+
   assert.deepEqual(reg.getEntities("25/04 asdfg"), [{
     "entity": "test",
     "position": 0,
     "priority": 0,
     "string": "25/04",
-    "value": ( new Date() ).getFullYear() + "-04-25"
-  }], "Assumes current year for partial dates");  
-  
+    "value": (new Date()).getFullYear() + "-04-25"
+  }], "Assumes current year for partial dates");
+
   assert.deepEqual(reg.getEntities("1° de dezembro de 2018"), [{
     "entity": "test",
     "position": 0,
@@ -2011,7 +2011,7 @@ QUnit.test("PT.DateEntityRecognizer", function(assert) {
     "string": "1° de dezembro de 2018",
     "value": "2018-12-01"
   }], "Long date format is matched");
-  
+
   assert.deepEqual(reg.getEntities("1° de dezembro"), [{
     "entity": "test",
     "position": 0,
@@ -2019,15 +2019,15 @@ QUnit.test("PT.DateEntityRecognizer", function(assert) {
     "string": "1° de dezembro",
     "value": "2017-12-01"
   }], "Long date without year is matched");
-  
+
   assert.deepEqual(reg.getEntities("ocorreu 1° de dezembro antes do por do sol"), [{
     "entity": "test",
     "position": 8,
     "priority": 0,
     "string": "1° de dezembro",
     "value": "2017-12-01"
-  }], "Long date without year is matched, even with some text around");  
-  
+  }], "Long date without year is matched, even with some text around");
+
   assert.deepEqual(reg.getEntities("dezembro de 2018"), [{
     "entity": "test",
     "position": 0,
@@ -2035,40 +2035,40 @@ QUnit.test("PT.DateEntityRecognizer", function(assert) {
     "string": "dezembro de 2018",
     "value": "2018-12-01"
   }], "Long date without day is matched");
-  
+
   assert.deepEqual(reg.getEntities("ocorreu em dezembro de 2018 a inauguração"), [{
     "entity": "test",
     "position": 11,
     "priority": 0,
     "string": "dezembro de 2018",
     "value": "2018-12-01"
-  }], "Long date without day is matched, even with some text around");  
-  
+  }], "Long date without day is matched, even with some text around");
+
   now = new Date();
   end = new Date();
-  end.setTime( end.getTime() + ( 10 * 1000 * 3600 * 24 ) );
+  end.setTime(end.getTime() + (10 * 1000 * 3600 * 24));
   assert.deepEqual(reg.getEntities("em 10 dias"), [{
     "entity": "test",
     "position": 0,
     "priority": 0,
     "string": "em 10 dias",
     "value": {
-      "start": Bravey.Date.formatDate( now ),
-	  "end": Bravey.Date.formatDate( end )
+      "start": Bravey.Date.formatDate(now),
+      "end": Bravey.Date.formatDate(end)
     }
   }], "In days is matched");
-  
+
   now = new Date();
   end = new Date();
-  end.setTime( end.getTime() + ( 10 * 1000 * 3600 * 24 * 7 ) );
+  end.setTime(end.getTime() + (10 * 1000 * 3600 * 24 * 7));
   assert.deepEqual(reg.getEntities("em 10 semanas"), [{
     "entity": "test",
     "position": 0,
     "priority": 0,
     "string": "em 10 semanas",
     "value": {
-      "start": Bravey.Date.formatDate( now ),
-	  "end": Bravey.Date.formatDate( end )
+      "start": Bravey.Date.formatDate(now),
+      "end": Bravey.Date.formatDate(end)
     }
   }], "In weeks is matched");
 
@@ -2084,45 +2084,44 @@ QUnit.test("PT.NumberEntityRecognizer", function(assert) {
     "string": "dez",
     "value": 10
   }], "Single numbers are matched");
-  
+
   assert.deepEqual(reg.getEntities("tem 10 teclas"), [{
     "entity": "test",
     "position": 4,
     "priority": 0,
     "string": "10",
     "value": 10
-  }], "A number is matched");  
-  
-  assert.deepEqual(reg.getEntities("são quinze agora e sete mil e novecentos depois, dois mil trezentos e onze ou 1000 pra sempre"), [
-	{
-		"entity": "test",
-		"position": 4,
-		"priority": 0,
-		"string": "quinze",
-		"value": 15
-	},
-	{
-		"entity": "test",
-		"position": 19,
-		"priority": 0,
-		"string": "sete mil e novecentos",
-		"value": 7900
-	},
-	{
-		"entity": "test",
-		"position": 49,
-		"priority": 0,
-		"string": "dois mil trezentos e onze",
-		"value": 2311
-	},	
-	{
-		"entity": "test",
-		"position": 78,
-		"priority": 0,
-		"string": "1000",
-		"value": 1000
-	}	
-	], "Multiple numbers are matched");
+  }], "A number is matched");
+
+  assert.deepEqual(reg.getEntities("são quinze agora e sete mil e novecentos depois, dois mil trezentos e onze ou 1000 pra sempre"), [{
+      "entity": "test",
+      "position": 4,
+      "priority": 0,
+      "string": "quinze",
+      "value": 15
+    },
+    {
+      "entity": "test",
+      "position": 19,
+      "priority": 0,
+      "string": "sete mil e novecentos",
+      "value": 7900
+    },
+    {
+      "entity": "test",
+      "position": 49,
+      "priority": 0,
+      "string": "dois mil trezentos e onze",
+      "value": 2311
+    },
+    {
+      "entity": "test",
+      "position": 78,
+      "priority": 0,
+      "string": "1000",
+      "value": 1000
+    }
+  ], "Multiple numbers are matched");
 
 });
 
