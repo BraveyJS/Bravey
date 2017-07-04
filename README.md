@@ -92,6 +92,17 @@ console.log(nlp.test("Consegnami 3 pizze per le 2 del pomeriggio!").entitiesInde
 // { delivery_time: { value: "14:00:00" }, quantity: { value: 3 }}
 ```
 
+... or even portuguese.
+
+```javascript
+var nlp = new Bravey.Nlp.Fuzzy();
+nlp.addEntity(new Bravey.NumberEntityRecognizer("quantity"));
+nlp.addEntity(new Bravey.Language.PT.TimeEntityRecognizer("delivery_time"));
+nlp.addDocument("Quero 2 pizzas para 3:00!", "pizza", { fromFullSentence: true, expandIntent: true });
+console.log(nlp.test("Me veja 3 pizzas para 2 da tarde!").entitiesIndex);
+// { delivery_time: { value: "14:00:00" }, quantity: { value: 3 }}
+```
+
 That's it!
 
 ### Training Bravey
