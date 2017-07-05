@@ -1,0 +1,175 @@
+{
+  "translations": {
+    "symbol": "PT",
+    "currency": "R$",
+    "botname": "BillBot (PT)",
+    "botdescription": "Eu posso ajudar você em suas compras!",
+    "bottips": "<ul><li>Compre comida</li><li>Mostre-me os produtos</li><li>Adicionar 2 caixas de massa</li><li>Adicionar 1 papel higiênico e 2 produtos para limpeza</li><li>Remover 1 rolo</li><li>O cliente é foo@bar.com. Adicionar 2 massas</li><li>A descrição está no recibo</li><li>Me mostre o recibo</li></ul>",
+    "intro": "Vamos começar pelo começo. Que departamente você quer visitar? São eles:",
+    "wehave": "Nós temos:",
+    "listempty": "Não há produtos na lista.",
+    "customeris": "O cliente está",
+    "descriptionis": "A descrição está",
+    "unknowndescription": "Eu não conheço a descrição.",
+    "unknownaddress": "Eu não conheço o e-mail do cliente.",
+    "suggestions": "Me pergunte sobre a lista de produtos or se eu adicionei ou removi algo do seu carrinho. Você também pode adicionar uma descrição à suas compras e seu endereço de e-mail. Me avise quando você estiver pronto ou me peça o recibo.",
+    "startshopping": "Legal! Vamos fazer umas compras no departamento",
+    "canbuy": "Você pode comprar:",
+    "missingdepartment": "Decida o departamento primeiro!",
+    "whichdepartment": "Que departamento você quer visitar?",
+    "confirmintro": "Então:<br><br>Você está fazendo suas compras no departamento",
+    "columndescription": "Produto",
+    "columnprice": "Preço",
+    "columnquantity": "Qtde",
+    "columntotal": "Total",
+    "noreference": "(Sem endereço de e-mail)",
+    "nodescription": "(Sem descrição)",
+    "noname": "(Sem nome)",
+    "total": "TOTAL",
+    "discount": "DESCONTO",
+    "customer": "Endereço de e-mail do cliente",
+    "description": "Descrição",
+    "cantunderstand": "Não entendo...",
+    "nospecifiedcustomer": "Nenhum endereço de e-mail do cliente foi especificado.",
+    "nospecifieddescription": "Nenhuma descrição especificada.",
+    "asdescription": "como descrição",
+    "asreference": "como endereço de e-mail",
+    "setting": "Configuração",
+    "adding": "Adicionando",
+    "removing": "Removendo",
+    "freetextnlpActions": {
+      "description": ["descrição"]
+    },
+    "freetextnlp": [{
+      "sentence": "{action} é {text}",
+      "intent": "modifylist~action~text"
+    }],
+    "nlpActions": {
+      "add": ["adicione", "insera", "coloque", "compre", "escolha", "necessito de", "preciso de", "quero"],
+      "remove": ["remova", "retire", "tire", "apague"],
+      "reference": ["mail", "e-mail", "endereço", "cliente", "envie para", "mande para"]
+    },
+    "nlp": [{
+      "sentence": "Compre {type}",
+      "intent": "switchtype"
+    }, {
+      "sentence": "Quero comprar {type}",
+      "intent": "switchtype"
+    }, {
+      "sentence": "{type}",
+      "intent": "switchtype"
+    }, {
+      "sentence": "o que posso adicionar",
+      "intent": "catalogue"
+    }, {
+      "sentence": "me mostre o catálogo",
+      "intent": "catalogue"
+    }, {
+      "sentence": "que produtos",
+      "intent": "catalogue"
+    }, {
+      "sentence": "quais os produtos",
+      "intent": "catalogue"
+    }, {
+      "sentence": "lista de produtos",
+      "intent": "catalogue"	  
+    }, {	
+      "sentence": "que preços",
+      "intent": "catalogue"
+    }, {
+      "sentence": "o que posso comprar",
+      "intent": "catalogue"
+    }, {
+      "sentence": "me mostre o recibo",
+      "intent": "confirm"
+    }, {
+      "sentence": "me mostre o total",
+      "intent": "confirm"
+    }, {
+      "sentence": "o que eu comprei",
+      "intent": "confirm"
+    }, {
+      "sentence": "meu carrinho",
+      "intent": "confirm"
+    }, {
+      "sentence": "ok",
+      "intent": "confirm"
+    }, {
+      "sentence": "pronto",
+      "intent": "confirm"
+    }, {
+      "sentence": "acabei",
+      "intent": "confirm"
+    }, {
+      "sentence": "terminei",
+      "intent": "confirm"
+    }, {	
+      "sentence": "pagar",
+      "intent": "confirm"
+    }, {
+      "sentence": "fim",
+      "intent": "confirm"
+    }, {
+      "sentence": "tudo bem",
+      "intent": "confirm"
+    }, {
+      "sentence": "finalizar compra",
+      "intent": "confirm"
+    }, {
+      "sentence": "nada mais",
+      "intent": "confirm"
+    }]
+  },
+  "dictionary": {
+    "types": {
+      "Ferramentas": ["biscate", "ferramentas"],
+      "Supermarket": ["supermercado", "comida", "outros", "supermercados"]
+    },
+    "entries": {
+	  "Multi-adaptador": ["multi", "adaptador", "multi-adaptador"],
+      "Câmera de segurança": ["camera", "cameras", "seguranca", "camera de seguranca"],
+      "Cabo Y": ["cabo de audio Y", "cabo Y", "cabo divisor de audio"],
+      "Luz de flash": ["luz de flash", "luz", "flash"],
+      "Baterias": ["bateria", "baterias"],
+      "Torneira": ["torneira", "valvula de agua"],
+      "Água": ["agua", "garrafa de agua", "garrafa d'agua"],
+      "Azeite": ["azeite", "azeite de oliva"],
+      "Papel higiênico": ["papel", "papel higienico", "rolo de papel"],
+      "Batatas": ["batata", "batata chip", "batata frita"],
+      "Biscoitos": ["biscoito", "cookie"],
+      "Cápsula de café": ["cafe", "capsula de cafe", "sache de cafe"],
+      "Massa": ["massa", "caixa de massa"],
+      "Bebida": ["bebida", "garrafa de bebida"],
+      "Produto de limpeza": ["produto de limpeza", "limpeza", "limpador"],
+      "Confeito de amêndoa": ["confeito de amendoa", "amendoa acucarada", "amendoa", "amendoim", "acucar"]
+    }
+  },
+  "data": {
+    "Ferramentas": {
+      "entries": {
+        "Multi-adaptador": 7.99,
+        "Câmera de segurança": 26.44,
+        "Cabo Y": 6.49,
+        "Luz de flash": 15.50,
+        "Baterias": 7.63,
+        "Torneira": 69.66
+      },
+      "discount": 5
+    },
+    "Supermarket": {
+      "entries": {
+        "Água": 1.92,
+        "Azeite": 11.54,
+        "Papel higiênico": 1.20,
+        "Batatas": 1.59,
+        "Biscoitos": 2.13,
+        "Cápsula de café": 11.90,
+        "Massa": 0.79,
+        "Bebida": 2.76,
+        "Produto de limpeza": 1.65,
+        "Confeito de amêndoa": 8.27
+      },
+      "discount": 0
+    }
+  }
+}
