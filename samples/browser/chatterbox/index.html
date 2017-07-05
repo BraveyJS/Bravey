@@ -30,8 +30,10 @@ function onl() {
 	var cb=new ChatterBox(document.body,"Bravey Chatterbox",{responsive:"yes",runbot:window.location.hash?window.location.hash.substr(1).replace(/_/g," "):0});
 	cb.addBot("bots/medbot.js","MedBot (IT)","avatar/pharma.png","it-IT","",{language:"it"});
 	cb.addBot("bots/medbot.js","MedBot (EN)","avatar/pharma.png","en-US","",{language:"en"});
+	cb.addBot("bots/medbot.js","MedBot (PT)","avatar/pharma.png","pt","",{language:"pt"});
 	cb.addBot("bots/billbot.js","BillBot (IT)","avatar/cart.png","it-IT","",{language:"it"});
 	cb.addBot("bots/billbot.js","BillBot (EN)","avatar/cart.png","en-US","",{language:"en"});
+	cb.addBot("bots/billbot.js","BillBot (PT)","avatar/cart.png","pt","",{language:"pt"});
 	cb.addBot("bots/footbot.js","FootBot","avatar/soccer.png","en-US");
 	cb.addBot("bots/zxartbot.js","ZxArtBot","avatar/spectrum.jpg","en-US");
 	cb.addBot("bots/weatherbot.js","WeatherBot","avatar/meteo.png","en-US");

@@ -1,0 +1,86 @@
+{
+  "symbol": "PT",
+  "warning": "Essa versão do chatbot é experimental e não deve ser usada para consumir remédios na vida real. Nenhum dado é armazenado em servidores externos, nem dentro da aplicação: os agendamentos e notificações serão apagadas quando essa página for fechada.",
+  "description": "Estou aqui pra ajudar com seus remédios!",
+  "tips": "<ul><li>Eu preciso tomar o remédio azul</li><li>É uma cápsula</li><li>Desculpe. É verde e eu tenho que tomar às 3 da tarde.</li><li>Uma pílula às 14 horas</li><li>Tirar foto</li><li>Liste meus remédios, por favor.</li><li>Eu não tomei o remédio 1.</li></ul>",
+  "suggestion": "Vamos começar descrevendo o tipo, a cor e quando você tomou seu remédio.",
+  "notUnderstand": "Ei, eu sou uma demonstração, não sou capaz de responder suas perguntas.",
+  "number": "Número",
+  "time": "Hora",
+  "medicationTable": "Descrição",
+  "medication": "Um remédio",
+  "theMedication": "O remédio",
+  "medsInfo": "Se você quiser remover a medicação, basta informar seu número.",
+  "alert": "Olá! Tá na hora dos seus remédios! Você precisa tomar:",
+  "photo": "Tire uma foto de seu remédio.",
+  "alreadyPhoto": "Você já tirou uma foto!",
+  "photoDone": "Você tirou essa foto:",
+  "done": "Perfeito! Você adicionou o remédio {medtype} {color} às {time} para seu tratamento. Vou lhe avisar quando for a hora!",
+  "list": "Essa é uma lista de seus remédios:",
+  "emptyList": "Nenhum remédio foi registrado.",
+  "deletedMed": "Não irei mais avisar você para tomar <b>{medtype} {color}</b> às <b>{time}</b>",
+  "theMedicationLowercase": "o remédio",
+  "cantFind": "Não consigo achar o remédio que você informou. Esses são os remédios que eu conheço:",
+  "noMeds": "Nenhum remédio agendado para agora.",
+  "shoot": "Tirar",
+  "cameraNotAvailable": "Desculpe, o acesso à câmera não está disponível em seu navegador ou dispositivo.",
+  "introMed": "Olá! Estou aqui para ajudar com seu tratamento.",
+  "closeMed": "Eu nasci pra isso!<br>Contate-me em <a href='mailto:pharma@vidiemme.it'>pharma@vidiemme.it</a> se quiser saber mais sobre mim! :)",
+  "bootstrap": [
+    "Olá! Sou seu assistente e irei avisá-lo quando for a hora de tomar seus remédios."
+  ],
+  "medFields": {
+    "medtype": {
+      "prefix": "de tipo",
+      "question": "Que tipo de remédio? Pílula, cápsula, ..."
+    },
+    "color": {
+      "prefix": "de cor",
+      "question": "Que cor tem o remédio? Vermelho, verde, azul, ..."
+    },
+    "time": {
+      "prefix": "às",
+      "question": "Que horas você precisa tomar o remédio?"
+    }
+  },
+  "medType": {
+    "pílula": ["pilula", "pilulas"],
+    "cápsula": ["capsula", "capsulas"],
+    "tablete": ["tablete", "tabletes"],
+    "supositório": ["supositorio", "supositorios"]
+  },
+  "color": {
+    "vermelho": ["vermelho", "vermelha"],
+    "verde": ["verde"],
+    "azul": ["azul"],
+    "amarelo": ["amarelo", "amarela"],
+    "laranja": ["laranja"],
+    "violeta": ["violeta", "purpura", "vinho"],
+    "branco": ["branco", "branca"],
+    "preto": ["preto", "preta"]
+  },
+  "nlp": {
+    "newMed": [
+      "ola",
+      "oi",
+      "é um {medtype}",
+      "a cor é {color}",
+      "cor {color}",
+      "às {time}",
+      "Eu tomo {medtype} {color} às {time}.",
+      "Eu vou tomar {medtype} {color} às {time}.",
+      "Preciso tomar {medtype}",
+      "Tenho que tomar {medtype}",
+      "Eu preciso tomar {medtype} {color} às {time}.",
+      "tomar {medtype} {color} as {time}.",
+      "Estou tomando {medtype} {color} as {time}.",
+      "Eu tenho que tomá-lo às {time}.",
+      "Adicionar {medtype}"
+    ],
+    "photoMed": ["tirar uma foto", "foto", "esse é o remédio", "bater uma foto"],
+    "listMed": ["liste os remedios", "listar remedios", "o que eu tenho que tomar", "meus remédios"],
+    "deleteMed": ["remova o remédio {number}", "remova {number}", "apague {number}", "Parei de tomar o remédio número {number}", "Não estou tomando {number}"],
+    "introMed": ["oi bot", "olá chatbot", "pode me ajudar?", "preciso de ajuda", "ajuda"],
+    "closeMed": ["obrigado", "grato", "tchau!"]
+  }
+}
