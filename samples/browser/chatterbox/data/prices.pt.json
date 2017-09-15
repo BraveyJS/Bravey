@@ -5,14 +5,14 @@
     "botname": "BillBot (PT)",
     "botdescription": "Eu posso ajudar você em suas compras!",
     "bottips": "<ul><li>Compre comida</li><li>Mostre-me os produtos</li><li>Adicionar 2 caixas de massa</li><li>Adicionar 1 papel higiênico e 2 produtos para limpeza</li><li>Remover 1 rolo</li><li>O cliente é foo@bar.com. Adicionar 2 massas</li><li>A descrição está no recibo</li><li>Me mostre o recibo</li></ul>",
-    "intro": "Vamos começar pelo começo. Que departamente você quer visitar? São eles:",
+    "intro": "Vamos começar pelo começo. Que departemento você quer visitar? São eles: ",
     "wehave": "Nós temos:",
     "listempty": "Não há produtos na lista.",
     "customeris": "O cliente está",
     "descriptionis": "A descrição está",
     "unknowndescription": "Eu não conheço a descrição.",
     "unknownaddress": "Eu não conheço o e-mail do cliente.",
-    "suggestions": "Me pergunte sobre a lista de produtos or se eu adicionei ou removi algo do seu carrinho. Você também pode adicionar uma descrição à suas compras e seu endereço de e-mail. Me avise quando você estiver pronto ou me peça o recibo.",
+    "suggestions": "Me pergunte sobre a lista de produtos or se ou adicionei ou removi algo do seu carrinho. Você também pode adicionar uma descrição à suas compras e seu endereço de e-mail. Me avise quando você estiver pronto ou me peça o recibo.",
     "startshopping": "Legal! Vamos fazer umas compras no departamento",
     "canbuy": "Você pode comprar:",
     "missingdepartment": "Decida o departamento primeiro!",
@@ -45,8 +45,8 @@
       "intent": "modifylist~action~text"
     }],
     "nlpActions": {
-      "add": ["adicione", "insera", "coloque", "compre", "escolha", "necessito de", "preciso de", "quero"],
-      "remove": ["remova", "retire", "tire", "apague"],
+      "add": ["adicione", "insera", "coloque", "compre", "escolha", "necessito de", "preciso de", "quero", "adicionar"],
+      "remove": ["remova", "retire", "tire", "apague", "remover"],
       "reference": ["mail", "e-mail", "endereço", "cliente", "envie para", "mande para"]
     },
     "nlp": [{
@@ -132,15 +132,15 @@
       "Luz de flash": ["luz de flash", "luz", "flash"],
       "Baterias": ["bateria", "baterias"],
       "Torneira": ["torneira", "valvula de agua"],
-      "Água": ["agua", "garrafa de agua", "garrafa d'agua"],
+      "Água": ["agua", "garrafa de agua", "garrafa d'agua", "garrafa de agua"],
       "Azeite": ["azeite", "azeite de oliva"],
-      "Papel higiênico": ["papel", "papel higienico", "rolo de papel"],
+      "Papel higiênico": ["papel", "papel higienico", "rolo de papel", "rolo"],
       "Batatas": ["batata", "batata chip", "batata frita"],
       "Biscoitos": ["biscoito", "cookie"],
       "Cápsula de café": ["cafe", "capsula de cafe", "sache de cafe"],
-      "Massa": ["massa", "caixa de massa"],
+      "Massa": ["massa", "caixa de massa", "massas"],
       "Bebida": ["bebida", "garrafa de bebida"],
-      "Produto de limpeza": ["produto de limpeza", "limpeza", "limpador"],
+      "Produto de limpeza": ["produto de limpeza", "limpeza", "limpador","produto para limpeza"],
       "Confeito de amêndoa": ["confeito de amendoa", "amendoa acucarada", "amendoa", "amendoim", "acucar"]
     }
   },
