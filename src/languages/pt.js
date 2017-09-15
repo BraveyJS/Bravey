@@ -1663,6 +1663,7 @@ Bravey.Language.PT.FreeTextEntityRecognizer = function(entityName, priority) {
   matcher.addConjunction("o");
   matcher.addConjunction("a");
   matcher.addConjunction("e");
+  matcher.addConjunction("esta");
   for (var i = 0; i < commas.length; i++) {
     matcher.addConjunction(commas[i]);
     matcher.addConjunction("," + commas[i]);
