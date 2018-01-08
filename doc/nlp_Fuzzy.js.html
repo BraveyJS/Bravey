@@ -158,7 +158,7 @@ Bravey.Nlp.Fuzzy = function(nlpName, extensions) {
             entity: ent,
             id: nextid
           });
-          console.warn("Adding entity", nextid, "to", intent.name);
+          console.info("Adding entity", nextid, "to", intent.name);
         }
 
         if (pos == -1)
@@ -198,7 +198,7 @@ Bravey.Nlp.Fuzzy = function(nlpName, extensions) {
           entity: ent,
           id: nextid
         });
-        console.warn("Adding entity", nextid, "to", intent.name);
+        console.info("Adding entity", nextid, "to", intent.name);
       }
     });
 
@@ -341,7 +341,7 @@ Bravey.Nlp.Fuzzy = function(nlpName, extensions) {
 
         if (guess.expandIntent) { // Expand intent with found items
           if (!intents[intent]) {
-            console.warn("Adding intent", intent);
+            console.info("Adding intent", intent);
             this.addIntent(intent, []);
           }
           var expanded = expandIntentFromText(text, intents[intent], guess.withNames);
@@ -352,7 +352,7 @@ Bravey.Nlp.Fuzzy = function(nlpName, extensions) {
 
         if (guess.expandIntent) { // Expand intent with found items
           if (!intents[intent]) {
-            console.warn("Adding intent", intent);
+            console.info("Adding intent", intent);
             this.addIntent(intent, []);
           }
           var expanded = expandIntentFromTagged(text, intents[intent], guess.withNames);
@@ -360,7 +360,7 @@ Bravey.Nlp.Fuzzy = function(nlpName, extensions) {
         }
 
       }
-      console.warn("Can't guess...");
+      console.info("Can't guess...");
       return false;
     } else { // Link a marked sentence to a particular intent
       if (intents[intent])
