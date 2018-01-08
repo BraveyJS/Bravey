@@ -308,7 +308,7 @@ Bravey.Nlp.Sequential = function(nlpName, extensions) {
 
           var found = guessIntent(text, intent, guess.withNames);
           if (!intents[found.name]) {
-            console.warn("Adding intent", found.name);
+            console.info("Adding intent", found.name);
             this.addIntent(intent, found.entities);
           }
 
@@ -324,14 +324,14 @@ Bravey.Nlp.Sequential = function(nlpName, extensions) {
           return false;
         } else {
           if (!intents[found.name]) {
-            console.warn("Adding intent", found.name);
+            console.info("Adding intent", found.name);
             this.addIntent(intent, found.entities);
           }
           return documentClassifier.addDocument(found.text, intent);
         }
 
       }
-      console.warn("Can't guess...");
+      console.info("Can't guess...");
       return false;
     } else { // Link a marked sentence to a particular intent
       if (intents[intent])
