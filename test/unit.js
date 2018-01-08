@@ -956,73 +956,91 @@ QUnit.test("EN.DateEntityRecognizer", function(assert) {
     "Multiple dates are matched"
   );
 
-  assert.deepEqual(reg.getEntities("last February, last Feb, last January, last March 8th, last February 1ST, last February 15! 06/01/2014, 12/01/2014, 06/01/15, June 1, 2014, December 1, 2014"), [{
-    "entity": "test",
-    "position": 0,
-    "priority": 0,
-    "string": "last february",
-    "value": TestTools.getLastDay(2, 1)
-  }, {
-    "entity": "test",
-    "position": 15,
-    "priority": 0,
-    "string": "last feb",
-    "value": TestTools.getLastDay(2, 1)
-  }, {
-    "entity": "test",
-    "position": 25,
-    "priority": 0,
-    "string": "last january",
-    "value": TestTools.getLastDay(1, 1)
-  }, {
-    "entity": "test",
-    "position": 39,
-    "priority": 0,
-    "string": "last march 8th",
-    "value": TestTools.getLastDay(3, 8)
-  }, {
-    "entity": "test",
-    "position": 55,
-    "priority": 0,
-    "string": "last february 1st",
-    "value": TestTools.getLastDay(2, 1)
-  }, {
-    "entity": "test",
-    "position": 74,
-    "priority": 0,
-    "string": "last february 15",
-    "value": TestTools.getLastDay(2, 15)
-  }, {
-    "entity": "test",
-    "position": 92,
-    "priority": 10,
-    "string": "06/01/2014",
-    "value": "2014-01-06"
-  }, {
-    "entity": "test",
-    "position": 104,
-    "priority": 10,
-    "string": "12/01/2014",
-    "value": "2014-01-12"
-  }, {
-    "entity": "test",
-    "position": 116,
-    "priority": 10,
-    "string": "06/01/15",
-    "value": "2015-01-06"
-  }, {
-    "entity": "test",
-    "position": 126,
-    "priority": 0,
-    "string": "june 1, 2014",
-    "value": "2014-06-01"
-  }, {
-    "entity": "test",
-    "position": 140,
-    "priority": 0,
-    "string": "december 1, 2014",
-    "value": "2014-12-01"
-  }], "Complex multiple date are matched");
+  assert.deepEqual(reg.getEntities("last 12/12, last February, last Feb, last January, last March 8th, last February 1ST, last February 15! 06/01/2014, 12/01/2014, 06/01/15, June 1, 2014, December 1, 2014"), [{
+      "entity": "test",
+      "position": 0,
+      "priority": 10,
+      "string": "last 12/12",
+      "value": "2017-12-12"
+    },
+    {
+      "entity": "test",
+      "position": 12,
+      "priority": 0,
+      "string": "last february",
+      "value": "2017-02-01"
+    },
+    {
+      "entity": "test",
+      "position": 27,
+      "priority": 0,
+      "string": "last feb",
+      "value": "2017-02-01"
+    },
+    {
+      "entity": "test",
+      "position": 37,
+      "priority": 0,
+      "string": "last january",
+      "value": "2018-01-01"
+    },
+    {
+      "entity": "test",
+      "position": 51,
+      "priority": 0,
+      "string": "last march 8th",
+      "value": "2017-03-08"
+    },
+    {
+      "entity": "test",
+      "position": 67,
+      "priority": 0,
+      "string": "last february 1st",
+      "value": "2017-02-01"
+    },
+    {
+      "entity": "test",
+      "position": 86,
+      "priority": 0,
+      "string": "last february 15",
+      "value": "2017-02-15"
+    },
+    {
+      "entity": "test",
+      "position": 104,
+      "priority": 10,
+      "string": "06/01/2014",
+      "value": "2014-01-06"
+    },
+    {
+      "entity": "test",
+      "position": 116,
+      "priority": 10,
+      "string": "12/01/2014",
+      "value": "2014-01-12"
+    },
+    {
+      "entity": "test",
+      "position": 128,
+      "priority": 10,
+      "string": "06/01/15",
+      "value": "2015-01-06"
+    },
+    {
+      "entity": "test",
+      "position": 138,
+      "priority": 0,
+      "string": "june 1, 2014",
+      "value": "2014-06-01"
+    },
+    {
+      "entity": "test",
+      "position": 152,
+      "priority": 0,
+      "string": "december 1, 2014",
+      "value": "2014-12-01"
+    }
+  ], "Complex multiple date are matched");
 
 });
 
@@ -2001,7 +2019,7 @@ QUnit.test("PT.DateEntityRecognizer", function(assert) {
     "position": 0,
     "priority": 0,
     "string": "25/04",
-    "value": (new Date()).getFullYear() + "-04-25"
+    "value": TestTools.getYear() + "-04-25"
   }], "Assumes current year for partial dates");
 
   assert.deepEqual(reg.getEntities("1° de dezembro de 2018"), [{
@@ -2017,7 +2035,7 @@ QUnit.test("PT.DateEntityRecognizer", function(assert) {
     "position": 0,
     "priority": 0,
     "string": "1° de dezembro",
-    "value": "2017-12-01"
+    "value": TestTools.getYear() + "-12-01"
   }], "Long date without year is matched");
 
   assert.deepEqual(reg.getEntities("ocorreu 1° de dezembro antes do por do sol"), [{
@@ -2025,7 +2043,7 @@ QUnit.test("PT.DateEntityRecognizer", function(assert) {
     "position": 8,
     "priority": 0,
     "string": "1° de dezembro",
-    "value": "2017-12-01"
+    "value": TestTools.getYear() + "-12-01"
   }], "Long date without year is matched, even with some text around");
 
   assert.deepEqual(reg.getEntities("dezembro de 2018"), [{
