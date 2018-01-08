@@ -686,7 +686,7 @@ Bravey.Language.EN.DateEntityRecognizer = function(entityName) {
 
   var matcher = new Bravey.RegexEntityRecognizer(entityName);
 
-  var prefixes = "\\b(day of|last\\b)?" + Bravey.Text.WORDSEP;
+  var prefixes = "\\b(day of)?(last\\b)?(this\\b)?" + Bravey.Text.WORDSEP;
 
   var months = new Bravey.Text.RegexMap([{
     str: ["january~", "jan~", "1~", "01~"],
@@ -739,14 +739,15 @@ Bravey.Language.EN.DateEntityRecognizer = function(entityName) {
     function(match) {
       var now = new Date();
       var y = now.getFullYear();
-      var m = now.getMonth();
+      var m = thismonth = now.getMonth();
       var d = 1;
-
-      m = months.get(match, 2, m);
-      if (match[3]) d = match[3] * 1;
-      if (match[6]) y = match[6] * 1;
+      m = months.get(match, 4, m);
+      if (match[5]) d = match[5] * 1;
+      if (match[8]) y = match[8] * 1;
       y = Bravey.Date.centuryFinder(y);
-      if (Bravey.Text.calculateScore(match, [1, 3, 6])) return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
+      if (m > thismonth)
+        if (match[2]) y--;
+      if (Bravey.Text.calculateScore(match, [1, 2, 3, 5, 8])) return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
     }
   );
 
@@ -766,15 +767,18 @@ Bravey.Language.EN.DateEntityRecognizer = function(entityName) {
       var y = now.getFullYear();
       var m = now.getMonth();
       var d = now.getDate();
-
-      d = match[2] * 1;
-      m = months.get(match, 5, m);
-      if (match[7]) y = match[7] * 1;
+      d = match[4] * 1;
+      m = months.get(match, 7, m);
+      if (match[9]) y = match[9] * 1;
       y = Bravey.Date.centuryFinder(y);
-      if (Bravey.Text.calculateScore(match, [1, 5, 7])) return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
+      if (m > thismonth)
+        if (match[2]) y--;
+      if (Bravey.Text.calculateScore(match, [1, 2, 3, 7, 9])) return Bravey.Date.formatDate((new Date(y, m, d, 0, 0, 0, 0)).getTime());
     },
     10
   );
+
+  prefixes = "\\b(day of)?" + Bravey.Text.WORDSEP;
 
   matcher.addMatch(new RegExp(prefixes + "(today)\\b", "gi"), function(match) {
     return Bravey.Date.formatDate((new Date()).getTime());
